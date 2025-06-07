@@ -10,7 +10,7 @@ import postImage2 from '@assets/images/posts/post-image-2.png'
 import postImage3 from '@assets/images/posts/post-image-3.png'
 import postImage4 from '@assets/images/posts/post-image-4.png'
 import postImage5 from '@assets/images/posts/post-image-5.png'
-import postImage6 from '../../assets/images/posts/post-image-6.png'
+import postImage6 from '../../../assets/images/posts/post-image-6.png'
 
 interface Post {
   id: number
@@ -58,14 +58,14 @@ const { page } = Astro.props as Props
   description="An example of a blog with dynamic content fetched from JSONPlaceholder using the title, body and userId."
 >
   <PageHeader
-    title="ブログ"
-    subtitle='タイトル、本文、ユーザーIDを用いて <a href="https://jsonplaceholder.typicode.com/posts">JSONPlaceholder</a> から取得した動的コンテンツを表示するブログの例です。ここでは Accessible Astro Card コンポーネントを使用しています。'
+    title="Blog"
+    subtitle='An example of a blog with dynamic content fetched from <a href="https://jsonplaceholder.typicode.com/posts">JSONPlaceholder</a> using the title, body and userId. The Accessible Astro Card Component is used here to display al the posts.'
     bgType="bordered"
   />
 
   <section class="my-12">
     <div class="container">
-      <p class="text-sm"><em>全{page.total}件中 {page.start + 1}〜{page.end + 1} 件を表示</em></p>
+      <p class="text-sm"><em>Post {page.start + 1} through {page.end + 1} of {page.total} total posts</em></p>
       <ul class="my-3 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
           page.data.map((post) => (
@@ -98,7 +98,7 @@ const { page } = Astro.props as Props
 </DefaultLayout>
 
 <style lang="scss" is:global>
-  @use '../../assets/scss/base/mixins' as *;
+  @use '../../../assets/scss/base/mixins' as *;
 
   .card {
     h3 {

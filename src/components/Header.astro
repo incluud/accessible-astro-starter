@@ -3,6 +3,10 @@ import Navigation from '../components/Navigation.astro'
 import { DarkMode, SkipLink } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 
+const locale = Astro.currentLocale ?? 'ja'
+const prefix = locale === 'ja' ? '' : `/${locale}`
+const altLink = locale === 'ja' ? '/en/' : '/'
+
 /**
  * Header Component
  *
@@ -14,54 +18,48 @@ import { Icon } from 'astro-icon/components'
   <SkipLink />
   <Navigation>
     <li class="menu-item">
-      <a href="/">Home</a>
+      <a href={`${prefix}/`}>{locale === 'ja' ? 'ホーム' : 'Home'}</a>
     </li>
     <li class="menu-item">
-      <a href="/blog/">Blog</a>
+      <a href={`${prefix}/blog/`}>{locale === 'ja' ? 'ブログ' : 'Blog'}</a>
     </li>
     <li class="menu-item">
-      <a href="/portfolio/">Portfolio</a>
+      <a href={`${prefix}/portfolio/`}>{locale === 'ja' ? 'ポートフォリオ' : 'Portfolio'}</a>
     </li>
     <li class="menu-item has-dropdown">
       <button aria-haspopup="true" aria-expanded="false">
-        Theme features
+        {locale === 'ja' ? 'テーマ機能' : 'Theme features'}
         <Icon name="lucide:chevron-down" size="32" />
       </button>
       <ul class="dropdown-menu">
         <li class="submenu-item">
-          <a href="/accessibility-statement">Accessibility statement</a>
+          <a href={`${prefix}/accessibility-statement`}>{locale === 'ja' ? 'アクセシビリティ声明' : 'Accessibility statement'}</a>
         </li>
         <li class="submenu-item">
-          <a href="/accessible-components">Accessible components</a>
+          <a href={`${prefix}/accessible-components`}>{locale === 'ja' ? 'アクセシブルコンポーネント' : 'Accessible components'}</a>
         </li>
         <li class="submenu-item">
-          <a href="/color-contrast-checker">Color contrast checker</a>
+          <a href={`${prefix}/color-contrast-checker`}>{locale === 'ja' ? 'カラーコントラストチェッカー' : 'Color contrast checker'}</a>
         </li>
         <li class="submenu-item">
-          <a href="/markdown-page/">Markdown page</a>
+          <a href={`${prefix}/markdown-page/`}>{locale === 'ja' ? 'Markdownページ' : 'Markdown page'}</a>
         </li>
         <li class="submenu-item">
-          <a href="/mdx-page/">MDX page</a>
+          <a href={`${prefix}/mdx-page/`}>{locale === 'ja' ? 'MDXページ' : 'MDX page'}</a>
         </li>
         <li class="submenu-item">
-          <a href="/404-page">404 page</a>
+          <a href={`${prefix}/404-page`}>404 page</a>
         </li>
       </ul>
-    </li>
-    <li class="menu-item highlight">
-      <a href="https://accessible-astro.incluud.dev/">Docs </a>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <a href="https://github.com/markteekman/accessible-astro-starter">
-        <Icon name="lucide:github" />
-        <span class="sr-only">Go to the GitHub page</span>
-      </a>
     </li>
     <li class="menu-item type-icon animate-rotate">
       <DarkMode>
         <Icon name="lucide:moon" slot="light" />
         <Icon name="lucide:sun" slot="dark" />
       </DarkMode>
+    </li>
+    <li class="menu-item">
+      <a class="locale-switch" href={altLink}>{locale === 'ja' ? 'English' : '日本語'}</a>
     </li>
   </Navigation>
 </header>

@@ -40,16 +40,16 @@ import Logo from './Logo.astro'
     // functions
     const setActiveMenuItem = (): void => {
       const mobileDesktopMenus = mainNav.querySelectorAll('nav > ul')
-      const currentPathname = window.location.pathname
 
       mobileDesktopMenus.forEach((menu) => {
-        const menuItems = [...menu.querySelectorAll('a:not([rel*="external"])')] as HTMLAnchorElement[]
+        const menuItems = [...menu.querySelectorAll('a:not([rel*="external"]):not(.locale-switch)')] as HTMLAnchorElement[]
+
+        const normalizePath = (path: string): string => path.replace(/\/$/, '')
+        const currentPath = normalizePath(window.location.pathname)
 
         menuItems.forEach((menuItem) => {
-          if (currentPathname.includes(menuItem.pathname.replaceAll('/', '')) && menuItem.textContent !== 'Home') {
-            menuItem.classList.add('is-active')
-            menuItem.setAttribute('aria-current', 'page')
-          } else if (menuItem.textContent === 'Home' && currentPathname === '/') {
+          const itemPath = normalizePath(new URL(menuItem.href).pathname)
+          if (currentPath === itemPath) {
             menuItem.classList.add('is-active')
             menuItem.setAttribute('aria-current', 'page')
           }
@@ -280,9 +280,9 @@ import Logo from './Logo.astro'
           align-content: center;
         }
 
-        a:hover,
-        a:focus-visible,
-        .is-active,
+        a:hover:not(.locale-switch),
+        a:focus-visible:not(.locale-switch),
+        .is-active:not(.locale-switch),
         button[aria-expanded='true'],
         .has-dropdown > button:hover,
         .has-dropdown > button:focus-visible {
@@ -310,6 +310,14 @@ import Logo from './Logo.astro'
           &:where(:hover, :focus-visible) {
             background-color: var(--foreground-color);
             color: var(--background-color) !important;
+          }
+        }
+
+        .locale-switch {
+          text-decoration: none;
+
+          &:where(:hover, :focus-visible) {
+            text-decoration: none;
           }
         }
       }

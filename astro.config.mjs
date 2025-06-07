@@ -9,6 +9,10 @@ import { fileURLToPath } from 'url'
 export default defineConfig({
   compressHTML: true,
   site: 'https://accessible-astro-starter.incluud.dev',
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en'],
+  },
   integrations: [mdx(), icon(), compress()],
   vite: {
     css: {

@@ -1,0 +1,163 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import Hero from '@components/Hero.astro'
+import Feature from '@components/Feature.astro'
+import Counter from '@components/Counter.astro'
+import ContentMedia from '@components/ContentMedia.astro'
+import ExternalLink from '@components/ExternalLink.astro'
+import { Accordion, AccordionItem, Avatar, AvatarGroup } from 'accessible-astro-components'
+---
+
+<DefaultLayout title="Home">
+  <Hero />
+  <section class="my-64">
+    <div class="container">
+      <h2 class="mb-16 text-6xl">Features</h2>
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+        <Feature icon="lucide:accessibility" title="Accessible by default">
+          Keyboard navigation, focus indicators, ARIA labels, semantic HTML, and more. This theme is designed to be
+          inclusive.
+        </Feature>
+        <Feature icon="lucide:puzzle" title="A11Y components">
+          25+ components and counting, all tried and tested for the most optimal accessible experience for your
+          visitors.
+        </Feature>
+        <Feature icon="lucide:moon" title="Dark mode">
+          Fully integrated Dark mode gives your users the choice for their favorite viewing mode.
+        </Feature>
+        <Feature icon="lucide:paintbrush" title="Tailwind 4.0">
+          Use the power of Tailwind to greatly improve your productivity and enhance your developer workflow.
+        </Feature>
+        <Feature icon="lucide:sparkles" title="Prettier">
+          Less worry about formatting your code, let the Astro Prettier integration do the heavy lifting.
+        </Feature>
+        <Feature icon="lucide:code" title="ESLint">
+          Lint your code with strict a11y settings to ensure you stay on track with the WCAG standards.
+        </Feature>
+        <Feature icon="lucide:bookmark" title="Blog & portfolio">
+          This theme comes with a fully integrated blog and portfolio, dynamic pages and SEO optimization.
+        </Feature>
+        <Feature icon="lucide:file-text" title="Markdown & MDX">
+          Easily use .md and .mdx pages to build your websites or use it with Netlify CMS.
+        </Feature>
+        <Feature icon="lucide:blocks" title="Design system">
+          The theme offers some very handy utilities to help you build your website faster.
+        </Feature>
+      </div>
+    </div>
+  </section>
+  <ContentMedia imgSrc="/accessible-components.webp">
+    <h2>Accessible components</h2>
+    <p class="text-2xl">
+      This theme provides plenty of tried and tested Accessible Astro Components. Some are native to this theme and a
+      lot of others are integrated using a <ExternalLink href="https://github.com/incluud/accessible-astro-components"
+        >separate package</ExternalLink
+      >. They'll get you up and running in building an accessible solution for your visitors.
+    </p>
+  </ContentMedia>
+  <ContentMedia imgSrc="/wcag-compliant.webp" reverseImg={true}>
+    <h2>WCAG 2.2 AA compliant</h2>
+    <p class="text-2xl">
+      Using semantic HTML, landmarks, skip links, screen reader friendly content, aria-labels, keyboard accessible
+      navigation and components, clear outlines and tab indicators and the right color contrast, you're more certain of
+      reaching WCAG AA compliance.
+    </p>
+  </ContentMedia>
+  <section class="my-64">
+    <div class="container grid grid-cols-1 gap-12 md:grid-cols-2">
+      <div class="flex flex-col items-start gap-4">
+        <h2 class="text-6xl">FAQ</h2>
+        <p class="text-2xl">
+          This section demonstrates how to effectively use the Accordion component to organize and display frequently
+          asked questions in an accessible and user-friendly way.
+        </p>
+        <a class="button" href="/faq">Contact support team</a>
+      </div>
+      <div class="space-content">
+        <Accordion>
+          <AccordionItem name="exclusive" title="What is WCAG and why is it important?" open>
+            <p>
+              WCAG (Web Content Accessibility Guidelines) is a set of internationally recognized standards for web
+              accessibility. Following WCAG ensures your website is usable by people with various disabilities,
+              including visual, auditory, physical, and cognitive impairments. It's important not just for
+              accessibility, but also for legal compliance, SEO, and reaching a wider audience.
+            </p>
+          </AccordionItem>
+          <AccordionItem name="exclusive" title="What's the difference between ARIA labels and alt text?">
+            <p>
+              Alt text is specifically for describing images to screen reader users, while ARIA labels (aria-label,
+              aria-labelledby) can describe any element on a page. Alt text is HTML's native way to provide alternative
+              text for images, while ARIA labels are part of the ARIA specification that helps make dynamic content and
+              advanced UI controls more accessible.
+            </p>
+          </AccordionItem>
+          <AccordionItem name="exclusive" title="Why is keyboard navigation important?">
+            <p>
+              Keyboard navigation is essential for users who can't use a mouse, including people with motor
+              disabilities, visual impairments, or those who simply prefer keyboard controls. A website should be fully
+              operable using only a keyboard, with visible focus indicators and logical tab order. This includes being
+              able to access all interactive elements and navigate through content efficiently.
+            </p>
+          </AccordionItem>
+          <AccordionItem name="exclusive" title="What is a sufficient color contrast ratio?">
+            <p>
+              According to WCAG 2.2 AA standards, text should have a minimum contrast ratio of 4.5:1 against its
+              background for regular text, and 3:1 for large text (18pt or 14pt bold). For non-text elements like icons
+              or buttons, a minimum ratio of 3:1 is required. This ensures content is readable for users with visual
+              impairments or color blindness.
+            </p>
+          </AccordionItem>
+          <AccordionItem name="exclusive" title="How do I make custom components accessible?">
+            <p>
+              To make custom components accessible, focus on these key aspects: use semantic HTML where possible,
+              implement proper keyboard support, add appropriate ARIA attributes, manage focus when needed, and ensure
+              adequate color contrast. Always test with screen readers and keyboard navigation. Consider using
+              established design patterns from the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/"
+                >ARIA Authoring Practices Guide</a
+              >.
+            </p>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    </div>
+  </section>
+  <section class="my-64">
+    <div class="space-content container">
+      <h2 class="text-6xl">Our community</h2>
+      <p class="text-2xl">
+        We're a community of developers who are passionate about making the web more accessible. We're always looking
+        for new ways to improve the accessibility of the web.
+      </p>
+      <AvatarGroup display="grid" gridItemsSize="300px" gridGap="2rem">
+        <Avatar initials="RJ" title="Robert Johnson" subtitle="Manager" />
+        <Avatar initials="MT" title="Maria Torres" subtitle="Developer" />
+        <Avatar initials="AK" title="Alex Kim" subtitle="Designer" />
+        <Avatar initials="SL" title="Sarah Lee" subtitle="Content Strategist" />
+        <Avatar initials="JP" title="James Peterson" subtitle="QA Engineer" />
+        <Avatar initials="LW" title="Lisa Wong" subtitle="Product Owner" />
+        <Avatar initials="DM" title="David Martinez" subtitle="UX Researcher" />
+        <Avatar initials="EB" title="Emma Brown" subtitle="Accessibility Specialist" />
+        <Avatar initials="TC" title="Thomas Chen" subtitle="Frontend Developer" />
+      </AvatarGroup>
+    </div>
+  </section>
+  <section class="mt-64 mb-32">
+    <div class="container">
+      <h2 class="mb-16 text-6xl">Impact in numbers</h2>
+      <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-4">
+        <Counter count="900+" title="Stars" sub="On GitHub" />
+        <Counter count="25+" title="Accessible" sub="Components" />
+        <Counter count="400+" title="Commits" sub="Merged" />
+        <Counter count="48+" title="Months" sub="Since launch" />
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style>
+  .avatar {
+    border: 1px solid var(--border-color-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-s);
+  }
+</style>

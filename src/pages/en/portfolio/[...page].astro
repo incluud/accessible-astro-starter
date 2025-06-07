@@ -41,17 +41,17 @@ const totalPages = Math.ceil(page.total / page.size)
 ---
 
 <DefaultLayout
-  title="ポートフォリオ"
-  description="Astro Content Collections を活用したプロジェクトの一覧です。"
+  title="Portfolio"
+  description="A showcase of projects built with Astro Content Collections, demonstrating dynamic content management."
 >
   <PageHeader
-    title="ポートフォリオ"
-    subtitle='Astro Content Collections を使った動的コンテンツ管理の例です。詳細は <a href="https://docs.astro.build/en/guides/content-collections/">公式ドキュメント</a> をご覧ください。'
+    title="Portfolio"
+    subtitle='A showcase of projects built with Astro Content Collections, demonstrating dynamic content management and organization. Learn more about <a href="https://docs.astro.build/en/guides/content-collections/">Astro Content Collections</a> in the official documentation.'
     bgType="bordered"
   />
   <section class="my-12">
     <div class="container">
-      <p class="text-sm"><em>全{page.total}件中 {page.start + 1}〜{page.end + 1} 件を表示</em></p>
+      <p class="text-sm"><em>Project {page.start + 1} through {page.end + 1} of {page.total} total projects</em></p>
       <ul class="my-3 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
           page.data.map((project) => (
@@ -84,7 +84,7 @@ const totalPages = Math.ceil(page.total / page.size)
 </DefaultLayout>
 
 <style lang="scss" is:global>
-  @use '../../assets/scss/base/mixins' as *;
+  @use '../../../assets/scss/base/mixins' as *;
 
   .card {
     h3 {
