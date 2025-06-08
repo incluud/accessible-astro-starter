@@ -21,36 +21,33 @@ const altLink = locale === 'ja' ? '/en/' : '/'
       <a href={`${prefix}/`}>{locale === 'ja' ? 'ホーム' : 'Home'}</a>
     </li>
     <li class="menu-item">
-      <a href={`${prefix}/blog/`}>{locale === 'ja' ? 'ブログ' : 'Blog'}</a>
+      <a href={`${prefix}/services`}>{locale === 'ja' ? 'サービス' : 'Services'}</a>
     </li>
     <li class="menu-item">
-      <a href={`${prefix}/portfolio/`}>{locale === 'ja' ? 'ポートフォリオ' : 'Portfolio'}</a>
+      <a href={`${prefix}/pricing`}>{locale === 'ja' ? '料金' : 'Pricing'}</a>
     </li>
     <li class="menu-item has-dropdown">
       <button aria-haspopup="true" aria-expanded="false">
-        {locale === 'ja' ? 'テーマ機能' : 'Theme features'}
+        {locale === 'ja' ? '概要' : 'About'}
         <Icon name="lucide:chevron-down" size="32" />
       </button>
       <ul class="dropdown-menu">
         <li class="submenu-item">
-          <a href={`${prefix}/accessibility-statement`}>{locale === 'ja' ? 'アクセシビリティ声明' : 'Accessibility statement'}</a>
+          <a href={`${prefix}/about`}>{locale === 'ja' ? '概要' : 'About'}</a>
         </li>
         <li class="submenu-item">
-          <a href={`${prefix}/accessible-components`}>{locale === 'ja' ? 'アクセシブルコンポーネント' : 'Accessible components'}</a>
+          <a href={`${prefix}/samples`}>{locale === 'ja' ? 'サンプル' : 'Samples'}</a>
         </li>
         <li class="submenu-item">
-          <a href={`${prefix}/color-contrast-checker`}>{locale === 'ja' ? 'カラーコントラストチェッカー' : 'Color contrast checker'}</a>
+          <a href={`${prefix}/testimonials`}>{locale === 'ja' ? 'お客様の声' : 'Testimonials'}</a>
         </li>
         <li class="submenu-item">
-          <a href={`${prefix}/markdown-page/`}>{locale === 'ja' ? 'Markdownページ' : 'Markdown page'}</a>
-        </li>
-        <li class="submenu-item">
-          <a href={`${prefix}/mdx-page/`}>{locale === 'ja' ? 'MDXページ' : 'MDX page'}</a>
-        </li>
-        <li class="submenu-item">
-          <a href={`${prefix}/404-page`}>404 page</a>
+          <a href={`${prefix}/faq`}>{locale === 'ja' ? 'よくある質問' : 'FAQ'}</a>
         </li>
       </ul>
+    </li>
+    <li class="menu-item">
+      <a href={`${prefix}/contact`}>{locale === 'ja' ? 'お問い合わせ' : 'Contact'}</a>
     </li>
     <li class="menu-item">
       <a class="locale-switch" href={altLink}>{locale === 'ja' ? 'English' : '日本語'}</a>
