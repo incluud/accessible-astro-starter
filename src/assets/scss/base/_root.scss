@@ -3,9 +3,9 @@
   interpolate-size: allow-keywords;
 
   // brand colors (change these to your own brand colors)
-  --brand-primary: #d648ff;
-  --brand-secondary: #00d1b7;
-  --brand-neutral: #b9bec4;
+  --brand-primary: #1e40af;
+  --brand-secondary: #2563eb;
+  --brand-neutral: #6b7280;
 
   // pallet brand
   --color-primary-100: oklch(from var(--brand-primary) 90% c h);
@@ -31,13 +31,13 @@
   --color-neutral-900: oklch(from var(--brand-neutral) 15% c h);
 
   // color scheme
-  --foreground-color: var(--color-neutral-800);
-  --background-color: var(--color-neutral-100);
+  --foreground-color: #6b7280;
+  --background-color: #ffffff;
   --icon-color: var(--color-neutral-800);
   --link-color: var(--color-primary-400);
   --link-hover-color: var(--color-primary-300);
-  --border-color: var(--color-neutral-900);
-  --border-color-subtle: var(--color-neutral-300);
+  --border-color: #e5e7eb;
+  --border-color-subtle: #e5e7eb;
   --text-decoration-color: var(--color-neutral-700);
   --text-decoration-color-hover: var(--color-neutral-100);
 
