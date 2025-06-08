@@ -280,9 +280,9 @@ import Logo from './Logo.astro'
           align-content: center;
         }
 
-        a:hover:not(.locale-switch),
-        a:focus-visible:not(.locale-switch),
-        .is-active:not(.locale-switch),
+        a:hover,
+        a:focus-visible,
+        .is-active,
         button[aria-expanded='true'],
         .has-dropdown > button:hover,
         .has-dropdown > button:focus-visible {
@@ -313,13 +313,6 @@ import Logo from './Logo.astro'
           }
         }
 
-        .locale-switch {
-          text-decoration: none;
-
-          &:where(:hover, :focus-visible) {
-            text-decoration: none;
-          }
-        }
       }
     }
 
