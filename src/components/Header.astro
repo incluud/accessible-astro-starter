@@ -59,6 +59,8 @@ const altLink = locale === 'ja' ? '/en/' : '/'
 </header>
 
 <style lang="scss" is:global>
+  @use '../assets/scss/base/mixins' as *; // Ensure this import is present
+
   header {
     .type-icon {
       display: block;
@@ -68,6 +70,10 @@ const altLink = locale === 'ja' ? '/en/' : '/'
         inline-size: 30px;
         block-size: 30px;
       }
+    }
+
+    .locale-switch { // Target the language switcher
+      @include text-decoration(); // CORRECT: Apply mixin with default solid style
     }
   }
 </style>
