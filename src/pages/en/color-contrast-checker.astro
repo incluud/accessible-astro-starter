@@ -4,21 +4,21 @@ import PageHeader from '@components/PageHeader.astro'
 import ColorContrastComponent from '@components/ColorContrast.astro'
 ---
 
-<DefaultLayout title="カラーコントラストチェッカー">
+<DefaultLayout title="Color Contrast Checker">
   <PageHeader
-    title="カラーコントラストチェッカー"
-    subtitle="このツールでは、テーマのカラーパレットがWCAGのコントラスト要件を満たしているかをライトモードとダークモードの両方で確認できます。"
+    title="Color Contrast Checker"
+    subtitle="This tool helps you verify which colors in your theme's palette meet the WCAG contrast requirements for accessibility in both light and dark modes."
     bgType="neutral"
   />
 
   <section class="container my-16">
     <div class="space-content">
-      <h2>コントラスト評価の理解</h2>
+      <h2>Understanding Contrast Ratings</h2>
       <ul class="flex list-none flex-col gap-2">
-        <li><span class="tag excellent">7.0+ AAA</span>優れたコントラスト。WCAG AAA (7:1) を超えます</li>
-        <li><span class="tag good">4.5+ AA</span>良好なコントラスト。通常のテキストでWCAG AA (4.5:1) を満たします</li>
-        <li><span class="tag fair">3.0+ AA Large</span>まずまずのコントラスト。大きなテキストのみWCAG AA (3:1) を満たします</li>
-        <li><span class="tag poor">Fail</span>不十分なコントラスト。WCAG の最小要件を満たしません</li>
+        <li><span class="tag excellent">7.0+ AAA</span>Excellent contrast, exceeds WCAG AAA (7:1)</li>
+        <li><span class="tag good">4.5+ AA</span>Good contrast, meets WCAG AA for normal text (4.5:1)</li>
+        <li><span class="tag fair">3.0+ AA Large</span>Fair contrast, meets WCAG AA for large text only (3:1)</li>
+        <li><span class="tag poor">Fail</span>Poor contrast, doesn't meet minimum WCAG requirements</li>
       </ul>
     </div>
   </section>
