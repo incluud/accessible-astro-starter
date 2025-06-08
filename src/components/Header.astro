@@ -1,6 +1,6 @@
 ---
 import Navigation from '../components/Navigation.astro'
-import { DarkMode, SkipLink } from 'accessible-astro-components'
+import { SkipLink } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 
 const locale = Astro.currentLocale ?? 'ja'
@@ -51,12 +51,6 @@ const altLink = locale === 'ja' ? '/en/' : '/'
           <a href={`${prefix}/404-page`}>404 page</a>
         </li>
       </ul>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <DarkMode>
-        <Icon name="lucide:moon" slot="light" />
-        <Icon name="lucide:sun" slot="dark" />
-      </DarkMode>
     </li>
     <li class="menu-item">
       <a class="locale-switch" href={altLink}>{locale === 'ja' ? 'English' : '日本語'}</a>

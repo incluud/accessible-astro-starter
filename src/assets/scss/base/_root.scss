@@ -31,15 +31,15 @@
   --color-neutral-900: oklch(from var(--brand-neutral) 15% c h);
 
   // color scheme
-  --foreground-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
-  --background-color: light-dark(var(--color-neutral-100), var(--color-neutral-900));
-  --icon-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
-  --link-color: light-dark(var(--color-primary-400), var(--color-secondary-100));
-  --link-hover-color: light-dark(var(--color-primary-300), var(--color-secondary-200));
-  --border-color: light-dark(var(--color-neutral-900), var(--color-neutral-100));
-  --border-color-subtle: light-dark(var(--color-neutral-300), var(--color-neutral-800));
-  --text-decoration-color: light-dark(var(--color-neutral-700), var(--color-neutral-100));
-  --text-decoration-color-hover: light-dark(var(--color-neutral-100), var(--color-neutral-200));
+  --foreground-color: var(--color-neutral-800);
+  --background-color: var(--color-neutral-100);
+  --icon-color: var(--color-neutral-800);
+  --link-color: var(--color-primary-400);
+  --link-hover-color: var(--color-primary-300);
+  --border-color: var(--color-neutral-900);
+  --border-color-subtle: var(--color-neutral-300);
+  --text-decoration-color: var(--color-neutral-700);
+  --text-decoration-color-hover: var(--color-neutral-100);
 
   // theme settings
   --radius-small: 3px;
@@ -139,12 +139,8 @@
   --backdrop-blur: blur(3px);
 
   // kbd
-  --kbd-color-text: light-dark(var(--color-gray-200), var(--color-gray-800));
-  --kbd-color-border: light-dark(var(--color-gray-700), var(--color-gray-300));
-  --kbd-color-background: light-dark(var(--color-gray-1000), var(--color-gray-200));
+  --kbd-color-text: var(--color-gray-200);
+  --kbd-color-border: var(--color-gray-700);
+  --kbd-color-background: var(--color-gray-1000);
 }
 
-// dark color scheme overrides
-.darkmode {
-  color-scheme: dark;
-}

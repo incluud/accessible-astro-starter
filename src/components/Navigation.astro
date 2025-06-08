@@ -406,32 +406,5 @@ import Logo from './Logo.astro'
       }
     }
 
-    .darkmode-toggle {
-      border: none;
-      padding: 0;
-
-      @include breakpoint('nav') {
-        // Align with the menu items
-        margin-block-start: 7px;
-      }
-
-      .icon {
-        inline-size: 30px;
-        block-size: 30px;
-      }
-
-      &:where(:hover, :focus-visible) {
-        box-shadow: none;
-      }
-
-      &:focus {
-        @include outline;
-
-        &:not(:focus-visible) {
-          outline: none;
-          box-shadow: none;
-        }
-      }
-    }
   }
 </style>

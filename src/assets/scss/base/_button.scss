@@ -7,9 +7,9 @@
   align-items: center;
   transition: all var(--animation-speed-fast) var(--cubic-bezier);
   cursor: pointer;
-  border: 3px solid light-dark(var(--color-primary-200), var(--color-primary-100));
+  border: 3px solid var(--color-primary-200);
   border-radius: var(--radius-s);
-  background-color: light-dark(var(--color-primary-200), var(--color-primary-100));
+  background-color: var(--color-primary-200);
   padding: var(--space-xs) var(--space-s);
   inline-size: fit-content;
   color: var(--color-neutral-900);
@@ -18,18 +18,18 @@
   @include text-decoration(transparent, currentColor);
 
   &:where(:hover, :focus-visible) {
-    border-color: light-dark(var(--color-primary-300), var(--color-primary-300));
-    background-color: light-dark(var(--color-primary-300), var(--color-primary-300));
+    border-color: var(--color-primary-300);
+    background-color: var(--color-primary-300);
     text-decoration-thickness: 2px;
   }
 
   &.color-secondary {
-    border-color: light-dark(var(--color-secondary-100), var(--color-secondary-100));
-    background-color: light-dark(var(--color-secondary-100), var(--color-secondary-100));
+    border-color: var(--color-secondary-100);
+    background-color: var(--color-secondary-100);
 
     &:where(:hover, :focus-visible) {
-      border-color: light-dark(var(--color-secondary-300), var(--color-secondary-300));
-      background-color: light-dark(var(--color-secondary-300), var(--color-secondary-300));
+      border-color: var(--color-secondary-300);
+      background-color: var(--color-secondary-300);
     }
   }
 
