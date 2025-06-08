@@ -48,8 +48,8 @@ const { src = '/astronaut-hero-img.webp' }: Props = Astro.props
   .text-gradient {
     background: linear-gradient(
       315deg,
-      light-dark(var(--color-primary-300), var(--color-secondary-100)) 25%,
-      light-dark(var(--color-secondary-300), var(--color-primary-200))
+      var(--color-primary-300) 25%,
+      var(--color-secondary-300)
     );
     background-clip: border-box;
     -webkit-background-clip: text;

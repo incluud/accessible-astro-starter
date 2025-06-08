@@ -36,7 +36,6 @@ A ready-to-use, SEO and accessibility-focused Astro starter template. Built with
 - `SkipLinks.astro` component to skip to either the main menu or the main content
 - `Navigation.astro` component with keyboard accessible (dropdown) navigation and highlighted menu item option
 - `ResponsiveToggle.astro` component with accessible responsive toggle functionality
-- `DarkMode.astro` component toggle with accessible button and a user system preferred color scheme setting
 - `SiteMeta.astro` SEO component for setting custom meta data on different pages
 - `.sr-only` utility class for screen reader only text content (hides text visually)
 - `prefers-reduced-motion` disables animations for users that have this preference turned on
