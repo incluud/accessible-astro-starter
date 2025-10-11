@@ -44,9 +44,40 @@ interface Props {
    * Whether to show the breadcrumbs
    */
   showBreadcrumbs?: boolean
+  /**
+   * Custom breadcrumb labels to override the default URL-based labels
+   * @description Object mapping URL segments to their display labels
+   */
+  customBreadcrumbLabels?: Record<string, string>
+
+  /**
+   * Whether to join the last breadcrumb
+   */
+  joinLastBreadcrumb?: boolean
 }
 
-const { class: className, title, subtitle, bgType, showBreadcrumbs = true, featuredImage, author } = Astro.props
+const {
+  class: className,
+  title,
+  subtitle,
+  bgType,
+  showBreadcrumbs = true,
+  featuredImage,
+  author,
+  customBreadcrumbLabels,
+  joinLastBreadcrumb = false,
+} = Astro.props
+
+// Helper function to format segment names
+const formatSegment = (segment: string): string => {
+  if (customBreadcrumbLabels?.[segment]) {
+    return customBreadcrumbLabels[segment]
+  }
+  return segment
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
 
 // Sanitize subtitle HTML if present
 const sanitizedSubtitle: string = subtitle
@@ -69,19 +100,29 @@ const sanitizedSubtitle: string = subtitle
           const segments = path.split('/').filter(Boolean)
 
           if (segments.length === 0) {
-            return null // No breadcrumbs on homepage
+            return null
           }
 
           return (
             <Breadcrumbs>
               <BreadcrumbsItem href="/" label="Home" />
               {segments.map((segment, index) => {
+                if (joinLastBreadcrumb && index === segments.length - 1) {
+                  return null
+                }
+
                 const url = `/${segments.slice(0, index + 1).join('/')}`
-                const isLast = index === segments.length - 1
-                const formattedName = segment
-                  .split('-')
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(' ')
+                const isLast = index === segments.length - 1 || (joinLastBreadcrumb && index === segments.length - 2)
+
+                const formattedName = (() => {
+                  if (joinLastBreadcrumb && isLast) {
+                    const prevSegment = segments[segments.length - 2]
+                    const lastSegment = segments[segments.length - 1]
+                    return `${formatSegment(prevSegment)}: ${formatSegment(lastSegment)}`
+                  }
+
+                  return formatSegment(segment)
+                })()
 
                 return <BreadcrumbsItem href={isLast ? undefined : url} label={formattedName} currentPage={isLast} />
               })}

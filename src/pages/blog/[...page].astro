@@ -84,17 +84,21 @@ const { page } = Astro.props as Props
           ))
         }
       </ul>
-      <div class="mt-12 grid place-content-center">
-        <Pagination
-          firstPage={page.url.prev ? '/blog' : null}
-          previousPage={page.url.prev ? page.url.prev : null}
-          nextPage={page.url.next ? page.url.next : null}
-          lastPage={page.url.next ? `/blog/${Math.ceil(page.total / page.size)}` : null}
-          currentPage={`${page.currentPage}`}
-          totalPages={`${Math.ceil(page.total / page.size)}`}
-          ariaLabel="Blog pagination"
-        />
-      </div>
+      {
+        page && page.lastPage > 1 && (
+          <div class="mt-12 grid place-content-center">
+            <Pagination
+              firstPage={page.url.prev ? '/blog' : null}
+              previousPage={page.url.prev ? page.url.prev : null}
+              nextPage={page.url.next ? page.url.next : null}
+              lastPage={page.url.next ? `/blog/${page.lastPage}` : null}
+              currentPage={`${page.currentPage}`}
+              totalPages={`${page.lastPage}`}
+              ariaLabel="Blog pagination"
+            />
+          </div>
+        )
+      }
     </div>
   </section>
 </DefaultLayout>

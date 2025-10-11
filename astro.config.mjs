@@ -1,17 +1,16 @@
 import { defineConfig } from 'astro/config'
-import mdx from '@astrojs/mdx'
+import { fileURLToPath } from 'url'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
+import mdx from '@astrojs/mdx'
+import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath } from 'url'
-
-import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
   site: 'https://accessible-astro-starter.incluud.dev',
-  integrations: [mdx(), icon(), compress(), sitemap()],
+  integrations: [compress(), icon(), mdx(), sitemap()],
   vite: {
     css: {
       preprocessorOptions: {
