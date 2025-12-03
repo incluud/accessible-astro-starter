@@ -1,1 +1,4 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
+
+@source '../../src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}';
+@custom-variant dark (&:where(.darkmode, .darkmode *));
