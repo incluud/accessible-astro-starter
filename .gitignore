@@ -29,5 +29,5 @@ package-lock.json
 # astro build files
 .astro
 
-# cursor rules
-.cursor/rules
+# cursor
+.cursor
