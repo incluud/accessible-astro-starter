@@ -1,7 +1,7 @@
 {
   "name": "accessible-astro-starter",
   "description": "An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "author": "Incluud",
   "license": "MIT",
   "type": "module",
