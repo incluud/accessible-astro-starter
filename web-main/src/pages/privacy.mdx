@@ -1,0 +1,38 @@
+---
+title: Privacy & Trust
+layout: ../layouts/BaseLayout.astro
+---
+
+import Hero from '../components/Hero.astro';
+import Callout from '../components/ui/Callout.astro';
+
+<Hero
+  title="Privacy and Trust"
+  description="Trust does not depend on interpretation, cloud services, or opaque models."
+/>
+
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+  <div class="mx-auto max-w-4xl prose prose-lg">
+    <h2>Trust by design</h2>
+    <p>
+      Stokoe is designed so trust does not depend on interpretation, cloud services, or opaque models. The five-lane architecture makes it clear which operations are deterministic and which are interpretive.
+    </p>
+
+    <Callout type="info">
+      Real-time lanes (A & B) operate independently of enrichment lanes (C, D, E). Your captions and sound awareness never depend on cloud services or AI interpretation.
+    </Callout>
+
+    <h3>Privacy principles</h3>
+    <ul>
+      <li><strong>Local-first processing:</strong> Real-time lanes can operate entirely on-device</li>
+      <li><strong>Clear data boundaries:</strong> You know exactly what data is processed where</li>
+      <li><strong>No hidden interpretation:</strong> Enrichment is always optional and visible</li>
+      <li><strong>User control:</strong> You decide which lanes to enable and where they run</li>
+    </ul>
+
+    <h3>Open architecture</h3>
+    <p>
+      The five-lane separation makes Stokoe inspectable and auditable. You can verify that real-time captions are deterministic, that enrichment doesn't block core functionality, and that your privacy preferences are respected.
+    </p>
+  </div>
+</section>

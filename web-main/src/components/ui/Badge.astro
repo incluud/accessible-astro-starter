@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'default' | 'cyan' | 'navy';
+  class?: string;
+}
+
+const { variant = 'default', class: className } = Astro.props;
+
+const variantStyles = {
+  default: 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
+  cyan: 'bg-cyan/10 dark:bg-cyan/20 text-cyan',
+  navy: 'bg-navy/10 dark:bg-navy/20 text-navy dark:text-white'
+};
+---
+
+<span class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${variantStyles[variant]} ${className || ''}`}>
+  <slot />
+</span>

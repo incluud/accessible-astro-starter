@@ -1,0 +1,28 @@
+---
+import GlassCard from './ui/GlassCard.astro';
+
+interface Feature {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+interface Props {
+  features: Feature[];
+}
+
+const { features } = Astro.props;
+---
+
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {features.map((feature) => (
+    <GlassCard hover class="flex flex-col">
+      <h3 class="mb-2 text-lg font-heading font-semibold text-navy">
+        {feature.title}
+      </h3>
+      <p class="text-sm text-gray-600">
+        {feature.description}
+      </p>
+    </GlassCard>
+  ))}
+</div>

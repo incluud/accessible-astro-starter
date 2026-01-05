@@ -1,0 +1,18 @@
+---
+interface Props {
+  type?: 'info' | 'warning' | 'success';
+  class?: string;
+}
+
+const { type = 'info', class: className } = Astro.props;
+
+const typeStyles = {
+  info: 'bg-cyan/5 dark:bg-cyan/10 border-cyan/20 dark:border-cyan/30 text-navy dark:text-gray-100',
+  warning: 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700 text-amber-900 dark:text-amber-200',
+  success: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200'
+};
+---
+
+<div class={`rounded-lg border-l-4 p-4 ${typeStyles[type]} ${className || ''}`}>
+  <slot />
+</div>

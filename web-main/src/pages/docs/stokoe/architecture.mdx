@@ -1,0 +1,157 @@
+---
+title: Stokoe Architecture
+layout: ../../../layouts/DocsLayout.astro
+---
+
+# Stokoe Architecture
+
+Stokoe is an **accessibility architecture for real-time systems**.
+
+It defines how accessibility-relevant information — such as captions, speaker changes, and interpretive signals — is captured, structured, transported, and made observable in real time.
+
+Captioning is the first concrete application of this architecture, not its boundary.
+
+-----
+
+## Architectural Intent
+
+Most accessibility systems treat captions and related outputs as a user-interface feature or a side effect of model behavior. This makes accessibility difficult to inspect, difficult to audit, and difficult to reason about when failures occur.
+
+Stokoe addresses this by treating accessibility as **infrastructure**.
+
+Accessibility data is produced and transported explicitly, independent of any specific model, user interface, or presentation surface.
+
+-----
+
+## Core Properties
+
+Stokoe is built around a small number of non-negotiable properties:
+
+- **Accessibility is transport-layer data**
+  Captions and interpretive outputs are first-class events, not inferred UI state.
+
+- **Append-only semantics**
+  Events are emitted, not rewritten. History is preserved.
+
+- **Explicit timing**
+  Each event carries clear temporal meaning, enabling latency and ordering to be observed.
+
+- **Model independence**
+  No accessibility guarantee depends on a specific speech or interpretation model.
+
+- **Presentation decoupling**
+  Correctness is independent of how information is displayed.
+
+-----
+
+## System Overview
+
+Stokoe is organized as a layered, event-driven system. Each layer has a narrowly defined responsibility and clear limits.
+
+-----
+
+## Layered Architecture
+
+### 1. Media Ingress
+
+**Purpose:** Capture raw media faithfully.
+
+This layer handles live and recorded media sources and preserves signal fidelity and timing accuracy. It performs no semantic interpretation.
+
+**Responsibilities:**
+- Media capture
+- Timing preservation
+- Continuous buffering
+
+**Non-responsibilities:**
+- Speech detection
+- Interpretation
+- Captioning logic
+
+-----
+
+### 2. Signal Analysis
+
+**Purpose:** Extract observable facts from media.
+
+This layer derives low-level signals such as energy, timing markers, overlap, and silence. These signals are descriptive, not interpretive.
+
+**Responsibilities:**
+- Audio feature extraction
+- Temporal markers
+- Non-speech event detection
+
+**Non-responsibilities:**
+- Text generation
+- Speaker identity
+- Finality decisions
+
+-----
+
+### 3. Interpretation Engines
+
+**Purpose:** Generate human-meaningful interpretations.
+
+Examples include speech-to-text, diarization, translation, or audio description. Engines operate independently and emit structured events.
+
+**Key property:**
+Interim and final outputs coexist. "Final" is metadata, not mutation.
+
+-----
+
+### 4. Session Core and Event Transport
+
+**Purpose:** Make accessibility data reliable and inspectable.
+
+The session core orders events, buffers recent history, supports late joiners, and enables replay.
+
+This layer establishes the accessibility timeline as the source of truth.
+
+**Responsibilities:**
+- Event ordering
+- Buffering and replay
+- Session lifecycle management
+
+-----
+
+### 5. Presentation Surfaces
+
+**Purpose:** Deliver accessibility information without constraining form.
+
+Because accessibility data is transported cleanly, it may be rendered as traditional captions, ambient displays, spatial overlays, or external data feeds.
+
+Presentation does not affect correctness.
+
+-----
+
+## Observability and Failure
+
+Stokoe is designed so that failures are **visible**, not hidden.
+
+Latency, omissions, reordering, and dropped events are observable properties of the system. The architecture does not attempt to conceal or auto-correct these conditions.
+
+This enables inspection, debugging, and audit without reliance on trust in model behavior.
+
+-----
+
+## Scope
+
+**Stokoe defines:**
+- Accessibility signal transport
+- Event structure and semantics
+- Session and replay behavior
+- Architectural boundaries between media, models, and presentation
+
+**Stokoe does not define:**
+- User interface design
+- Model training or quality metrics
+- Product-specific workflows
+- Policy or regulatory interpretation
+
+-----
+
+## Status
+
+Stokoe is an evolving reference architecture.
+
+It is intentionally conservative in design, emphasizing clarity, stability, and inspectability over novelty or optimization. Accessibility infrastructure must remain reliable as technologies change.

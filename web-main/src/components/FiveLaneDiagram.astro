@@ -1,0 +1,94 @@
+---
+// Five-lane architecture diagram
+const lanes = [
+  { id: 'A', label: 'Lane A', description: 'Real-time captions' },
+  { id: 'B', label: 'Lane B', description: 'Sound awareness' },
+  { id: 'C', label: 'Lane C', description: 'Speaker detection' },
+  { id: 'D', label: 'Lane D', description: 'Semantic context' },
+  { id: 'E', label: 'Lane E', description: 'Knowledge layer' }
+];
+---
+
+<div class="w-full">
+  <svg
+    viewBox="0 0 800 400"
+    class="w-full h-auto"
+    role="img"
+    aria-label="Five-lane architecture diagram showing lanes A through E"
+  >
+    <title>Stokoe Five-Lane Architecture</title>
+    <desc>A diagram showing five horizontal lanes representing different layers of the Stokoe architecture</desc>
+
+    <!-- Background -->
+    <rect width="800" height="400" fill="#ffffff" />
+
+    <!-- Draw lanes -->
+    {lanes.map((lane, index) => {
+      const y = 40 + index * 70;
+      const isRealTime = index < 2; // Lanes A and B are real-time
+      return (
+        <>
+          <!-- Lane container -->
+          <rect
+            x="50"
+            y={y}
+            width="700"
+            height="50"
+            fill={isRealTime ? '#00D9FF' : '#2B3647'}
+            fill-opacity={isRealTime ? '0.1' : '0.05'}
+            stroke={isRealTime ? '#00D9FF' : '#2B3647'}
+            stroke-width="2"
+            rx="4"
+          />
+
+          <!-- Lane label -->
+          <text
+            x="80"
+            y={y + 30}
+            font-family="DM Sans, sans-serif"
+            font-size="18"
+            font-weight="600"
+            fill="#2B3647"
+          >
+            {lane.id}
+          </text>
+
+          <!-- Lane description -->
+          <text
+            x="130"
+            y={y + 30}
+            font-family="Inter, sans-serif"
+            font-size="14"
+            fill="#718096"
+          >
+            {lane.description}
+          </text>
+
+          <!-- Real-time indicator -->
+          {isRealTime && (
+            <circle
+              cx="720"
+              cy={y + 25}
+              r="6"
+              fill="#00D9FF"
+            />
+          )}
+        </>
+      );
+    })}
+
+    <!-- Legend -->
+    <g transform="translate(50, 380)">
+      <circle cx="0" cy="-5" r="6" fill="#00D9FF" />
+      <text
+        x="15"
+        y="0"
+        font-family="Inter, sans-serif"
+        font-size="12"
+        fill="#718096"
+      >
+        Real-time lanes
+      </text>
+    </g>
+  </svg>
+</div>

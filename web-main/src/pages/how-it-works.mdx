@@ -1,0 +1,50 @@
+---
+title: How it works
+description: A five-lane system that makes real-time deterministic, enrichment optional, and trust provable.
+layout: ../layouts/BaseLayout.astro
+---
+
+import Hero from '../components/Hero.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import FiveLaneDiagram from '../components/FiveLaneDiagram.astro';
+
+<Hero
+  title="How Stokoe works"
+  description="Real-time truth comes first. Meaning is added later — never instead."
+/>
+
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+  <div class="mx-auto max-w-4xl prose prose-lg">
+    <h2>A five-lane system</h2>
+    <p>
+      Stokoe separates real-time deterministic operations from optional enrichment layers. This architectural separation ensures that captions and sound awareness are always available, while interpretation and context are layered on top without blocking the core experience.
+    </p>
+  </div>
+
+  <div class="mx-auto max-w-4xl mt-12">
+    <GlassCard>
+      <FiveLaneDiagram />
+    </GlassCard>
+  </div>
+
+  <div class="mx-auto max-w-4xl prose prose-lg mt-12">
+    <h2>The lanes</h2>
+
+    <h3>Real-time lanes (A & B)</h3>
+    <ul>
+      <li><strong>Lane A:</strong> Real-time captions — deterministic, always available</li>
+      <li><strong>Lane B:</strong> Sound awareness — alerts, environmental audio cues</li>
+    </ul>
+
+    <h3>Enrichment lanes (C, D, E)</h3>
+    <ul>
+      <li><strong>Lane C:</strong> Speaker detection — who is speaking</li>
+      <li><strong>Lane D:</strong> Semantic context — understanding meaning</li>
+      <li><strong>Lane E:</strong> Knowledge layer — external context and integration</li>
+    </ul>
+
+    <p>
+      By design, lanes C through E never block lanes A and B. This makes the system trustworthy: you always get real-time captions, and enrichment is a bonus, not a requirement.
+    </p>
+  </div>
+</section>

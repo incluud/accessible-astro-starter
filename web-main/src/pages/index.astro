@@ -1,0 +1,333 @@
+---
+/**
+ * Stokoe Homepage
+ * Standards-grade accessibility framework
+ *
+ * Design philosophy:
+ * - This is not a startup landing page
+ * - Calm, authoritative, declarative tone
+ * - Zero animations, zero JavaScript
+ * - Mobile-first, semantic HTML
+ * - WCAG AAA contrast ratios
+ */
+
+import '@styles/global.css';
+
+const pageTitle = "Stokoe — The accessibility framework for real-time language";
+const pageDescription = "Observable speech, sign, sound, and visual events — deterministic first, enriched later, never overwritten.";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription}>
+  <meta name="generator" content={Astro.generator}>
+</head>
+
+<body>
+  <!-- Navigation Header -->
+  <header class="border-b border-border-subtle">
+    <nav class="mx-auto max-w-screen-2xl px-sm md:px-lg lg:px-2xl" aria-label="Primary navigation">
+      <div class="flex items-center justify-between h-16 md:h-18">
+        <!-- Logo -->
+        <a href="/" class="text-lg font-semibold text-text-primary no-underline">
+          Stokoe
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="flex items-center gap-md">
+          <a href="/docs" class="text-body-sm font-medium no-underline" style="color: #B8B8BD;" onmouseover="this.style.color='#FFFFFF'" onmouseout="this.style.color='#B8B8BD'">
+            Documentation
+          </a>
+          <a href="https://github.com/stokoe-app" class="text-body-sm font-medium no-underline" style="color: #B8B8BD;" onmouseover="this.style.color='#FFFFFF'" onmouseout="this.style.color='#B8B8BD'">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Section 1: Hero -->
+    <section class="pt-2xl pb-xl md:py-3xl">
+      <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl">
+        <div class="max-w-heading mx-auto md:mx-0 text-center md:text-left">
+          <!-- Logo -->
+          <div class="flex justify-center md:justify-start mb-lg">
+            <img src="/logo.svg" alt="Stokoe logo" class="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48" />
+          </div>
+
+          <!-- Brand Name -->
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-md tracking-tight">
+            Stokoe
+          </h1>
+
+          <!-- Category Label -->
+          <p class="font-mono text-label uppercase mb-sm" style="color: #B8B8BD; letter-spacing: 0.18em;">
+            Accessibility Framework
+          </p>
+
+          <!-- Headline -->
+          <h2 class="text-h2-mobile md:text-h2-desktop text-text-primary mb-2xs text-balance">
+            The accessibility framework for real-time language.
+          </h2>
+
+          <!-- Subhead -->
+          <p class="text-body-lg-mobile md:text-body-lg-desktop text-text-secondary mb-2xl">
+            Observable speech, sign, sound, and visual events — deterministic first, enriched later, never overwritten.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-xs mb-sm">
+            <!-- Primary CTA -->
+            <a
+              href="/docs/stokoe/architecture"
+              class="inline-flex items-center justify-center h-11 md:h-12 px-md md:px-lg bg-accent text-white text-body-sm font-semibold rounded-md no-underline hover:bg-accent-hover"
+            >
+              Architecture
+            </a>
+
+            <!-- Secondary CTA -->
+            <a
+              href="/catalyst"
+              class="inline-flex items-center justify-center h-11 md:h-12 px-md md:px-lg border border-border-strong text-text-primary text-body-sm font-semibold rounded-md no-underline hover:border-border-accent"
+            >
+              Reference Implementation
+            </a>
+          </div>
+
+          <!-- Clarifying statement -->
+          <p class="text-body-sm text-text-tertiary">
+            Normative specification with reference implementation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal rule separator -->
+    <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl">
+      <div class="h-px bg-border-subtle"></div>
+    </div>
+
+    <!-- Section 2: What is Stokoe? -->
+    <section class="pt-xl pb-2xl md:py-3xl">
+      <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl">
+        <!-- Section Header -->
+        <div class="mb-xl">
+          <div class="flex items-baseline gap-xs mb-xs">
+            <span class="font-mono text-label text-text-tertiary">01</span>
+            <h2 class="text-h2-mobile md:text-h2-desktop text-text-primary font-bold">
+              What is Stokoe?
+            </h2>
+          </div>
+          <div class="h-px bg-border-subtle mt-xl"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="max-w-prose">
+          <p class="text-body-lg-mobile md:text-body-lg-desktop text-text-secondary leading-relaxed">
+            Stokoe is a real-time accessibility framework that defines how language and situational information are observed, recorded, and rendered — without collapsing truth into interpretation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Architectural Guarantees -->
+    <section class="py-3xl md:py-4xl bg-bg-base">
+      <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl">
+        <!-- Section Header -->
+        <div class="mb-xl">
+          <div class="flex items-baseline gap-xs mb-xs">
+            <span class="font-mono text-label text-text-tertiary">02</span>
+            <h2 class="text-h2-mobile md:text-h2-desktop text-text-primary font-bold">
+              Architectural Guarantees
+            </h2>
+          </div>
+          <div class="h-px bg-border-subtle mt-xl"></div>
+        </div>
+
+        <!-- 4 Pillars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md md:gap-lg">
+          <!-- Pillar 1: Deterministic First -->
+          <article class="flex flex-col">
+            <!-- Number Badge -->
+            <div class="w-8 h-8 flex items-center justify-center bg-bg-subtle border border-border-subtle rounded-sm mb-xs">
+              <span class="font-mono text-body-sm text-text-tertiary">1</span>
+            </div>
+
+            <!-- Title -->
+            <h3 class="text-h4-mobile md:text-h4-desktop text-text-primary mb-2xs">
+              Deterministic First
+            </h3>
+
+            <!-- Description -->
+            <p class="text-body-sm text-text-secondary leading-relaxed">
+              Real-time language events are delivered predictably and are never blocked by interpretation.
+            </p>
+          </article>
+
+          <!-- Pillar 2: Layered Enrichment -->
+          <article class="flex flex-col">
+            <div class="w-8 h-8 flex items-center justify-center bg-bg-subtle border border-border-subtle rounded-sm mb-xs">
+              <span class="font-mono text-body-sm text-text-tertiary">2</span>
+            </div>
+            <h3 class="text-h4-mobile md:text-h4-desktop text-text-primary mb-2xs">
+              Layered Enrichment
+            </h3>
+            <p class="text-body-sm text-text-secondary leading-relaxed">
+              Meaning is added in optional layers — never instead of raw events.
+            </p>
+          </article>
+
+          <!-- Pillar 3: Local by Default -->
+          <article class="flex flex-col">
+            <div class="w-8 h-8 flex items-center justify-center bg-bg-subtle border border-border-subtle rounded-sm mb-xs">
+              <span class="font-mono text-body-sm text-text-tertiary">3</span>
+            </div>
+            <h3 class="text-h4-mobile md:text-h4-desktop text-text-primary mb-2xs">
+              Local by Default
+            </h3>
+            <p class="text-body-sm text-text-secondary leading-relaxed">
+              Observation, timing, and integrity are preserved at the point of capture.
+            </p>
+          </article>
+
+          <!-- Pillar 4: Inspectable by Design -->
+          <article class="flex flex-col">
+            <div class="w-8 h-8 flex items-center justify-center bg-bg-subtle border border-border-subtle rounded-sm mb-xs">
+              <span class="font-mono text-body-sm text-text-tertiary">4</span>
+            </div>
+            <h3 class="text-h4-mobile md:text-h4-desktop text-text-primary mb-2xs">
+              Inspectable by Design
+            </h3>
+            <p class="text-body-sm text-text-secondary leading-relaxed">
+              All events are timestamped, replayable, and auditable.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Five-Lane Architecture -->
+    <section class="py-3xl md:py-4xl">
+      <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl">
+        <!-- Section Header -->
+        <div class="mb-xl">
+          <div class="flex items-baseline gap-xs mb-xs">
+            <span class="font-mono text-label text-text-tertiary">03</span>
+            <h2 class="text-h2-mobile md:text-h2-desktop text-text-primary font-bold">
+              Five-Lane Architecture
+            </h2>
+          </div>
+          <div class="h-px bg-border-subtle mt-xl"></div>
+        </div>
+
+        <!-- Diagram Container -->
+        <div class="bg-bg-subtle border border-border-subtle rounded-lg p-lg md:p-xl overflow-x-auto">
+          <figure>
+            <pre class="font-mono text-code-block text-text-secondary m-0 p-0 bg-transparent border-0"><code>┌─────────────────────────────────────────────────────────────┐
+│  REAL-TIME (Deterministic, Local, Non-blocking)             │
+├─────────────────────────────────────────────────────────────┤
+│  Lane A: Speech-to-Text      → Captions (raw transcript)    │
+│  Lane B: Sound Awareness      → Audio events (labeled)      │
+├─────────────────────────────────────────────────────────────┤
+│  ENRICHMENT (Optional, Annotative, Inspectable)             │
+├─────────────────────────────────────────────────────────────┤
+│  Lane C: Speaker Detection    → Who said what               │
+│  Lane D: Semantic Context     → Intent, sentiment           │
+│  Lane E: Knowledge Layer      → Linked data, references     │
+└─────────────────────────────────────────────────────────────┘
+
+        ↓ Data flows bottom-up (enrichment never blocks A/B)
+        ↓ User controls which lanes are active
+        ↓ Each lane is independently auditable</code></pre>
+
+            <figcaption class="text-body-sm text-text-tertiary italic mt-sm">
+              Figure 1: Separation of deterministic (A, B) and enrichment (C, D, E) processing lanes
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Reference Implementation (Catalyst) -->
+    <section class="py-3xl md:py-4xl">
+      <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl">
+        <!-- Section Header -->
+        <div class="mb-xl">
+          <div class="flex items-baseline gap-xs mb-xs">
+            <span class="font-mono text-label text-text-tertiary">04</span>
+            <h2 class="text-h2-mobile md:text-h2-desktop text-text-primary font-bold">
+              Reference Implementation
+            </h2>
+          </div>
+          <div class="h-px bg-border-subtle mt-xl"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="max-w-prose">
+          <p class="text-body-lg-mobile md:text-body-lg-desktop text-text-secondary leading-relaxed mb-md">
+            Catalyst is the reference implementation used to observe, test, and validate Stokoe-compliant systems. It demonstrates correct behavior, not optimized presentation.
+          </p>
+
+          <a href="/catalyst" class="text-body text-accent underline">
+            View Catalyst documentation →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Documentation CTA Band -->
+    <section class="py-xl md:py-2xl bg-bg-subtle border-y border-border-subtle">
+      <div class="mx-auto max-w-screen-lg px-sm md:px-lg lg:px-2xl text-center">
+        <h2 class="text-h3-mobile md:text-h3-desktop text-text-primary mb-md">
+          Read the technical specification
+        </h2>
+
+        <a
+          href="/docs"
+          class="inline-flex items-center justify-center h-11 md:h-12 px-md md:px-lg bg-accent text-white text-body-sm font-semibold rounded-md no-underline hover:bg-accent-hover"
+        >
+          Documentation
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Section 7: Footer -->
+  <footer class="border-t border-border-subtle py-lg md:py-xl">
+    <div class="mx-auto max-w-screen-2xl px-sm md:px-lg lg:px-2xl">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-md">
+        <!-- Logo -->
+        <div class="text-lg font-semibold text-text-primary">
+          Stokoe
+        </div>
+
+        <!-- Footer Links -->
+        <nav aria-label="Footer navigation">
+          <ul class="flex flex-col md:flex-row gap-2xs md:gap-md">
+            <li>
+              <a href="/privacy" class="text-body-sm text-text-tertiary hover:text-text-primary no-underline">
+                Privacy
+              </a>
+            </li>
+            <li>
+              <a href="/license" class="text-body-sm text-text-tertiary hover:text-text-primary no-underline">
+                License
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/stokoe-app" class="text-body-sm text-text-tertiary hover:text-text-primary no-underline">
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

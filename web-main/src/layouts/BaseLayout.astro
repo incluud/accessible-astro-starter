@@ -1,0 +1,54 @@
+---
+import SiteHeader from '@components/SiteHeader.astro';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'Stokoe', description = 'Deterministic real-time captions first. Meaning layered later — never instead.' } = Astro.props;
+const fullTitle = title === 'Stokoe' ? title : `${title} | Stokoe`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <title>{fullTitle}</title>
+    <script is:inline>
+      // Theme initialization - runs before page render to prevent FOUC
+      (function() {
+        const getTheme = () => {
+          const stored = localStorage.getItem('theme');
+          if (stored) return stored;
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+
+        const theme = getTheme();
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <footer class="mt-24 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+      <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Stokoe. Built with <a href="https://astro.build" class="text-cyan hover:underline">Astro</a>.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

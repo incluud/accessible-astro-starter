@@ -1,0 +1,94 @@
+---
+import ThemeToggle from '@components/ui/ThemeToggle.astro';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/catalyst', label: 'Catalyst' },
+  { href: '/docs', label: 'Docs' },
+  { href: '/privacy', label: 'Privacy' }
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="glass dark:glass-dark sticky top-0 z-50 border-b border-white/20 dark:border-gray-700/50">
+  <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="/" class="flex items-center gap-3 text-navy dark:text-white hover:opacity-80 transition-opacity duration-150">
+          <img src="/logo.svg" alt="Stokoe logo" class="h-10 w-10 md:h-12 md:w-12" />
+          <span class="text-xl md:text-2xl font-heading font-bold">Stokoe</span>
+        </a>
+      </div>
+
+      <div class="hidden md:flex md:items-center md:gap-6">
+        <ul class="flex items-center gap-6">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  'text-sm font-medium transition-colors duration-150',
+                  currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                    ? 'text-cyan'
+                    : 'text-navy dark:text-gray-300 hover:text-cyan dark:hover:text-cyan'
+                ]}
+                aria-current={currentPath === link.href ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <ThemeToggle />
+      </div>
+
+      <!-- Mobile controls -->
+      <div class="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <button
+          type="button"
+          class="rounded-md p-2 text-navy dark:text-gray-300 hover:bg-navy/5 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan"
+          aria-label="Toggle navigation menu"
+          id="mobile-menu-button"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <ul class="space-y-2">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'block rounded-md px-3 py-2 text-sm font-medium transition-colors duration-150',
+                currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                  ? 'bg-cyan/10 text-cyan'
+                  : 'text-navy dark:text-gray-300 hover:bg-navy/5 dark:hover:bg-gray-700 hover:text-cyan dark:hover:text-cyan'
+              ]}
+              aria-current={currentPath === link.href ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  button?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

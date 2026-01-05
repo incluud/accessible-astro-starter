@@ -1,0 +1,23 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Stokoe interlocking geometric logo - faithful to reference design -->
+  <g id="stokoe-logo">
+    <!-- Top horizontal bar -->
+    <rect x="128" y="128" width="256" height="64" fill="#FFFFFF"/>
+
+    <!-- Left vertical bar -->
+    <rect x="128" y="128" width="64" height="256" fill="#FFFFFF"/>
+
+    <!-- Top right vertical segment -->
+    <rect x="320" y="192" width="64" height="64" fill="#FFFFFF"/>
+
+    <!-- Center square -->
+    <rect x="192" y="192" width="64" height="64" fill="#FFFFFF"/>
+
+    <!-- Right side L-shape -->
+    <rect x="320" y="256" width="64" height="128" fill="#FFFFFF"/>
+    <rect x="256" y="320" width="128" height="64" fill="#FFFFFF"/>
+
+    <!-- Bottom left section -->
+    <rect x="128" y="320" width="64" height="64" fill="#FFFFFF"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  class?: string;
+  hover?: boolean;
+}
+
+const { class: className, hover = false } = Astro.props;
+const hoverClass = hover ? 'glass-hover' : '';
+---
+
+<div class={`glass dark:glass-dark rounded-lg p-6 ${hoverClass} ${className || ''}`}>
+  <slot />
+</div>

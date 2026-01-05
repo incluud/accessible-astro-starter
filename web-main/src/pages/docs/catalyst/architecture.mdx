@@ -1,0 +1,111 @@
+---
+title: Catalyst Architecture
+layout: ../../../layouts/DocsLayout.astro
+---
+
+import Callout from '../../../components/ui/Callout.astro';
+import Badge from '../../../components/ui/Badge.astro';
+
+# Catalyst Architecture
+
+How the Catalyst app instantiates each Stokoe lane.
+
+## Overview
+
+Catalyst is a reference implementation of the Stokoe five-lane architecture. It demonstrates how to build a real-world application that maintains the architectural guarantees while delivering a great user experience.
+
+## Lane Implementations
+
+### Lane A: Real-time Captions <Badge variant="cyan">Real-time</Badge>
+
+**Technology:** WebRTC + on-device ASR (Automatic Speech Recognition)
+
+- Uses browser's native speech recognition API as fallback
+- Optional integration with Whisper.cpp for better accuracy
+- Runs entirely on-device by default
+- Output streamed to UI with < 200ms latency
+
+### Lane B: Sound Awareness <Badge variant="cyan">Real-time</Badge>
+
+**Technology:** Audio classification model (YAMNet or similar)
+
+- Parallel audio processing pipeline
+- Pre-trained model for common environmental sounds
+- Runs in Web Worker to avoid blocking main thread
+- Visual alerts presented immediately upon detection
+
+### Lane C: Speaker Detection <Badge variant="navy">Enrichment</Badge>
+
+**Technology:** Speaker diarization (optional cloud service)
+
+- Uses voice embeddings to cluster speakers
+- Can run locally with reduced accuracy
+- Retroactively annotates Lane A output
+- Graceful degradation if unavailable
+
+### Lane D: Semantic Context <Badge variant="navy">Enrichment</Badge>
+
+**Technology:** LLM-based (local or cloud)
+
+- Post-processes captions for corrections and context
+- Runs with significant delay (1-5 seconds behind real-time)
+- Results marked clearly as interpretation
+- Can be disabled entirely
+
+### Lane E: Knowledge Layer <Badge variant="navy">Enrichment</Badge>
+
+**Technology:** External APIs and integrations
+
+- Connects to user's calendar, contacts, etc.
+- Provides contextual information (meeting notes, etc.)
+- Fully opt-in with explicit permissions
+- Runs in background, never blocks
+
+## Data Flow
+
+<Callout type="info">
+Audio flows into lanes A and B simultaneously. Lanes C, D, and E consume outputs from earlier lanes but never block them.
+</Callout>
+
+```
+Audio Input
+    ├──> Lane A (Captions) ──> UI (immediate)
+    │         │
+    │         ├──> Lane C (Speaker) ──> UI (annotated)
+    │         │         │
+    │         │         └──> Lane D (Semantic) ──> UI (enhanced)
+    │         │                   │
+    │         │                   └──> Lane E (Knowledge) ──> UI (enriched)
+    │         │
+    └──> Lane B (Sounds) ──> UI (immediate)
+```
+
+## Privacy Implementation
+
+### Local-First by Default
+
+- Lanes A and B run entirely on-device
+- No network requests for core functionality
+- User data never leaves device without explicit opt-in
+
+### Opt-In Cloud Services
+
+- Lanes C, D, E can use cloud services
+- Explicit consent required for each service
+- Clear indicators when cloud processing is active
+
+### Data Minimization
+
+- Only necessary data sent to cloud services
+- Temporary processing only, no long-term storage
+- User can audit and delete all cloud data
+
+## Performance Characteristics
+
+| Lane | Latency | Throughput | Resource Usage |
+|------|---------|------------|----------------|
+| A    | < 200ms | Real-time  | Low (on-device) |
+| B    | < 300ms | Real-time  | Low (on-device) |
+| C    | 1-3s    | Best-effort| Medium (optional cloud) |
+| D    | 2-5s    | Best-effort| High (LLM) |
+| E    | 5-10s   | Best-effort| Variable (APIs) |
