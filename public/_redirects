@@ -1,0 +1,5 @@
+# Redirects for Cloudflare Pages
+# Format: from  to  status
+
+/privacy  /security  301
+/trust  /security  301
