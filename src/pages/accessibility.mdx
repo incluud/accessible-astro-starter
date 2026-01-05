@@ -1,0 +1,79 @@
+---
+layout: ../layouts/MarkdownLayout.astro
+title: Accessibility
+---
+
+import { Heading, Link } from 'accessible-astro-components'
+
+# Accessibility
+
+Stokoe is committed to providing an accessible experience for all users. Accessibility is not an afterthought—it is a core design principle.
+
+<Heading level="h2">Our commitment</Heading>
+
+We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA. This means:
+
+- Content is perceivable, operable, understandable, and robust
+- Users with disabilities can navigate, understand, and interact with our interface
+- We test with real assistive technologies, not just automated tools
+
+<Heading level="h2">Tested behaviors</Heading>
+
+The following accessibility features are implemented and tested:
+
+**Keyboard navigation**
+- All interactive elements are reachable via keyboard
+- Focus order follows a logical reading sequence
+- No keyboard traps—you can always navigate away
+
+**Focus visibility**
+- Focus indicators are visible and meet contrast requirements
+- Custom focus styles ensure clarity across components
+- Focus is managed appropriately during dynamic interactions
+
+**Reduced motion**
+- Animations respect the `prefers-reduced-motion` media query
+- Essential motion is minimized; decorative motion is eliminated
+- No content relies solely on animation to convey meaning
+
+**Semantic landmarks**
+- Pages use proper HTML5 landmarks (`main`, `nav`, `header`, `footer`)
+- Skip links allow bypassing repetitive navigation
+- Heading hierarchy is logical and sequential
+
+<Heading level="h2">Assistive technology</Heading>
+
+We test with:
+
+- **Screen readers**: VoiceOver (macOS/iOS), NVDA (Windows)
+- **Zoom**: Browser zoom up to 400% maintains usability
+- **High contrast**: Interfaces remain usable in high-contrast modes
+- **Voice control**: Basic navigation works with voice input software
+
+<Heading level="h2">Known limitations</Heading>
+
+We are transparent about current limitations:
+
+- Some third-party embeds may not meet our accessibility standards
+- Complex data visualizations may require alternative text descriptions
+- Legacy content is being progressively improved
+
+We track known issues and prioritize fixes based on user impact.
+
+<Heading level="h2">Feedback</Heading>
+
+If you encounter a barrier or have suggestions for improvement, please let us know:
+
+- **Email**: accessibility@stokoe.app
+- Include the URL where you experienced the issue
+- Describe what happened and what you expected
+
+We respond to accessibility feedback within 5 business days.
+
+<Heading level="h2">Accessibility and trust</Heading>
+
+Accessibility is part of our broader commitment to trustworthy software. An accessible product is one that respects its users. For more about how we protect your data, see our <Link href="/security">Security & Privacy</Link> page.
+
+---
+
+*Last updated: January 2025*

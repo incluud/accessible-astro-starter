@@ -1,0 +1,86 @@
+---
+layout: ../layouts/MarkdownLayout.astro
+title: Security & Privacy
+---
+
+import { Heading } from 'accessible-astro-components'
+
+# Security & Privacy
+
+Stokoe is built with security and privacy as foundational principles. This document explains how we protect your data and what you can expect from us.
+
+<Heading level="h2">Threat model</Heading>
+
+We design against realistic threats:
+
+- **Unauthorized access**: Only authenticated users can access their own data
+- **Data interception**: All data is encrypted in transit via TLS
+- **Credential theft**: Secrets are never stored in code or client-side storage
+- **Session hijacking**: Sessions are short-lived and validated server-side
+
+We assume our infrastructure could be targeted, so we minimize what we store and encrypt what we must keep.
+
+<Heading level="h2">Data minimization</Heading>
+
+We collect only what is necessary to provide the service:
+
+- No tracking pixels or analytics that profile behavior
+- No marketing cookies or third-party ad scripts
+- No social login that shares data with external platforms
+- We avoid storing sensitive data when ephemeral processing suffices
+
+<Heading level="h2">Retention & deletion</Heading>
+
+- User data is retained only as long as the account is active
+- Upon account deletion, associated data is purged within 30 days
+- Backups are encrypted and rotated; deleted data expires from backups naturally
+- You can request a full data export or deletion at any time
+
+<Heading level="h2">Encryption</Heading>
+
+**In transit**: All connections use TLS 1.2+ with modern cipher suites. HTTP is redirected to HTTPS.
+
+**At rest**: Stored data is encrypted using industry-standard algorithms. We do not roll our own cryptography.
+
+We are transparent about our limitations: we use hosted infrastructure, and absolute guarantees are not possible. We apply defense in depth.
+
+<Heading level="h2">Key management</Heading>
+
+- Secrets (API keys, tokens) are stored in environment variables, not in source code
+- Production secrets are managed via Cloudflare environment configuration
+- No secrets are committed to the repository or exposed in client bundles
+- Access to production secrets is limited to authorized personnel
+
+<Heading level="h2">Auditability</Heading>
+
+- All significant actions generate append-only event logs
+- Events include stable identifiers and ISO 8601 timestamps
+- Logs are retained for compliance and debugging purposes
+- We do not use logs for behavioral profiling
+
+<Heading level="h2">Responsible disclosure</Heading>
+
+If you discover a security vulnerability, please report it responsibly:
+
+- Email: **security@stokoe.app**
+- We will acknowledge receipt within 48 hours
+- We will not take legal action against good-faith security researchers
+- We will credit researchers (with permission) once issues are resolved
+
+<Heading level="h2">What we do NOT do</Heading>
+
+- **No ad trackers**: We do not use Google Analytics, Facebook Pixel, or similar services
+- **No data sales**: We never sell or share your data with third parties for marketing
+- **No silent profiling**: We do not build behavioral profiles for advertising or resale
+- **No dark patterns**: We do not use manipulative UI to extract consent or data
+- **No unnecessary permissions**: We request only the access we need to function
+
+<Heading level="h2">Contact</Heading>
+
+For security concerns: **security@stokoe.app**
+
+For general privacy questions: **privacy@stokoe.app**
+
+---
+
+*Last updated: January 2025*

@@ -16,7 +16,7 @@ interface Props {
   /**
    * The URL of the page
    */
-  url: string
+  url: URL | string
   /**
    * The image path for social sharing
    */
@@ -27,24 +27,35 @@ interface Props {
   author?: string
 }
 
-const { title, description, url, image, author = 'Mark Teekman' } = Astro.props
+const { title, description, url, image, author = 'Stokoe' } = Astro.props
 
-let subtitle = 'Accessible Astro Starter'
+const siteName = 'Stokoe'
+const pageTitle = title === siteName ? siteName : `${title} | ${siteName}`
+const canonicalUrl = url instanceof URL ? url.href : url
+const ogImageUrl = `${Astro.site}${image}`
 ---
 
 <!-- general meta -->
-<meta name="title" content={`${title} - ${subtitle}`} />
+<meta name="title" content={pageTitle} />
 <meta name="description" content={description} />
 <meta name="author" content={author} />
 
+<!-- canonical -->
+<link rel="canonical" href={canonicalUrl} />
+
 <!-- open graph -->
-<meta property="og:title" content={`${title} - ${subtitle}`} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
-<meta property="og:url" content={url} />
-<meta property="og:image" content={`${Astro.site}${image}`} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
 
 <!-- twitter card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
 
 <!-- page title -->
-<title>{title} - {subtitle}</title>
+<title>{pageTitle}</title>
