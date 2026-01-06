@@ -9,16 +9,82 @@ $breakpoints: (
   'nav': 1000px,
 ) !default;
 
-@mixin breakpoint($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  } @else if (type_of($breakpoint) == number) {
-    @media (min-width: #{$breakpoint}px) {
-      @content;
-    }
+/// Get breakpoint value from map or return the value if it's a number
+/// @param {String|Number} $value - Breakpoint name or numeric value
+/// @return {Number} - Breakpoint value in pixels
+@function get-breakpoint-value($value) {
+  @if map-has-key($breakpoints, $value) {
+    @return map-get($breakpoints, $value);
+  } @else if (type_of($value) == number) {
+    @return $value;
   } @else {
-    @error "Not a correct value";
+    @error "Invalid breakpoint value: #{$value}";
   }
+}
+
+/// Versatile breakpoint mixin supporting min, max, and range queries
+///
+/// @param {String|Number} $from - Starting breakpoint (name or value)
+/// @param {String|Number} $to [null] - Ending breakpoint for range queries, or 'min'/'max' for direction
+///
+/// @example scss - Min-width (default, backwards compatible)
+///   @include breakpoint('m') { ... }
+///   // Output: @media (width >= 768px) { ... }
+///
+/// @example scss - Max-width
+///   @include breakpoint('m', 'max') { ... }
+///   // Output: @media (width < 768px) { ... }
+///
+/// @example scss - Range between two breakpoints
+///   @include breakpoint('m', 'xl') { ... }
+///   // Output: @media (768px <= width < 1280px) { ... }
+///
+/// @example scss - Custom numeric values
+///   @include breakpoint(500px, 900px) { ... }
+///   // Output: @media (500px <= width < 900px) { ... }
+@mixin breakpoint($from, $to: null) {
+  $from-value: get-breakpoint-value($from);
+
+  // Max-width query
+  @if $to == 'max' {
+    @media (width < #{$from-value}) {
+      @content;
+    }
+  }
+  // Explicit min-width query
+  @else if $to == 'min' or $to == null {
+    @media (width >= #{$from-value}) {
+      @content;
+    }
+  }
+  // Range query (between two breakpoints)
+  @else {
+    $to-value: get-breakpoint-value($to);
+    @media (#{$from-value} <= width < #{$to-value}) {
+      @content;
+    }
+  }
+}
+
+/// Additional utility mixins for specific use cases
+
+/// Max-width only (explicit naming for clarity)
+/// @example scss
+///   @include breakpoint-max('l') { ... }
+@mixin breakpoint-max($breakpoint) {
+  @include breakpoint($breakpoint, 'max');
+}
+
+/// Min-width only (explicit naming for clarity)
+/// @example scss
+///   @include breakpoint-min('m') { ... }
+@mixin breakpoint-min($breakpoint) {
+  @include breakpoint($breakpoint, 'min');
+}
+
+/// Between two breakpoints (explicit naming for clarity)
+/// @example scss
+///   @include breakpoint-between('m', 'xl') { ... }
+@mixin breakpoint-between($from, $to) {
+  @include breakpoint($from, $to);
 }
