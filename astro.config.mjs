@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, envField } from 'astro/config'
 import { fileURLToPath } from 'url'
 import { existsSync, lstatSync } from 'fs'
 import { resolve } from 'path'
@@ -8,6 +8,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { watch } from 'fs'
+import { loadEnv } from 'vite'
 
 // Check if we're using a symlinked/workspace setup
 const componentsPath = resolve('./node_modules/accessible-astro-components')
@@ -19,7 +20,7 @@ const viteConfig = {
     preprocessorOptions: {
       scss: {
         logger: {
-          warn: () => {},
+          warn: () => { },
         },
       },
     },
@@ -87,7 +88,12 @@ if (isLinked) {
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: 'https://accessible-astro-starter.incluud.dev',
+  site: loadEnv(process.env.NODE_ENV, process.cwd(), '').SITE_URL,
   integrations: [compress(), icon(), mdx(), sitemap()],
   vite: viteConfig,
+  env: {
+    schema: {
+      BLOG_API_URL: envField.string({ context: 'server', access: 'secret', 'optional': true, default: 'https://jsonplaceholder.typicode.com/posts' }),
+    }
+  }
 })
