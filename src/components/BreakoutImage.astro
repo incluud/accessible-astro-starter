@@ -6,21 +6,46 @@ import { Image } from 'astro:assets'
  *
  * @description A component for displaying a landscape image that breaks out of the container
  */
-interface Props {
+type Props = {
   /**
    * The image source
    */
   src: string
+} &
   /**
-   * The image alt text
+   * Alt text describing the image for screen readers.
+   * Required if the image is not decorative.
+   *
+   * If the image is decorative and conveys no meaning,
+   * set decorative: true and omit alt.
+   *
+   * Accessibility guidelines:
+   * - Set `alt` when the image conveys important information.
+   * - Set `decorative: true` if the image is purely visual and add no value
+   *   (sets empty alt text and hides from assistive tech).
+   *
+   * @example
+   * // Meaningful image
+   * <BreakoutImage src="/some-img.png" alt="Person using a screen reader" />
+   *
+   * // Decorative image
+   * <BreakoutImage src="/some-img.png" decorative />
    */
-  alt?: string
-}
+  ({ alt: string; decorative?: never } | { alt?: never; decorative: true })
 
-const { src, alt = '' } = Astro.props
+const { src, decorative = false, alt = '' } = Astro.props
+
+const altText = decorative ? '' : alt
 ---
 
 <div class="relative -mx-4 my-8 md:-mx-8 lg:-mx-[120px]">
-  <Image src={src} alt={alt} width={1400} height={700} class="h-auto w-full rounded-lg object-cover" loading="lazy" />
+  <Image
+    src={src}
+    alt={altText}
+    width={1400}
+    height={700}
+    class="h-auto w-full rounded-lg object-cover"
+    loading="lazy"
+  />
   <div class="absolute inset-0 rounded-lg shadow-inner"></div>
 </div>
