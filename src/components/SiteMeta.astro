@@ -1,4 +1,5 @@
 ---
+import themeConfig from '@utils/themeConfig'
 /**
  * SiteMeta Component
  *
@@ -8,41 +9,52 @@ interface Props {
   /**
    * The title of the page
    */
-  title: string
+  title?: string
+  /**
+   * The subtitle of the page
+   */
+  subtitle?: string
   /**
    * The description of the page
    */
-  description: string
+  description?: string
   /**
    * The URL of the page
    */
-  url: string
+  url?: string
   /**
    * The image path for social sharing
    */
-  image: string
+  image?: ImageMetadata | null
   /**
    * The author of the page
    */
   author?: string
 }
 
-const { title, description, url, image, author = 'Mark Teekman' } = Astro.props
+let { title, subtitle, description, url, image, author } = Astro.props
 
-let subtitle = 'Accessible Astro Starter'
+title = title || themeConfig.seo.title
+subtitle = subtitle || themeConfig.seo?.subtitle || ''
+description = description || themeConfig.seo?.description || ''
+author = author || themeConfig.seo?.author || ''
+image = image || themeConfig.seo?.image || null
+url = url || Astro.site?.toString() || ''
+
+const fullTitle = title + (subtitle ? ` - ${subtitle}` : '')
 ---
 
 <!-- general meta -->
-<meta name="title" content={`${title} - ${subtitle}`} />
+<meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <meta name="author" content={author} />
 
 <!-- open graph -->
-<meta property="og:title" content={`${title} - ${subtitle}`} />
+<meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={url} />
-<meta property="og:image" content={`${Astro.site}${image}`} />
+<meta property="og:image" content={image ? Astro.site + image.src : ''} />
 
 <!-- twitter card -->
 

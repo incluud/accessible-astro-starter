@@ -12,7 +12,7 @@
       "@assets/*": [
         "src/assets/*"
       ],
-      "@/utils/*": [
+      "@utils/*": [
         "src/utils/*"
       ]
     }
