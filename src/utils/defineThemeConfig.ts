@@ -1,5 +1,4 @@
 import type { ImageMetadata } from 'astro'
-import type { }
 export type ThemeConfig = {
     name: string,
     id: string,
