@@ -17,4 +17,49 @@ export default defineThemeConfig({
         secondary: '#00d1b7',
         neutral: '#b9bec4',
     },
+
+    navigation: {
+        darkmode: true,
+        items: [
+            {
+                label: 'Home',
+                href: '/',
+            },
+            {
+                label: 'Blog',
+                href: '/blog',
+                external: false, // False is the default value
+            },
+            {
+                label: 'Portfolio',
+                href: '/portfolio',
+            },
+            {
+                label: 'Theme features',
+                href: '/theme-features',
+                items: [
+                    {
+                        label: 'Accessibility statement',
+                        href: '/accessibility-statement',
+                    },
+                ]
+            },
+            {
+                label: 'Contact',
+                href: '/contact',
+            },
+            {
+                label: 'Docs',
+                href: 'https://accessible-astro.incluud.dev/',
+                highlight: true,
+                external: true,
+            },
+            {
+                label: 'Go to the GitHub page',
+                href: 'https://github.com/incluud/accessible-astro-starter',
+                icon: 'lucide:github',
+                external: true,
+            }
+        ]
+    }
 })

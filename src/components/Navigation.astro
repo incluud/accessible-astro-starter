@@ -1,5 +1,6 @@
 ---
 import ResponsiveToggle from './ResponsiveToggle.astro'
+import NavigationItems from './NavigationItems.astro'
 import Logo from './Logo.astro'
 
 /**
@@ -14,16 +15,12 @@ import Logo from './Logo.astro'
     <Logo />
     <div class="wrapper">
       <nav class="desktop-menu" aria-label="Main navigation desktop">
-        <ul class="menu">
-          <slot />
-        </ul>
+        <NavigationItems />
       </nav>
       <ResponsiveToggle />
     </div>
     <nav class="mobile-menu" aria-label="Main navigation mobile">
-      <ul class="menu">
-        <slot />
-      </ul>
+      <NavigationItems />
     </nav>
   </div>
 </div>
