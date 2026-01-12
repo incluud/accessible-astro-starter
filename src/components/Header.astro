@@ -12,64 +12,7 @@ import { Icon } from 'astro-icon/components'
 
 <header>
   <SkipLink />
-  <Navigation>
-    <li class="menu-item">
-      <Link href="/">Home</Link>
-    </li>
-    <li class="menu-item">
-      <Link href="/blog/">Blog</Link>
-    </li>
-    <li class="menu-item">
-      <Link href="/portfolio/">Portfolio</Link>
-    </li>
-    <li class="menu-item has-dropdown">
-      <button aria-haspopup="true" aria-expanded="false">
-        Theme features
-        <Icon aria-hidden="true" name="lucide:chevron-down" size="32" />
-      </button>
-      <ul class="dropdown-menu">
-        <li class="submenu-item">
-          <Link href="/accessibility-statement">Accessibility statement</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/accessible-components">Accessible components</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/color-contrast-checker">Color contrast checker</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/markdown-page/">Markdown page</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/mdx-page/">MDX page</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/404-page">404 page</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/sitemap">Sitemap</Link>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <Link href="/contact/">Contact</Link>
-    </li>
-    <li class="menu-item highlight">
-      <Link href="https://accessible-astro.incluud.dev/">Docs </Link>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <Link href="https://github.com/incluud/accessible-astro-starter">
-        <Icon aria-hidden="true" name="lucide:github" />
-        <span class="sr-only">Go to the GitHub page</span>
-      </Link>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <DarkMode>
-        <Icon aria-hidden="true" name="lucide:moon" slot="light" />
-        <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
-      </DarkMode>
-    </li>
-  </Navigation>
+  <Navigation />
 </header>
 
 <style lang="scss" is:global>
