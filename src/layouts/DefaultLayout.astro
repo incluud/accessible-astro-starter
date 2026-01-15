@@ -1,6 +1,7 @@
 ---
 import '../styles/tailwind.css'
 import '../assets/scss/index.scss'
+import themeConfig from '@utils/themeConfig'
 import SiteMeta from '@components/SiteMeta.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
@@ -15,6 +16,15 @@ import { ClientRouter } from 'astro:transitions'
 
     <!-- favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- theme colors from config -->
+    <style set:html={`
+      :root {
+        --brand-primary: ${themeConfig.colors.primary};
+        --brand-secondary: ${themeConfig.colors.secondary};
+        --brand-neutral: ${themeConfig.colors.neutral};
+      }
+    `} />
 
     <SiteMeta />
 
