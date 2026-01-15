@@ -22,21 +22,28 @@ import { Icon } from 'astro-icon/components'
               <Icon aria-hidden="true" name="lucide:chevron-down" size="32" />
             </button>
           ) : (
-            <Link href={item.href}>
+            <Link
+              href={item.href}
+              isExternal={item.external}
+              hideIcon={!!item.icon}
+            >
               {item.icon ? (
-                <Icon aria-hidden="true" name={item.icon} size="32" />
-                <span class="sr-only">{item.label}</span>
+                <>
+                  <Icon aria-hidden="true" name={item.icon} size="32" />
+                  <span class="sr-only">{item.label}</span>
+                </>
               ) : (
                 item.label
               )}
-
             </Link>
           )}
           {item.items && (
             <ul class="dropdown-menu">
               {item.items.map((subItem) => (
                 <li class="submenu-item">
-                  <Link href={subItem.href}>{subItem.label}</Link>
+                  <Link href={subItem.href} isExternal={subItem.external}>
+                    {subItem.label}
+                  </Link>
                 </li>
               ))}
             </ul>
