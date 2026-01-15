@@ -1,7 +1,7 @@
 {
   "name": "accessible-astro-starter",
   "description": "An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "author": "Incluud",
   "license": "MIT",
   "type": "module",
@@ -62,6 +62,6 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.5.1",
     "@tailwindcss/vite": "^4.1.13",
-    "accessible-astro-components": "^5.0.1"
+    "accessible-astro-components": "^5.1.1"
   }
 }
