@@ -1,18 +1,11 @@
 ---
 import '../styles/tailwind.css'
 import '../assets/scss/index.scss'
+import themeConfig from '@utils/themeConfig'
 import SiteMeta from '@components/SiteMeta.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import { ClientRouter } from 'astro:transitions'
-
-const {
-  title = 'Accessible Astro',
-  description = 'A starter project with accessibility features using Astro static site builder. Contains accessible landmarks, skip links, a dark mode color scheme, better focus outline and keyboard menu navigation.',
-  url = Astro.site,
-  image = 'social-preview-image.png',
-  author = 'Incluud',
-} = Astro.props
 ---
 
 <html lang="en" dir="ltr">
@@ -24,7 +17,16 @@ const {
     <!-- favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
+    <!-- theme colors from config -->
+    <style set:html={`
+      :root {
+        --brand-primary: ${themeConfig.colors.primary};
+        --brand-secondary: ${themeConfig.colors.secondary};
+        --brand-neutral: ${themeConfig.colors.neutral};
+      }
+    `} />
+
+    <SiteMeta />
 
     <!-- Enable Astro View Transitions for all browsers -->
     <ClientRouter />

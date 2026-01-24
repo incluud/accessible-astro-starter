@@ -1,10 +1,11 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, envField } from 'astro/config'
 import { fileURLToPath } from 'url'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
+import { loadEnv } from 'vite'
 import { enhanceConfigForWorkspace } from './scripts/workspace-config.js'
 
 // Vite configuration with path aliases and SCSS settings
@@ -13,7 +14,7 @@ const viteConfig = {
     preprocessorOptions: {
       scss: {
         logger: {
-          warn: () => {},
+          warn: () => { },
         },
       },
     },
@@ -36,7 +37,17 @@ const viteConfig = {
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: 'https://accessible-astro-starter.incluud.dev',
+  site: loadEnv(process.env.NODE_ENV, process.cwd(), '').SITE_URL,
   integrations: [compress(), icon(), mdx(), sitemap()],
   vite: enhanceConfigForWorkspace(viteConfig),
+  env: {
+    schema: {
+      BLOG_API_URL: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+        default: 'https://jsonplaceholder.typicode.com/posts',
+      }),
+    },
+  },
 })

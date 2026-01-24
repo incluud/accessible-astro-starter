@@ -1,14 +1,31 @@
 ---
 import Navigation from '../components/Navigation.astro'
-import { DarkMode, HighContrast, ReducedMotion, Link, SkipLink } from 'accessible-astro-components'
-import { Launcher, LauncherTrigger, LauncherList, LauncherItem, LauncherGroup } from 'accessible-astro-launcher'
-import { Icon } from 'astro-icon/components'
+import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-components'
+import { Launcher, LauncherList, LauncherItem, LauncherGroup } from 'accessible-astro-launcher'
+import themeConfig from '@utils/themeConfig'
 
 /**
  * Header Component
  *
  * @description A component that displays the header of the website
  */
+const launcherNavigationItems = themeConfig.navigation.items.flatMap((item) => {
+  if (item.items?.length) {
+    return item.items.map((subItem) => ({
+      label: subItem.label,
+      href: subItem.href,
+      external: subItem.external ?? false,
+    }))
+  }
+
+  return [
+    {
+      label: item.label,
+      href: item.href,
+      external: item.external ?? false,
+    },
+  ]
+})
 ---
 
 <header>
@@ -17,87 +34,7 @@ import { Icon } from 'astro-icon/components'
   <ReducedMotion class="sr-only" />
 
   <SkipLink />
-  <Navigation>
-    <li class="menu-item">
-      <Link href="/">Home</Link>
-    </li>
-    <li class="menu-item">
-      <Link href="/blog/">Blog</Link>
-    </li>
-    <li class="menu-item">
-      <Link href="/portfolio/">Portfolio</Link>
-    </li>
-    <li class="menu-item has-dropdown">
-      <button
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        Features
-        <Icon
-          aria-hidden="true"
-          name="lucide:chevron-down"
-          size="32"
-        />
-      </button>
-      <ul class="dropdown-menu">
-        <li class="submenu-item">
-          <Link href="/accessibility-statement">Accessibility statement</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/accessible-components">Accessible components</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/color-contrast-checker">Color contrast checker</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/markdown-page/">Markdown page</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/mdx-page/">MDX page</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/404-page">404 page</Link>
-        </li>
-        <li class="submenu-item">
-          <Link href="/sitemap">Sitemap</Link>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <Link href="/contact/">Contact</Link>
-    </li>
-    <li class="menu-item desktop-launcher">
-      <LauncherTrigger
-        launcherId="site-launcher"
-        placeholder="Search or use commands..."
-        compact={true}
-        gradientBorder={true}
-      />
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <Link href="https://github.com/incluud/accessible-astro-starter">
-        <Icon
-          aria-hidden="true"
-          name="lucide:github"
-        />
-        <span class="sr-only">Go to the GitHub page</span>
-      </Link>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <DarkMode>
-        <Icon
-          aria-hidden="true"
-          name="lucide:moon"
-          slot="light"
-        />
-        <Icon
-          aria-hidden="true"
-          name="lucide:sun"
-          slot="dark"
-        />
-      </DarkMode>
-    </li>
-  </Navigation>
+  <Navigation />
   <Launcher id="site-launcher">
     <LauncherList>
       <LauncherGroup label="Preferences">
@@ -118,61 +55,14 @@ import { Icon } from 'astro-icon/components'
         />
       </LauncherGroup>
       <LauncherGroup label="Navigate to">
-        <LauncherItem
-          type="navigation"
-          label="Home"
-          href="/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Blog"
-          href="/blog/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Portfolio"
-          href="/portfolio/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Contact"
-          href="/contact/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Accessibility statement"
-          href="/accessibility-statement/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Accessible components"
-          href="/accessible-components/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Color contrast checker"
-          href="/color-contrast-checker/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Markdown page"
-          href="/markdown-page/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="MDX page"
-          href="/mdx-page/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="404 page"
-          href="/404-page/"
-        />
-        <LauncherItem
-          type="navigation"
-          label="Sitemap"
-          href="/sitemap/"
-        />
+        {launcherNavigationItems.map((item) => (
+          <LauncherItem
+            type="navigation"
+            label={item.label}
+            href={item.href}
+            {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          />
+        ))}
       </LauncherGroup>
     </LauncherList>
   </Launcher>

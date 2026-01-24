@@ -1,5 +1,6 @@
 ---
 import ResponsiveToggle from './ResponsiveToggle.astro'
+import NavigationItems from './NavigationItems.astro'
 import Logo from './Logo.astro'
 import { LauncherTrigger } from 'accessible-astro-launcher'
 
@@ -17,13 +18,8 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
   <div class="container">
     <Logo />
     <div class="wrapper">
-      <nav
-        class="desktop-menu"
-        aria-label="Main navigation desktop"
-      >
-        <ul class="menu">
-          <slot />
-        </ul>
+      <nav class="desktop-menu" aria-label="Main navigation desktop">
+        <NavigationItems />
       </nav>
       <ResponsiveToggle />
       <LauncherTrigger
@@ -33,13 +29,8 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
         gradientBorder={true}
       />
     </div>
-    <nav
-      class="mobile-menu"
-      aria-label="Main navigation mobile"
-    >
-      <ul class="menu">
-        <slot />
-      </ul>
+    <nav class="mobile-menu" aria-label="Main navigation mobile">
+      <NavigationItems />
     </nav>
   </div>
 </div>
