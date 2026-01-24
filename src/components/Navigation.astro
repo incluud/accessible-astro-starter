@@ -18,18 +18,25 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
   <div class="container">
     <Logo />
     <div class="wrapper">
-      <nav class="desktop-menu" aria-label="Main navigation desktop">
+      <nav
+        class="desktop-menu"
+        aria-label="Main navigation desktop"
+      >
         <NavigationItems />
       </nav>
       <ResponsiveToggle />
-      <LauncherTrigger
-        class="mobile-launcher"
-        launcherId="site-launcher"
-        iconOnly={true}
-        gradientBorder={true}
-      />
+      <div class="mobile-launcher">
+        <LauncherTrigger
+          launcherId="site-launcher"
+          iconOnly={true}
+          gradientBorder={true}
+        />
+      </div>
     </div>
-    <nav class="mobile-menu" aria-label="Main navigation mobile">
+    <nav
+      class="mobile-menu"
+      aria-label="Main navigation mobile"
+    >
       <NavigationItems />
     </nav>
   </div>
@@ -50,7 +57,7 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
       const currentPathname = window.location.pathname
 
       mobileDesktopMenus.forEach((menu) => {
-        const menuItems = [...menu.querySelectorAll('a:not([rel*="external"])')] as HTMLAnchorElement[]
+        const menuItems = [...menu.querySelectorAll('a[href]:not([rel*="external"])')] as HTMLAnchorElement[]
 
         menuItems.forEach((menuItem) => {
           if (currentPathname.includes(menuItem.pathname.replaceAll('/', '')) && menuItem.textContent !== 'Home') {
@@ -416,11 +423,6 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
     .darkmode-toggle {
       border: none;
       padding: 0;
-
-      @include breakpoint('nav') {
-        // Align with the menu items
-        margin-block-start: 7px;
-      }
 
       .icon {
         inline-size: 30px;
