@@ -1,5 +1,5 @@
 import { defineThemeConfig } from '@utils/defineThemeConfig'
-import previewImage from '@public/social-preview-image.png'
+import previewImage from '@assets/img/social-preview-image.png'
 import logoImage from '@assets/img/logo.svg'
 
 export default defineThemeConfig({
@@ -11,7 +11,7 @@ export default defineThemeConfig({
     description:
       'An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.',
     author: 'Incluud',
-    image: previewImage,
+    image: previewImage, // Can also be a string e.g. '/social-preview-image.png',
   },
   colors: {
     primary: '#d648ff',

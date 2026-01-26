@@ -37,7 +37,7 @@ export type ThemeConfig = {
     subtitle?: string
     description?: string
     author?: string
-    image?: ImageMetadata | null
+    image?: ImageMetadata | string | null
   }
   colors: {
     primary: string
