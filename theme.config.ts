@@ -50,6 +50,10 @@ export default defineThemeConfig({
             href: '/accessible-components',
           },
           {
+            label: 'Accessible launcher',
+            href: '/accessible-launcher',
+          },
+          {
             label: 'Color contrast checker',
             href: '/color-contrast-checker',
           },
