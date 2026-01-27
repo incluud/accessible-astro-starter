@@ -1,6 +1,5 @@
 ---
 import ResponsiveToggle from './ResponsiveToggle.astro'
-import Logo from './Logo.astro'
 
 /**
  * Navigation Component
@@ -11,7 +10,6 @@ import Logo from './Logo.astro'
 
 <div id="main-navigation" class="py-8">
   <div class="container">
-    <Logo />
     <div class="wrapper">
       <nav class="desktop-menu" aria-label="Main navigation desktop">
         <ul class="menu">
@@ -221,7 +219,7 @@ import Logo from './Logo.astro'
     > .container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
     }
 
@@ -394,34 +392,6 @@ import Logo from './Logo.astro'
         @starting-style {
           translate: 0 1rem;
           opacity: 0;
-        }
-      }
-    }
-
-    .darkmode-toggle {
-      border: none;
-      padding: 0;
-
-      @include breakpoint('nav') {
-        // Align with the menu items
-        margin-block-start: 7px;
-      }
-
-      .icon {
-        inline-size: 30px;
-        block-size: 30px;
-      }
-
-      &:where(:hover, :focus-visible) {
-        box-shadow: none;
-      }
-
-      &:focus {
-        @include outline;
-
-        &:not(:focus-visible) {
-          outline: none;
-          box-shadow: none;
         }
       }
     }

@@ -13,7 +13,6 @@ import {
   Button,
   Card,
   Checkbox,
-  DarkMode,
   Fieldset,
   Form,
   Heading,
@@ -39,7 +38,6 @@ const components = [
   { name: 'Breadcrumbs', id: 'breadcrumbs' },
   { name: 'Button', id: 'button' },
   { name: 'Card', id: 'card' },
-  { name: 'Dark mode toggle', id: 'darkmode' },
   { name: 'Form', id: 'form' },
   { name: 'Heading', id: 'heading' },
   { name: 'Link', id: 'link' },
@@ -328,15 +326,7 @@ const components = [
           sapiente obcaecati magnam incidunt sit. Molestiae exercitationem quibusdam quod veritatis laboriosam est tenetur.
         </Card>
 
-        <Heading level="h2" id="darkmode">Dark mode toggle</Heading>
-        <p>The Dark mode toggle component is used to toggle the dark mode of the page.</p>
-        <Heading level="h3">Default</Heading>
-        <DarkMode />
         <Heading level="h3">Custom icons</Heading>
-        <DarkMode>
-          <Icon aria-hidden="true" name="lucide:sunrise" slot="light" />
-          <Icon aria-hidden="true" name="lucide:sunset" slot="dark" />
-        </DarkMode>
 
         <Heading level="h2" id="form">Form</Heading>
         <p>

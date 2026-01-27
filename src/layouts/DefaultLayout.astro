@@ -8,7 +8,7 @@ import { ClientRouter } from 'astro:transitions'
 
 const {
   title = 'Accessible Astro',
-  description = 'A starter project with accessibility features using Astro static site builder. Contains accessible landmarks, skip links, a dark mode color scheme, better focus outline and keyboard menu navigation.',
+  description = 'A starter project...',
   url = Astro.site,
   image = 'social-preview-image.png',
   author = 'Incluud',
@@ -19,56 +19,83 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
-    <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
     <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
-
-    <!-- Enable Astro View Transitions for all browsers -->
     <ClientRouter />
   </head>
   <body>
+    <div id="vanta-bg-fixed"></div>
+
     <Header />
+    
     <main id="main-content" transition:animate="fade">
       <slot />
     </main>
+
     <Footer />
-    <style lang="scss" is:global>
-      @use '../assets/scss/base/mixins' as *;
 
-      // sticky footer on low content pages
-      html,
-      body {
-        height: 100%;
-      }
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 
-      body {
-        display: flex;
-        flex-direction: column;
-        overflow-x: clip;
-
-        main {
-          flex: 1 0 auto;
-        }
-
-        footer {
-          flex-shrink: 0;
-        }
-      }
-
-      pre {
-        border: 2px solid var(--link-color);
-        border-radius: 0.35rem;
-        padding: 1rem;
-      }
-
-      .card {
-        a {
-          @include text-decoration(transparent, var(--foreground-color), 4px, 2px);
+    <script is:inline>
+      function initVanta() {
+        if (window.VANTA) {
+          window.VANTA.WAVES({
+            el: "#vanta-bg-fixed",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x0f365c, 
+            shininess: 44.00,
+            waveHeight: 22.00,
+            waveSpeed: 0.55,
+            zoom: 0.71
+          })
         }
       }
-    </style>
+      initVanta();
+      // This is crucial for ClientRouter (View Transitions)
+      document.addEventListener('astro:after-swap', initVanta);
+    </script>
   </body>
-</html>
+
+
+<style lang="scss" is:global>
+  @use '../assets/scss/base/mixins' as *;
+
+  /* 4. MAKE THE BACKGROUND FIXED */
+  #vanta-bg-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; /* Keep it behind everything */
+    pointer-events: none; /* Let clicks pass through to buttons */
+  }
+
+  html, body {
+    height: 100%;
+    background-color: transparent; /* Allow waves to show through */
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    overflow-x: clip;
+    background: transparent !important;
+
+    main {
+      flex: 1 0 auto;
+      background: transparent !important;
+    }
+  }
+  
+  // Ensure sections don't have solid backgrounds
+  section {
+    background: transparent !important;
+  }
+</style>

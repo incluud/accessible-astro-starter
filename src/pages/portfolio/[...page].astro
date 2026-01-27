@@ -55,7 +55,7 @@ console.log(page.lastPage)
 >
   <PageHeader
     title="Portfolio"
-    subtitle='A showcase of projects built with Astro Content Collections, demonstrating dynamic content management and organization. Learn more about <a href="https://docs.astro.build/en/guides/content-collections/">Astro Content Collections</a> in the official documentation.'
+    subtitle='A showcase of projects I have worked on in the past...'
     bgType="bordered"
   />
   <section class="my-12">
@@ -80,7 +80,6 @@ console.log(page.lastPage)
                 url={'/portfolio/' + project.id}
                 title={project.data.title}
                 headingLevel="h2"
-                footer={'Author: ' + project.data.author}
                 fullHeight={true}
               >
                 <span slot="meta">

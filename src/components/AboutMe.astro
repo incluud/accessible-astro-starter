@@ -1,0 +1,50 @@
+---
+import { Link } from 'accessible-astro-components'
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets'
+
+/**
+ * About Me Component
+ *
+ * @description A component that displays a small description about myself
+ */
+interface Props {
+  /**
+   * The source URL for the image
+   */
+  src?: string
+}
+---
+
+<section class="AboutMe my-24">
+  <div class="container">
+    <h1 class="text-center text-6xl md:text-left lg:text-8xl">
+        <slot><span class="text-gradient">About Me</span></slot>
+    </h1>
+    <h5>
+      <span>
+          <b>Building the future, one script at a time</b>. I’m Shane, a Software Engineer dedicated to the art of automation. 
+          My goal is to bridge the gap between complex requirements and high-performance execution. I specialize in developing 
+          robust automated systems that prioritize speed without compromising on reliability. 
+          I love digging into the "how" of a system to make it run 10x faster.
+      <span>
+    </h5>
+  </div>
+</section>
+
+<style lang="scss">
+  h1 {
+    text-wrap: unset;
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      315deg,
+      light-dark(var(--color-primary-300), var(--color-secondary-100)) 25%,
+      light-dark(var(--color-secondary-300), var(--color-primary-200))
+    );
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
