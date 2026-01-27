@@ -54,7 +54,6 @@ const featuredProjects = projects.slice(0, limit).map((project, index) => ({
             url={'/portfolio/' + project.id}
             headingLevel="h2"
             title={project.data.title}
-            footer={'Author: ' + project.data.author}
           >
             {project.data.description}
           </Card>

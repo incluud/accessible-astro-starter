@@ -1,0 +1,75 @@
+---
+const { title, description, tags, url } = Astro.props;
+---
+
+<a href={url} class="project-card">
+  <div class="content">
+    <h3 class="title">{title}</h3>
+    <p class="description">{description}</p>
+    
+    <div class="tags">
+      {tags.map((tag: string) => (
+        <span class="tag-badge">{tag}</span>
+      ))}
+    </div>
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    
+    /* Glass Effect */
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .project-card:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    font-size: 0.95rem;
+    color: #a1a1aa; /* Muted text color */
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Pushes the tags down */
+  }
+
+  .tags {
+    margin-top: auto; /* Ensures tags stay at the bottom */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+</style>

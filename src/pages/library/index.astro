@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import DefaultLayout from '../../layouts/DefaultLayout.astro';
+import { Card, Badge } from 'accessible-astro-components';
+import BookCard from '../../components/BookCard.astro';
+
+// 1. Fetch all books from your collection
+const allBooks = await getCollection('books');
+---
+
+<DefaultLayout title="My Library">
+  <section class="container my-12">
+    <h1 class="text-3xl font-bold mb-8">My Library</h1>
+    
+    <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        allBooks.map((book) => (
+          <li>
+            <BookCard
+              title={book.data.title}
+              description={book.data.description}
+              featuredImage={book.data.featuredImage}
+              tags={book.data.tags}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</DefaultLayout>

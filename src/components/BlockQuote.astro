@@ -6,13 +6,9 @@ interface Props {
    * The quote content that will be displayed
    */
   children: any
-  /**
-   * The name of the person who said the quote
-   */
-  author?: string
+
 }
 
-const { author } = Astro.props
 ---
 
 <blockquote class="border-primary-500 border-l-4 pl-4">
@@ -21,7 +17,6 @@ const { author } = Astro.props
     <slot />
     <Icon aria-hidden="true" name="lucide:quote" size="2rem" />
   </div>
-  {author && <cite class="block text-sm font-medium">{author}</cite>}
 </blockquote>
 
 <style lang="scss" is:global>

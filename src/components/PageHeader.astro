@@ -31,14 +31,7 @@ interface Props {
    * @type {'primary' | 'secondary' | 'neutral' | 'gradient' | 'bordered' | undefined}
    * @default undefined - Uses the default background color
    */
-  /**
-   * The author of the page
-   */
-  author?: {
-    name: string
-    image: string
-    bio: string
-  }
+
   bgType?: 'primary' | 'secondary' | 'neutral' | 'gradient' | 'bordered'
   /**
    * Whether to show the breadcrumbs
@@ -63,7 +56,6 @@ const {
   bgType,
   showBreadcrumbs = true,
   featuredImage,
-  author,
   customBreadcrumbLabels,
   joinLastBreadcrumb = false,
 } = Astro.props
@@ -149,11 +141,6 @@ const sanitizedSubtitle: string = subtitle
       <Heading level="h1">{title}</Heading>
       {sanitizedSubtitle && <p class="text-2xl" set:html={sanitizedSubtitle} />}
       {
-        author && (
-          <div class="mt-6 flex items-center">
-            <Avatar title={author.name} image={author.image} subtitle={author.bio} />
-          </div>
-        )
       }
     </div>
   </div>

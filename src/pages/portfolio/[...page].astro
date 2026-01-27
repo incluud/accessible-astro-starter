@@ -6,17 +6,14 @@ import { getCollection } from 'astro:content'
 import type { GetStaticPaths, Page } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { slugify } from '@/utils/slugify'
-
-// Import images directly for optimization
-import projectImage1 from '@assets/images/projects/project-image-1.png'
-import projectImage2 from '@assets/images/projects/project-image-2.png'
-import projectImage3 from '@assets/images/projects/project-image-3.png'
-import projectImage4 from '@assets/images/projects/project-image-4.png'
-import projectImage5 from '@assets/images/projects/project-image-5.png'
-import projectImage6 from '@assets/images/projects/project-image-6.png'
+import ProjectCard from '../../components/ProjectCard.astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const projects = await getCollection('projects')
+  
+  // Simple alphabetical sort to avoid the 'valueOf' error for now
+  const sortedProjects = projects.sort((a, b) => a.data.title.localeCompare(b.data.title))
+
   const allTags = projects.map((project) => project.data.tags).flat()
   const uniqueTagLabels = [...new Set(allTags)].sort((a, b) => a.localeCompare(b))
   const uniqueTags = uniqueTagLabels.map((label) => ({
@@ -24,23 +21,14 @@ export const getStaticPaths = (async ({ paginate }) => {
     slug: slugify(label),
   }))
 
-  const projectImages = [projectImage1, projectImage2, projectImage3, projectImage4, projectImage5, projectImage6]
-
-  const projectsWithImages = projects.map((project, index) => {
-    return {
-      ...project,
-      featuredImage: projectImages[index % projectImages.length],
-    }
-  })
-
-  return paginate(projectsWithImages, {
+  return paginate(sortedProjects, {
     pageSize: 6,
     props: { uniqueTags },
   })
 }) satisfies GetStaticPaths
 
+
 interface Props {
-  page: Page<CollectionEntry<'projects'> & { featuredImage: any }>
   uniqueTags: { label: string; slug: string }[]
 }
 
@@ -49,65 +37,19 @@ const { page, uniqueTags } = Astro.props
 console.log(page.lastPage)
 ---
 
-<DefaultLayout
-  title="Portfolio"
-  description="A showcase of projects built with Astro Content Collections, demonstrating dynamic content management."
->
-  <PageHeader
-    title="Portfolio"
-    subtitle='A showcase of projects I have worked on in the past...'
-    bgType="bordered"
-  />
-  <section class="my-12">
-    <div class="container">
-      <Heading level="h2" size="h5" class="mb-2">Tags</Heading>
-      <div class="flex flex-wrap gap-4">
-        {
-          uniqueTags.map((tag: { label: string; slug: string }) => (
-            <Link href={'/portfolio/tag/' + tag.slug}>{tag.label}</Link>
-          ))
-        }
-      </div>
-      <p class="mt-8 text-sm">
-        <em>Project {page.start + 1} through {page.end + 1} of {page.total} total projects</em>
-      </p>
-      <ul class="mt-3 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {
-          page.data.map((project) => (
-            <li>
-              <Card
-                imageComponent={project.featuredImage}
-                url={'/portfolio/' + project.id}
-                title={project.data.title}
-                headingLevel="h2"
-                fullHeight={true}
-              >
-                <span slot="meta">
-                  {project.data.tags.map((tag) => (
-                    <Badge>{tag}</Badge>
-                  ))}
-                </span>
-                {project.data.description}
-              </Card>
-            </li>
-          ))
-        }
-      </ul>
-      {
-        page && page.lastPage > 1 && (
-          <div class="mt-12 grid place-content-center">
-            <Pagination
-              firstPage={page.url.prev ? '/portfolio' : null}
-              previousPage={page.url.prev ? page.url.prev : null}
-              nextPage={page.url.next ? page.url.next : null}
-              lastPage={page.url.next ? `/portfolio/${page.lastPage}` : null}
-              currentPage={`${page.currentPage}`}
-              totalPages={`${page.lastPage}`}
-              ariaLabel="Portfolio pagination"
-            />
-          </div>
-        )
-      }
-    </div>
-  </section>
+<DefaultLayout>
+  <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {
+      page.data.map((project) => (
+        <li>
+          <ProjectCard
+            url={'/portfolio/' + project.slug}
+            title={project.data.title}
+            description={project.data.description}
+            tags={project.data.tags}
+          />
+        </li>
+      ))
+    }
+  </ul>
 </DefaultLayout>

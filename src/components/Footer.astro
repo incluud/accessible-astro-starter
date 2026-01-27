@@ -1,6 +1,6 @@
 ---
 import CallToAction from './CallToAction.astro'
-import { Heading, Link } from 'accessible-astro-components'
+import { Heading } from 'accessible-astro-components'
 
 /**
  * Footer Component
@@ -12,14 +12,9 @@ const currentYear = new Date().getFullYear()
 
 <footer>
   <section class="py-8">
-    <div class="container flex flex-col gap-4 md:flex-row md:justify-between">
+    <div class="container">
       <p>
-        &copy; {currentYear} - Starter Theme for <Link href="https://astro.build/">Astro</Link>.
-      </p>
-      <p>
-        Made with ❤️ by <Link href="https://github.com/markteekman">Mark Teekman</Link>. Part of <Link
-          href="https://www.incluud.dev">Incluud</Link
-        >.
+        &copy; {currentYear} - Shane Lee
       </p>
     </div>
   </section>
@@ -28,5 +23,11 @@ const currentYear = new Date().getFullYear()
 <style>
   section {
     border-top: 1px solid var(--border-color-subtle);
+  }
+
+  .container {
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;
   }
 </style>
