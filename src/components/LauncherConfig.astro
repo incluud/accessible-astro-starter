@@ -104,7 +104,7 @@ const launcherNavigationItems = themeConfig.navigation.items.flatMap((item) => {
     }))
   }
 
-  if (item.type === 'link') {
+  if (!item.type || item.type === 'link') {
     return [
       {
         label: item.label,

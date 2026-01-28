@@ -11,18 +11,18 @@ import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-componen
 ---
 
 <header>
+  <SkipLink />
   <!-- Initialize preference components -->
   <HighContrast class="sr-only" />
   <ReducedMotion class="sr-only" />
 
-  <SkipLink />
   <Navigation />
   {/* To remove the launcher, delete this component and remove the LauncherTrigger from `Navigation.astro`. */}
   <LauncherConfig />
 </header>
 
 <style lang="scss" is:global>
-  @use '../assets/scss/base/breakpoint' as *;
+  @use '@assets/scss/base/breakpoint' as *;
 
   header {
     li.type-icon {

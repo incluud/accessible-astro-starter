@@ -64,14 +64,10 @@ export function enhanceConfigForWorkspace(baseConfig) {
 
   baseConfig.server ??= {}
   baseConfig.server.fs ??= {}
-  baseConfig.server.fs.allow = Array.from(
-    new Set([...(baseConfig.server.fs.allow ?? []), '..', '../..']),
-  )
+  baseConfig.server.fs.allow = Array.from(new Set([...(baseConfig.server.fs.allow ?? []), '..', '../..']))
 
   baseConfig.optimizeDeps ??= {}
-  baseConfig.optimizeDeps.exclude = Array.from(
-    new Set([...(baseConfig.optimizeDeps.exclude ?? []), ...linkedPackages]),
-  )
+  baseConfig.optimizeDeps.exclude = Array.from(new Set([...(baseConfig.optimizeDeps.exclude ?? []), ...linkedPackages]))
 
   // SSR: Tell Vite to process .astro files from symlinked packages
   baseConfig.ssr ??= {}
@@ -96,6 +92,8 @@ export function enhanceConfigForWorkspace(baseConfig) {
     name: 'reload-on-linked-packages-change',
     configureServer(server) {
       const watchPaths = []
+      // Note: These paths assume packages are in sibling directories at the same level
+      // as this repository (e.g., ../accessible-astro-components/).
       const componentsPath = resolve('../accessible-astro-components/src/components')
       const launcherPath = resolve('../accessible-astro-launcher/src')
 

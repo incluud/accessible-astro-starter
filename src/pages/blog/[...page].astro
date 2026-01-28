@@ -53,6 +53,7 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
     return truncated
   }
 
+  // Limit to the first 30 posts for demo purposes
   const postsWithImages = data.slice(0, 30).map((post) => {
     const truncatedTitle = truncateTitle(post.title)
     return {
