@@ -123,6 +123,33 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
   icon: item.icon,
   external: (item as { external?: boolean }).external ?? false,
 }))
+
+const launcherAccessibleAstroProjects = [
+  {
+    label: 'Accessible Astro Starter',
+    href: 'https://github.com/incluud/accessible-astro-starter',
+  },
+  {
+    label: 'Accessible Astro Dashboard',
+    href: 'https://github.com/incluud/accessible-astro-dashboard',
+  },
+  {
+    label: 'Accessible Astro Components',
+    href: 'https://github.com/incluud/accessible-astro-components',
+  },
+  {
+    label: 'Accessible Astro Docs',
+    href: 'https://github.com/incluud/accessible-astro-docs',
+  },
+  {
+    label: 'Accessible Astro Launcher',
+    href: 'https://github.com/incluud/accessible-astro-launcher',
+  },
+  {
+    label: 'Color Contrast Checker',
+    href: 'https://github.com/incluud/color-contrast-checker',
+  },
+]
 ---
 
 <Launcher id="site-launcher">
@@ -150,7 +177,9 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
       launcherBlogItems.length > 0 && (
         <LauncherGroup label="Blog posts">
           {launcherBlogItems.map((item) => (
-            <LauncherItem type="navigation" label={item.label} href={item.href} />
+            <LauncherItem type="navigation" label={item.label} href={item.href}>
+              <Icon slot="icon" aria-hidden="true" name="lucide:scroll-text" size="16" />
+            </LauncherItem>
           ))}
         </LauncherGroup>
       )
@@ -159,7 +188,20 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
       launcherProjectItems.length > 0 && (
         <LauncherGroup label="Projects">
           {launcherProjectItems.map((item) => (
-            <LauncherItem type="navigation" label={item.label} href={item.href} keywords={item.keywords} />
+            <LauncherItem type="navigation" label={item.label} href={item.href} keywords={item.keywords}>
+              <Icon slot="icon" aria-hidden="true" name="lucide:bookmark" size="16" />
+            </LauncherItem>
+          ))}
+        </LauncherGroup>
+      )
+    }
+    {
+      launcherAccessibleAstroProjects.length > 0 && (
+        <LauncherGroup label="Accessible Astro Projects">
+          {launcherAccessibleAstroProjects.map((item) => (
+            <LauncherItem type="navigation" label={item.label} href={item.href}>
+              <Icon slot="icon" aria-hidden="true" name="lucide:external-link" size="16" />
+            </LauncherItem>
           ))}
         </LauncherGroup>
       )
