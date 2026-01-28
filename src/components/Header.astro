@@ -13,8 +13,10 @@ import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-componen
 <header>
   <SkipLink />
   <!-- Initialize preference components -->
-  <HighContrast class="sr-only" />
-  <ReducedMotion class="sr-only" />
+  <div hidden>
+    <HighContrast />
+    <ReducedMotion />
+  </div>
 
   <Navigation />
   {/* To remove the launcher, delete this component and remove the LauncherTrigger from `Navigation.astro`. */}

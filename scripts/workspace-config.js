@@ -1,4 +1,4 @@
-import { existsSync, lstatSync } from 'fs'
+import { existsSync, lstatSync, realpathSync } from 'fs'
 import { resolve } from 'path'
 
 /**
@@ -92,16 +92,16 @@ export function enhanceConfigForWorkspace(baseConfig) {
     name: 'reload-on-linked-packages-change',
     configureServer(server) {
       const watchPaths = []
-      // Note: These paths assume packages are in sibling directories at the same level
-      // as this repository (e.g., ../accessible-astro-components/).
-      const componentsPath = resolve('../accessible-astro-components/src/components')
-      const launcherPath = resolve('../accessible-astro-launcher/src')
+      const componentsPackage = resolve('./node_modules/accessible-astro-components')
+      const launcherPackage = resolve('./node_modules/accessible-astro-launcher')
+      const componentsPath = isComponentsLinked ? resolve(realpathSync(componentsPackage), 'src/components') : null
+      const launcherPath = isLauncherLinked ? resolve(realpathSync(launcherPackage), 'src') : null
 
-      if (isComponentsLinked) {
+      if (componentsPath) {
         watchPaths.push(componentsPath)
       }
 
-      if (isLauncherLinked) {
+      if (launcherPath) {
         watchPaths.push(launcherPath)
       }
 
@@ -116,13 +116,13 @@ export function enhanceConfigForWorkspace(baseConfig) {
           return
         }
 
-        if (isComponentsLinked && file.startsWith(componentsPath) && shouldReload(file)) {
+        if (componentsPath && file.startsWith(componentsPath) && shouldReload(file)) {
           console.log('Components changed:', file, ' - reloading...')
           invalidateAndReload(server, 'accessible-astro-components')
           return
         }
 
-        if (isLauncherLinked && file.startsWith(launcherPath) && shouldReload(file)) {
+        if (launcherPath && file.startsWith(launcherPath) && shouldReload(file)) {
           console.log('Launcher changed:', file, ' - reloading...')
           invalidateAndReload(server, 'accessible-astro-launcher')
         }
