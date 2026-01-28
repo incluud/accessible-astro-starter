@@ -14,7 +14,7 @@ const viteConfig = {
     preprocessorOptions: {
       scss: {
         logger: {
-          warn: () => { },
+          warn: () => {},
         },
       },
     },
@@ -38,7 +38,7 @@ const viteConfig = {
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: loadEnv(process.env.NODE_ENV, process.cwd(), '').SITE_URL,
+  site: 'https://accessible-astro-starter.incluud.dev',
   integrations: [compress(), icon(), mdx(), sitemap()],
   vite: enhanceConfigForWorkspace(viteConfig),
   env: {
