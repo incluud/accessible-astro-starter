@@ -56,10 +56,10 @@ const launcherBlogItems = await (async () => {
 })()
 
 const launcherProjectItems = (await getCollection('projects')).map((project) => ({
-    label: project.data.title,
-    href: `/portfolio/${project.id}`,
-    keywords: [project.data.author, ...project.data.tags],
-  }))
+  label: project.data.title,
+  href: `/portfolio/${project.id}`,
+  keywords: [project.data.author, ...project.data.tags],
+}))
 
 const launcherNavigationItems = themeConfig.navigation.items.flatMap((item) => {
   if (item.excludeFromLauncher) {
@@ -106,11 +106,7 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
       <LauncherGroup label="Preferences">
         {
           launcherPreferenceItems.map((item) => (
-            <LauncherItem
-              type="action"
-              label={item.label}
-              onAction={item.onAction}
-            />
+            <LauncherItem type="action" label={item.label} onAction={item.onAction} />
           ))
         }
       </LauncherGroup>
@@ -129,54 +125,34 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
       {
         launcherBlogItems.length > 0 && (
           <LauncherGroup label="Blog posts">
-            {
-              launcherBlogItems.map((item) => (
-                <LauncherItem
-                  type="navigation"
-                  label={item.label}
-                  href={item.href}
-                />
-              ))
-            }
+            {launcherBlogItems.map((item) => (
+              <LauncherItem type="navigation" label={item.label} href={item.href} />
+            ))}
           </LauncherGroup>
         )
       }
       {
         launcherProjectItems.length > 0 && (
           <LauncherGroup label="Projects">
-            {
-              launcherProjectItems.map((item) => (
-                <LauncherItem
-                  type="navigation"
-                  label={item.label}
-                  href={item.href}
-                  keywords={item.keywords}
-                />
-              ))
-            }
+            {launcherProjectItems.map((item) => (
+              <LauncherItem type="navigation" label={item.label} href={item.href} keywords={item.keywords} />
+            ))}
           </LauncherGroup>
         )
       }
       {
         launcherSocialItems.length > 0 && (
           <LauncherGroup label="Socials">
-            {
-              launcherSocialItems.map((item) => (
-                <LauncherItem
-                  type="navigation"
-                  label={item.label}
-                  href={item.href}
-                  {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                >
-                  <Icon
-                    slot="icon"
-                    aria-hidden="true"
-                    name={item.icon}
-                    size="16"
-                  />
-                </LauncherItem>
-              ))
-            }
+            {launcherSocialItems.map((item) => (
+              <LauncherItem
+                type="navigation"
+                label={item.label}
+                href={item.href}
+                {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                <Icon slot="icon" aria-hidden="true" name={item.icon} size="16" />
+              </LauncherItem>
+            ))}
           </LauncherGroup>
         )
       }

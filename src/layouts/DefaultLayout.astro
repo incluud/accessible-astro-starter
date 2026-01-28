@@ -55,27 +55,14 @@ const imagePath = image ? (typeof image === 'string' ? image : image.src) : '/so
 const imageUrl = new URL(imagePath, Astro.site).href
 ---
 
-<html
-  lang="en"
-  dir="ltr"
->
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <meta
-      http-equiv="X-UA-Compatible"
-      content="ie=edge"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- favicon -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/favicon.svg"
-    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- theme colors from config -->
     <style
@@ -132,10 +119,7 @@ const imageUrl = new URL(imagePath, Astro.site).href
   </head>
   <body>
     <Header />
-    <main
-      id="main-content"
-      transition:animate="fade"
-    >
+    <main id="main-content" transition:animate="fade">
       <slot />
     </main>
     <Footer />

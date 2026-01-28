@@ -18,30 +18,15 @@ import { Icon } from 'astro-icon/components'
         class={`menu-item ${item.type === 'dropdown' ? 'has-dropdown' : ''} ${item.icon ? 'type-icon animate-rotate' : ''}`}
       >
         {item.type === 'dropdown' ? (
-          <button
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <button aria-haspopup="true" aria-expanded="false">
             {item.label}
-            <Icon
-              aria-hidden="true"
-              name="lucide:chevron-down"
-              size="32"
-            />
+            <Icon aria-hidden="true" name="lucide:chevron-down" size="32" />
           </button>
         ) : item.type === 'link' ? (
-          <Link
-            href={item.href}
-            isExternal={item.external ?? false}
-            hideIcon={!!item.icon}
-          >
+          <Link href={item.href} isExternal={item.external ?? false} hideIcon={!!item.icon}>
             {item.icon ? (
               <>
-                <Icon
-                  aria-hidden="true"
-                  name={item.icon}
-                  size="32"
-                />
+                <Icon aria-hidden="true" name={item.icon} size="32" />
                 <span class="sr-only">{item.label}</span>
               </>
             ) : (
@@ -54,10 +39,7 @@ import { Icon } from 'astro-icon/components'
             {item.type === 'dropdown'
               ? item.items.map((subItem) => (
                   <li class="submenu-item">
-                    <Link
-                      href={subItem.href}
-                      isExternal={subItem.external ?? false}
-                    >
+                    <Link href={subItem.href} isExternal={subItem.external ?? false}>
                       {subItem.label}
                     </Link>
                   </li>
@@ -72,16 +54,8 @@ import { Icon } from 'astro-icon/components'
     themeConfig.navigation.darkmode && (
       <li class="menu-item type-icon animate-rotate">
         <DarkMode>
-          <Icon
-            aria-hidden="true"
-            name="lucide:moon"
-            slot="light"
-          />
-          <Icon
-            aria-hidden="true"
-            name="lucide:sun"
-            slot="dark"
-          />
+          <Icon aria-hidden="true" name="lucide:moon" slot="light" />
+          <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
         </DarkMode>
       </li>
     )

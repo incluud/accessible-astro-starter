@@ -11,32 +11,19 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
  */
 ---
 
-<div
-  id="main-navigation"
-  class="py-8"
->
+<div id="main-navigation" class="py-8">
   <div class="container">
     <Logo />
     <div class="wrapper">
-      <nav
-        class="desktop-menu"
-        aria-label="Main navigation desktop"
-      >
+      <nav class="desktop-menu" aria-label="Main navigation desktop">
         <NavigationItems />
       </nav>
       <ResponsiveToggle />
       <div class="mobile-launcher">
-        <LauncherTrigger
-          launcherId="site-launcher"
-          iconOnly={true}
-          gradientBorder={true}
-        />
+        <LauncherTrigger launcherId="site-launcher" iconOnly={true} gradientBorder={true} />
       </div>
     </div>
-    <nav
-      class="mobile-menu"
-      aria-label="Main navigation mobile"
-    >
+    <nav class="mobile-menu" aria-label="Main navigation mobile">
       <NavigationItems />
     </nav>
   </div>

@@ -1,21 +1,21 @@
 ---
-name: "prepare-release"
+name: 'prepare-release'
 
 on:
   push:
     branches:
-      - "main"
+      - 'main'
   workflow_dispatch:
-    
+
 jobs:
   pre-release:
-    name: "Prepare Release"
-    runs-on: "ubuntu-latest"
+    name: 'Prepare Release'
+    runs-on: 'ubuntu-latest'
 
     steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: 'marvinpinto/action-automatic-releases@latest'
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          automatic_release_tag: 'latest'
           prerelease: true
-          title: "Next Release"
+          title: 'Next Release'
