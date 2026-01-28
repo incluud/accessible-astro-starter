@@ -4,6 +4,8 @@ import PageHeader from '@components/PageHeader.astro'
 import { Card, Pagination } from 'accessible-astro-components'
 import type { PaginateFunction, Page } from 'astro'
 import { BLOG_API_URL } from 'astro:env/server'
+import type { ImageMetadata } from 'astro'
+import { slugify } from '@utils/slugify'
 
 // Import images directly for optimization
 import postImage1 from '@assets/images/posts/post-image-1.png'
@@ -13,20 +15,35 @@ import postImage4 from '@assets/images/posts/post-image-4.png'
 import postImage5 from '@assets/images/posts/post-image-5.png'
 import postImage6 from '@assets/images/posts/post-image-6.png'
 
-interface Post {
+interface ApiPost {
   id: number
   userId: number
   title: string
   body: string
-  featuredImage: any
+}
+
+interface Post extends ApiPost {
+  featuredImage: ImageMetadata
   shortUrl: string
 }
 
 export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
   if (!BLOG_API_URL) {
+    console.warn('BLOG_API_URL not set; skipping blog generation.')
     return []
   }
-  const data = await fetch(BLOG_API_URL).then((response) => response.json())
+  let data: ApiPost[] = []
+  try {
+    const response = await fetch(BLOG_API_URL)
+    if (!response.ok) {
+      console.warn(`BLOG_API_URL returned ${response.status}`)
+      return []
+    }
+    data = (await response.json()) as ApiPost[]
+  } catch (error) {
+    console.warn('Failed to fetch blog posts', error)
+    return []
+  }
 
   const postImages = [postImage1, postImage2, postImage3, postImage4, postImage5, postImage6]
 
@@ -36,13 +53,13 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
     return truncated
   }
 
-  const postsWithImages = data.slice(0, 30).map((post: any) => {
+  const postsWithImages = data.slice(0, 30).map((post) => {
     const truncatedTitle = truncateTitle(post.title)
     return {
       ...post,
       featuredImage: postImages[post.id % postImages.length],
       title: truncatedTitle,
-      shortUrl: truncatedTitle.replaceAll(' ', '-').toLowerCase(),
+      shortUrl: slugify(truncatedTitle),
     }
   })
 

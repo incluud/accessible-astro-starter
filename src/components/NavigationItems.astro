@@ -22,7 +22,7 @@ import { Icon } from 'astro-icon/components'
             {item.label}
             <Icon aria-hidden="true" name="lucide:chevron-down" size="32" />
           </button>
-        ) : item.type === 'link' ? (
+        ) : !item.type || item.type === 'link' ? (
           <Link href={item.href} isExternal={item.external ?? false} hideIcon={!!item.icon}>
             {item.icon ? (
               <>
@@ -36,15 +36,13 @@ import { Icon } from 'astro-icon/components'
         ) : null}
         {item.type === 'dropdown' && (
           <ul class="dropdown-menu">
-            {item.type === 'dropdown'
-              ? item.items.map((subItem) => (
-                  <li class="submenu-item">
-                    <Link href={subItem.href} isExternal={subItem.external ?? false}>
-                      {subItem.label}
-                    </Link>
-                  </li>
-                ))
-              : null}
+            {item.items.map((subItem) => (
+              <li class="submenu-item">
+                <Link href={subItem.href} isExternal={subItem.external ?? false}>
+                  {subItem.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         )}
       </li>

@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
 import { BLOG_API_URL } from 'astro:env/server'
 import themeConfig from '@theme-config'
+import { slugify } from '@utils/slugify'
 
 /**
  * Launcher preferences for accessibility and theme.
@@ -51,13 +52,17 @@ const launcherBlogItems = await (async () => {
   if (!BLOG_API_URL) return []
 
   try {
-    const data = (await fetch(BLOG_API_URL).then((response) => response.json())) as Array<{
-      title: string
-    }>
+    const response = await fetch(BLOG_API_URL)
+    if (!response.ok) {
+      console.warn(`Failed to fetch blog posts: ${response.status} ${response.statusText}`)
+      return []
+    }
+
+    const data = (await response.json()) as Array<{ title: string }>
 
     return data.slice(0, maxLauncherBlogPosts).map((post) => {
       const truncatedTitle = truncateBlogTitle(post.title)
-      const shortUrl = truncatedTitle.replaceAll(' ', '-').toLowerCase()
+      const shortUrl = slugify(truncatedTitle)
 
       return {
         label: truncatedTitle,
@@ -121,7 +126,7 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
   label: item.label,
   href: item.href,
   icon: item.icon,
-  external: (item as { external?: boolean }).external ?? false,
+  external: item.external ?? false,
 }))
 
 const launcherAccessibleAstroProjects = [

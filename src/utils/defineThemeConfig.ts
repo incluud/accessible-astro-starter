@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro'
 
 export type NavigationItem =
-  | ({
+  | {
       type?: 'link'
       label: string
       href: string
@@ -9,7 +9,7 @@ export type NavigationItem =
       highlight?: boolean
       icon?: string
       excludeFromLauncher?: boolean
-    } & { type?: 'link' }) // This allows 'type' to be optional, defaulting to 'link' by intent.
+    }
   | {
       type: 'dropdown'
       label: string
@@ -26,6 +26,7 @@ export type SocialItem = {
   label: string
   href: string
   icon: string
+  external?: boolean
 }
 
 export type ThemeConfig = {

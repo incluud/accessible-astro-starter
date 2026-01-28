@@ -6,22 +6,38 @@ import BreakoutImage from '@components/BreakoutImage.astro'
 import { Heading } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import { BLOG_API_URL } from 'astro:env/server'
+import { slugify } from '@utils/slugify'
+
+interface ApiPost {
+  id: number
+  userId: number
+  title: string
+  body: string
+}
 
 interface Props {
-  post: {
-    id: number
-    userId: number
-    title: string
-    body: string
-    featuredImage: any
+  post: ApiPost & {
+    featuredImage: string
   }
 }
 
 export async function getStaticPaths() {
   if (!BLOG_API_URL) {
+    console.warn('BLOG_API_URL not set; skipping blog generation.')
     return []
   }
-  const data = await fetch(BLOG_API_URL).then((response) => response.json())
+  let data: ApiPost[] = []
+  try {
+    const response = await fetch(BLOG_API_URL)
+    if (!response.ok) {
+      console.warn(`BLOG_API_URL returned ${response.status}`)
+      return []
+    }
+    data = (await response.json()) as ApiPost[]
+  } catch (error) {
+    console.warn('Failed to fetch blog posts', error)
+    return []
+  }
 
   const postImages = [
     { src: '/posts/post-image-1.png' },
@@ -41,7 +57,7 @@ export async function getStaticPaths() {
     }
   }
 
-  return data.map((post: any) => {
+  return data.map((post) => {
     const titleObj = truncateTitle(post.title)
 
     const postWithImage = {
@@ -51,13 +67,15 @@ export async function getStaticPaths() {
     }
 
     return {
-      params: { post: titleObj.truncated.replaceAll(' ', '-').toLowerCase() },
+      params: { post: slugify(titleObj.truncated) },
       props: { post: postWithImage },
     }
   })
 }
 
 const { post } = Astro.props as Props
+const postSlug = Astro.params.post ?? slugify(post.title)
+const canonicalUrl = new URL(`/blog/${postSlug}`, Astro.site ?? Astro.url).href
 const author = {
   name: 'A11Y Person',
   image: '/posts/post-image-1.png',
@@ -65,7 +83,7 @@ const author = {
 }
 ---
 
-<DefaultLayout title={post.title} description={post.body} url={post.title}>
+<DefaultLayout title={post.title} description={post.body} url={canonicalUrl}>
   <PageHeader
     title={post.title}
     subtitle={post.body}

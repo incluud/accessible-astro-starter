@@ -1,6 +1,5 @@
 import { existsSync, lstatSync } from 'fs'
 import { resolve } from 'path'
-import { watch } from 'fs'
 
 /**
  * Workspace Configuration for Development
@@ -60,49 +59,76 @@ export function enhanceConfigForWorkspace(baseConfig) {
   console.log(`Workspace detected - enabling auto-reload for: ${linkedPackages.join(', ')}`)
 
   // Essential config for symlinked packages
+  baseConfig.resolve ??= {}
   baseConfig.resolve.preserveSymlinks = true
-  baseConfig.server = {
-    fs: {
-      allow: ['..', '../..'],
-    },
-  }
-  baseConfig.optimizeDeps = {
-    exclude: linkedPackages,
-  }
+
+  baseConfig.server ??= {}
+  baseConfig.server.fs ??= {}
+  baseConfig.server.fs.allow = Array.from(
+    new Set([...(baseConfig.server.fs.allow ?? []), '..', '../..']),
+  )
+
+  baseConfig.optimizeDeps ??= {}
+  baseConfig.optimizeDeps.exclude = Array.from(
+    new Set([...(baseConfig.optimizeDeps.exclude ?? []), ...linkedPackages]),
+  )
+
   // SSR: Tell Vite to process .astro files from symlinked packages
-  baseConfig.ssr = {
-    noExternal: linkedPackages,
-  }
+  baseConfig.ssr ??= {}
+  const existingNoExternal = baseConfig.ssr.noExternal
+  baseConfig.ssr.noExternal =
+    existingNoExternal === true
+      ? true
+      : Array.from(
+          new Set([
+            ...(Array.isArray(existingNoExternal)
+              ? existingNoExternal
+              : existingNoExternal
+                ? [existingNoExternal]
+                : []),
+            ...linkedPackages,
+          ]),
+        )
 
   // Custom watcher for linked packages - triggers reload on changes
+  baseConfig.plugins ??= []
   baseConfig.plugins.push({
     name: 'reload-on-linked-packages-change',
     configureServer(server) {
-      const watchers = []
+      const watchPaths = []
+      const componentsPath = resolve('../accessible-astro-components/src/components')
+      const launcherPath = resolve('../accessible-astro-launcher/src')
 
       if (isComponentsLinked) {
-        const componentsPath = resolve('../accessible-astro-components/src/components')
-        const watcher = watch(componentsPath, { recursive: true }, (eventType, filename) => {
-          if (filename?.endsWith('.astro') || filename?.endsWith('.css')) {
-            console.log('Components changed:', filename, ' - reloading...')
-            invalidateAndReload(server, 'accessible-astro-components')
-          }
-        })
-        watchers.push(watcher)
+        watchPaths.push(componentsPath)
       }
 
       if (isLauncherLinked) {
-        const launcherPath = resolve('../accessible-astro-launcher/src')
-        const watcher = watch(launcherPath, { recursive: true }, (eventType, filename) => {
-          if (filename?.endsWith('.astro') || filename?.endsWith('.css')) {
-            console.log('Launcher changed:', filename, ' - reloading...')
-            invalidateAndReload(server, 'accessible-astro-launcher')
-          }
-        })
-        watchers.push(watcher)
+        watchPaths.push(launcherPath)
       }
 
-      server.httpServer?.on('close', () => watchers.forEach((w) => w.close()))
+      if (watchPaths.length > 0) {
+        server.watcher.add(watchPaths)
+      }
+
+      const shouldReload = (file) => file.endsWith('.astro') || file.endsWith('.css')
+
+      server.watcher.on('all', (event, file) => {
+        if (!['add', 'change', 'unlink'].includes(event)) {
+          return
+        }
+
+        if (isComponentsLinked && file.startsWith(componentsPath) && shouldReload(file)) {
+          console.log('Components changed:', file, ' - reloading...')
+          invalidateAndReload(server, 'accessible-astro-components')
+          return
+        }
+
+        if (isLauncherLinked && file.startsWith(launcherPath) && shouldReload(file)) {
+          console.log('Launcher changed:', file, ' - reloading...')
+          invalidateAndReload(server, 'accessible-astro-launcher')
+        }
+      })
     },
   })
 

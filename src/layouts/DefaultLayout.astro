@@ -6,6 +6,7 @@ import { SEO } from 'astro-seo'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import { ClientRouter } from 'astro:transitions'
+import type { ImageMetadata } from 'astro'
 
 interface Props {
   /**
@@ -41,10 +42,10 @@ interface Props {
 
 const {
   title = themeConfig.seo.title,
-  description = themeConfig.seo?.description || '',
+  description = themeConfig.seo.description ?? '',
   url = Astro.url.href,
-  image = themeConfig.seo?.image || null,
-  author = themeConfig.seo?.author || '',
+  image = themeConfig.seo.image ?? null,
+  author = themeConfig.seo.author ?? '',
   type = 'website',
   useTitleTemplate = true,
 } = Astro.props

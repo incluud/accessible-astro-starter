@@ -15,7 +15,7 @@ $breakpoints: (
 @function get-breakpoint-value($value) {
   @if map-has-key($breakpoints, $value) {
     @return map-get($breakpoints, $value);
-  } @else if (type_of($value) == number) {
+  } @else if (type-of($value) == number) {
     @return $value;
   } @else {
     @error "Invalid breakpoint value: #{$value}";

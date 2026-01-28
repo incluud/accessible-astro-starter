@@ -5,7 +5,6 @@ import icon from 'astro-icon'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
-import { loadEnv } from 'vite'
 import { enhanceConfigForWorkspace } from './scripts/workspace-config.js'
 
 // Vite configuration with path aliases and SCSS settings
