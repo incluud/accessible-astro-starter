@@ -29,38 +29,43 @@ $breakpoints: (
 ///
 /// @example scss - Min-width (default, backwards compatible)
 ///   @include breakpoint('m') { ... }
-///   // Output: @media (width >= 768px) { ... }
+///   // Output: @media (min-width: 768px) { ... }
 ///
 /// @example scss - Max-width
 ///   @include breakpoint('m', 'max') { ... }
-///   // Output: @media (width < 768px) { ... }
+///   // Output: @media (max-width: 767.98px) { ... }
 ///
 /// @example scss - Range between two breakpoints
 ///   @include breakpoint('m', 'xl') { ... }
-///   // Output: @media (768px <= width < 1280px) { ... }
+///   // Output: @media (min-width: 768px) and (max-width: 1279.98px) { ... }
 ///
 /// @example scss - Custom numeric values
 ///   @include breakpoint(500px, 900px) { ... }
-///   // Output: @media (500px <= width < 900px) { ... }
+///   // Output: @media (min-width: 500px) and (max-width: 899.98px) { ... }
+@function get-breakpoint-max($value) {
+  $resolved: get-breakpoint-value($value);
+  @return calc(#{$resolved} - 0.02px);
+}
+
 @mixin breakpoint($from, $to: null) {
   $from-value: get-breakpoint-value($from);
 
   // Max-width query
   @if $to == 'max' {
-    @media (width < #{$from-value}) {
+    @media (max-width: #{get-breakpoint-max($from-value)}) {
       @content;
     }
   }
   // Explicit min-width query
   @else if $to == 'min' or $to == null {
-    @media (width >= #{$from-value}) {
+    @media (min-width: #{$from-value}) {
       @content;
     }
   }
   // Range query (between two breakpoints)
   @else {
     $to-value: get-breakpoint-value($to);
-    @media (#{$from-value} <= width < #{$to-value}) {
+    @media (min-width: #{$from-value}) and (max-width: #{get-breakpoint-max($to-value)}) {
       @content;
     }
   }
