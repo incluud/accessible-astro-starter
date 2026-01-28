@@ -1,97 +1,13 @@
 ---
 import Navigation from '../components/Navigation.astro'
+import LauncherConfig from './LauncherConfig.astro'
 import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-components'
-import { Launcher, LauncherList, LauncherItem, LauncherGroup } from 'accessible-astro-launcher'
-import { Icon } from 'astro-icon/components'
-import { getCollection } from 'astro:content'
-import { BLOG_API_URL } from 'astro:env/server'
-import themeConfig from '@theme-config'
 
 /**
  * Header Component
  *
  * @description A component that displays the header of the website
  */
-const launcherPreferenceItems = [
-  {
-    label: 'Dark mode',
-    onAction: 'toggle-dark-mode',
-  },
-  {
-    label: 'High contrast',
-    onAction: 'toggle-high-contrast',
-  },
-  {
-    label: 'Reduced motion',
-    onAction: 'toggle-reduced-motion',
-  },
-]
-
-const maxLauncherBlogPosts = 30
-
-const truncateBlogTitle = (title: string): string => {
-  return title.split(' ').slice(0, 4).join(' ')
-}
-
-const launcherBlogItems = await (async () => {
-  if (!BLOG_API_URL) return []
-
-  try {
-    const data = (await fetch(BLOG_API_URL).then((response) => response.json())) as Array<{
-      title: string
-    }>
-
-    return data.slice(0, maxLauncherBlogPosts).map((post) => {
-      const truncatedTitle = truncateBlogTitle(post.title)
-      const shortUrl = truncatedTitle.replaceAll(' ', '-').toLowerCase()
-
-      return {
-        label: truncatedTitle,
-        href: `/blog/${shortUrl}`,
-      }
-    })
-  } catch {
-    return []
-  }
-})()
-
-const launcherProjectItems = (await getCollection('projects')).map((project) => ({
-  label: project.data.title,
-  href: `/portfolio/${project.id}`,
-  keywords: [project.data.author, ...project.data.tags],
-}))
-
-const launcherNavigationItems = themeConfig.navigation.items.flatMap((item) => {
-  if (item.excludeFromLauncher) {
-    return []
-  }
-
-  if (item.type === 'dropdown') {
-    return item.items.map((subItem) => ({
-      label: subItem.label,
-      href: subItem.href,
-      external: subItem.external ?? false,
-    }))
-  }
-
-  if (item.type === 'link') {
-    return [
-      {
-        label: item.label,
-        href: item.href,
-        external: item.external ?? false,
-      },
-    ]
-  }
-
-  return []
-})
-
-const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
-  label: item.label,
-  href: item.href,
-  icon: item.icon,
-}))
 ---
 
 <header>
@@ -101,63 +17,8 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
 
   <SkipLink />
   <Navigation />
-  <Launcher id="site-launcher">
-    <LauncherList>
-      <LauncherGroup label="Preferences">
-        {
-          launcherPreferenceItems.map((item) => (
-            <LauncherItem type="action" label={item.label} onAction={item.onAction} />
-          ))
-        }
-      </LauncherGroup>
-      <LauncherGroup label="Navigate to">
-        {
-          launcherNavigationItems.map((item) => (
-            <LauncherItem
-              type="navigation"
-              label={item.label}
-              href={item.href}
-              {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            />
-          ))
-        }
-      </LauncherGroup>
-      {
-        launcherBlogItems.length > 0 && (
-          <LauncherGroup label="Blog posts">
-            {launcherBlogItems.map((item) => (
-              <LauncherItem type="navigation" label={item.label} href={item.href} />
-            ))}
-          </LauncherGroup>
-        )
-      }
-      {
-        launcherProjectItems.length > 0 && (
-          <LauncherGroup label="Projects">
-            {launcherProjectItems.map((item) => (
-              <LauncherItem type="navigation" label={item.label} href={item.href} keywords={item.keywords} />
-            ))}
-          </LauncherGroup>
-        )
-      }
-      {
-        launcherSocialItems.length > 0 && (
-          <LauncherGroup label="Socials">
-            {launcherSocialItems.map((item) => (
-              <LauncherItem
-                type="navigation"
-                label={item.label}
-                href={item.href}
-                {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                <Icon slot="icon" aria-hidden="true" name={item.icon} size="16" />
-              </LauncherItem>
-            ))}
-          </LauncherGroup>
-        )
-      }
-    </LauncherList>
-  </Launcher>
+  {/* To remove the launcher, delete this component and remove the LauncherTrigger from `Navigation.astro`. */}
+  <LauncherConfig />
 </header>
 
 <style lang="scss" is:global>
@@ -166,6 +27,10 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
   header {
     li.type-icon {
       display: block;
+
+      @include breakpoint('nav') {
+        translate: 0 4px;
+      }
 
       button {
         border: none;
@@ -180,7 +45,7 @@ const launcherSocialItems = (themeConfig.socials ?? []).map((item) => ({
 
     li.type-icon ~ li.type-icon {
       @include breakpoint('nav') {
-        margin-inline-start: calc(var(--space-s) * -1);
+        margin-inline-start: calc(var(--space-2xs) * -1);
       }
     }
 
