@@ -6,6 +6,7 @@
   --brand-primary: #d648ff;
   --brand-secondary: #00d1b7;
   --brand-neutral: #b9bec4;
+  --brand-outline: #ff4500;
 
   // pallet brand
   --color-primary-100: oklch(from var(--brand-primary) 90% c h);
@@ -18,6 +19,8 @@
   --color-secondary-300: oklch(from var(--brand-secondary) 70% c h);
   --color-secondary-400: oklch(from var(--brand-secondary) 60% c h);
   --color-secondary-500: oklch(from var(--brand-secondary) 50% c h);
+  --color-outline-100: oklch(from var(--brand-outline) 80% c h);
+  --color-outline-200: oklch(from var(--brand-outline) 50% c h);
 
   // pallet neutral
   --color-neutral-100: oklch(from var(--brand-neutral) 100% 0 0);
@@ -40,6 +43,7 @@
   --border-color-subtle: light-dark(var(--color-neutral-300), var(--color-neutral-800));
   --text-decoration-color: light-dark(var(--color-neutral-700), var(--color-neutral-100));
   --text-decoration-color-hover: light-dark(var(--color-neutral-100), var(--color-neutral-200));
+  --outline-color: light-dark(var(--color-outline-200), var(--color-outline-100));
 
   // theme settings
   --radius-small: 3px;

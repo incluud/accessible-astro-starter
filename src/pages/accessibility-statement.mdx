@@ -1,0 +1,100 @@
+---
+layout: '@layouts/MarkdownLayout.astro'
+title: Accessibility statement
+narrow: true
+pageHeader:
+  title: Accessibility statement
+  subtitle: Our commitment to making this website accessible for everyone.
+  bgType: bordered
+---
+
+import { Notification, Link } from 'accessible-astro-components'
+
+<Notification type="info">
+  **Template notice:** This accessibility statement follows the [W3C WAI Accessibility
+  Statement](https://www.w3.org/WAI/planning/statements/) structure. Update the placeholder content (marked with
+  **[brackets]**) to reflect your own organization's practices.
+</Notification>
+
+At **[Organization Name]**, we believe that **[website/product name]** should be accessible to everyone, regardless of ability or circumstance. We are continually improving the user experience for everyone and applying the relevant accessibility standards.
+
+## Measures to support accessibility
+
+**[Organization Name]** takes the following measures to ensure accessibility:
+
+- Include accessibility throughout our development process
+- Review accessibility in pull requests and code reviews
+- Maintain issues labeled <Link href="[link to a11y issues]">`a11y`</Link> to track accessibility work
+- Welcome and act on community accessibility feedback and audits
+
+## Conformance status
+
+The [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/) defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.
+
+**[Website/Product name]** is **partially conformant** with WCAG 2.2 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.
+
+## Feedback
+
+We welcome your feedback on the accessibility of **[website/product name]**. Please let us know if you encounter accessibility barriers:
+
+- **Email:** <Link href="mailto:[email]">[email]</Link>
+- **GitHub:** <Link href="[link to new issue]">Open an accessibility issue</Link>
+- **[Other channel]:** [Details]
+
+We try to respond to accessibility feedback within **[X]** business days.
+
+## Technical specifications
+
+Accessibility of **[website/product name]** relies on the following technologies:
+
+- HTML
+- WAI-ARIA
+- CSS
+- JavaScript
+
+These technologies are used in combination with modern browsers and assistive technologies to provide an accessible experience.
+
+### Accessibility features
+
+**[Website/Product name]** includes the following accessibility features:
+
+- **Skip link** to bypass navigation and jump to main content
+- **Logical heading hierarchy** for screen reader navigation
+- **Landmark regions** (`<header>`, `<nav>`, `<main>`, `<footer>`) for assistive technology navigation
+- **Full keyboard navigation** for all interactive elements
+- **Arrow key, Home, and End key support** for tab components
+- **Escape key** closes modals and menus with proper focus management
+- **Color contrast** meeting WCAG AA requirements
+- **Dark and light themes** with user preference support
+- **Responsive design** adapting to different viewport sizes
+- **Visible focus indicators** for keyboard navigation
+- **Reduced motion support** respecting user preferences
+- **ARIA attributes** throughout components
+- **Screen reader labels** for interactive elements
+- **Language attributes** for proper pronunciation
+- **Semantic HTML** for meaningful structure
+- **Form validation** with clear error identification and suggestions
+- **Text alternatives** for non-text content
+
+## Limitations and alternatives
+
+Despite our best efforts to ensure accessibility of **[website/product name]**, there may be some limitations. Known limitations are tracked in <Link href="[link to a11y issues]">issues labeled `a11y` on GitHub</Link>.
+
+Please [contact us](#feedback) if you encounter an issue not listed there.
+
+## Assessment approach
+
+**[Organization Name]** assesses accessibility through the following approaches:
+
+- Self-evaluation by maintainers
+- Community accessibility audits
+- Automated testing with tools like axe, WAVE, and Lighthouse
+- Manual testing with screen readers (VoiceOver, NVDA, JAWS)
+- Keyboard-only navigation testing
+
+---
+
+<p class="text-sm">
+  This statement was created on **[date]** and last updated on **[date]** using the [W3C Accessibility Statement
+  Generator Tool](https://www.w3.org/WAI/planning/statements/generator/).
+</p>

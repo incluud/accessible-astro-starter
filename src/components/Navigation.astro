@@ -1,6 +1,8 @@
 ---
 import ResponsiveToggle from './ResponsiveToggle.astro'
+import NavigationItems from './NavigationItems.astro'
 import Logo from './Logo.astro'
+import { LauncherTrigger } from 'accessible-astro-launcher'
 
 /**
  * Navigation Component
@@ -14,16 +16,15 @@ import Logo from './Logo.astro'
     <Logo />
     <div class="wrapper">
       <nav class="desktop-menu" aria-label="Main navigation desktop">
-        <ul class="menu">
-          <slot />
-        </ul>
+        <NavigationItems />
       </nav>
       <ResponsiveToggle />
+      <div class="mobile-launcher">
+        <LauncherTrigger launcherId="site-launcher" iconOnly={true} gradientBorder={true} />
+      </div>
     </div>
     <nav class="mobile-menu" aria-label="Main navigation mobile">
-      <ul class="menu">
-        <slot />
-      </ul>
+      <NavigationItems />
     </nav>
   </div>
 </div>
@@ -43,7 +44,7 @@ import Logo from './Logo.astro'
       const currentPathname = window.location.pathname
 
       mobileDesktopMenus.forEach((menu) => {
-        const menuItems = [...menu.querySelectorAll('a:not([rel*="external"])')] as HTMLAnchorElement[]
+        const menuItems = [...menu.querySelectorAll('a[href]:not([rel*="external"])')] as HTMLAnchorElement[]
 
         menuItems.forEach((menuItem) => {
           if (currentPathname.includes(menuItem.pathname.replaceAll('/', '')) && menuItem.textContent !== 'Home') {
@@ -240,6 +241,10 @@ import Logo from './Logo.astro'
       gap: var(--space-2xs);
     }
 
+    .mobile-launcher {
+      display: flex;
+    }
+
     .desktop-menu {
       display: none;
     }
@@ -251,6 +256,10 @@ import Logo from './Logo.astro'
       }
 
       .responsive-toggle {
+        display: none;
+      }
+
+      .mobile-launcher {
         display: none;
       }
 
@@ -401,11 +410,6 @@ import Logo from './Logo.astro'
     .darkmode-toggle {
       border: none;
       padding: 0;
-
-      @include breakpoint('nav') {
-        // Align with the menu items
-        margin-block-start: 7px;
-      }
 
       .icon {
         inline-size: 30px;

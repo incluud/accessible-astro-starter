@@ -5,7 +5,7 @@ import { Badge, Card, Heading, Link, Pagination } from 'accessible-astro-compone
 import { getCollection } from 'astro:content'
 import type { GetStaticPaths, Page } from 'astro'
 import type { CollectionEntry } from 'astro:content'
-import { slugify } from '@/utils/slugify'
+import { slugify } from '@utils/slugify'
 
 // Import images directly for optimization
 import projectImage1 from '@assets/images/projects/project-image-1.png'
@@ -45,8 +45,6 @@ interface Props {
 }
 
 const { page, uniqueTags } = Astro.props
-
-console.log(page.lastPage)
 ---
 
 <DefaultLayout

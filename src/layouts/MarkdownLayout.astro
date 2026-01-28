@@ -1,11 +1,22 @@
 ---
 import DefaultLayout from './DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
 
 const { frontmatter } = Astro.props
+const containerClass = frontmatter.narrow ? 'narrow container' : 'container'
+const pageHeader = frontmatter.pageHeader
 ---
 
-<DefaultLayout title={frontmatter.title}>
-  <div class="container">
+<DefaultLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image}
+  author={frontmatter.author}
+  type={frontmatter.type}
+  useTitleTemplate={frontmatter.useTitleTemplate}
+>
+  {pageHeader && <PageHeader title={pageHeader.title} subtitle={pageHeader.subtitle} bgType={pageHeader.bgType} />}
+  <div class={containerClass}>
     <div class="space-content my-12">
       <slot />
     </div>

@@ -1,18 +1,59 @@
 ---
 import '../styles/tailwind.css'
 import '../assets/scss/index.scss'
-import SiteMeta from '@components/SiteMeta.astro'
+import themeConfig from '@theme-config'
+import { SEO } from 'astro-seo'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import { ClientRouter } from 'astro:transitions'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  /**
+   * The title of the page
+   */
+  title?: string
+  /**
+   * The description of the page
+   */
+  description?: string
+  /**
+   * The URL of the page
+   */
+  url?: string
+  /**
+   * The image path for social sharing (can be ImageMetadata or string path)
+   */
+  image?: ImageMetadata | string | null
+  /**
+   * The author of the page
+   */
+  author?: string
+  /**
+   * The type of content (default: 'website')
+   */
+  type?: 'website' | 'article'
+  /**
+   * Whether to use the title template (default: true)
+   * Set to false to use the title as-is without appending site name
+   */
+  useTitleTemplate?: boolean
+}
 
 const {
-  title = 'Accessible Astro',
-  description = 'A starter project with accessibility features using Astro static site builder. Contains accessible landmarks, skip links, a dark mode color scheme, better focus outline and keyboard menu navigation.',
-  url = Astro.site,
-  image = 'social-preview-image.png',
-  author = 'Incluud',
+  title = themeConfig.seo.title,
+  description = themeConfig.seo.description ?? '',
+  url = Astro.url.href,
+  image = themeConfig.seo.image ?? null,
+  author = themeConfig.seo.author ?? '',
+  type = 'website',
+  useTitleTemplate = true,
 } = Astro.props
+
+// For social sharing, we need the full absolute URL
+// If image is an ImageMetadata object, use its src, otherwise treat as string path
+const imagePath = image ? (typeof image === 'string' ? image : image.src) : '/social-preview-image.png'
+const imageUrl = new URL(imagePath, Astro.site).href
 ---
 
 <html lang="en" dir="ltr">
@@ -24,7 +65,55 @@ const {
     <!-- favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
+    <!-- theme colors from config -->
+    <style
+      define:vars={{
+        brandPrimary: themeConfig.colors.primary,
+        brandSecondary: themeConfig.colors.secondary,
+        brandNeutral: themeConfig.colors.neutral,
+        brandOutline: themeConfig.colors.outline,
+      }}
+    >
+      :global(:root) {
+        --brand-primary: var(--brandPrimary);
+        --brand-secondary: var(--brandSecondary);
+        --brand-neutral: var(--brandNeutral);
+        --brand-outline: var(--brandOutline);
+      }
+    </style>
+
+    <SEO
+      title={title}
+      titleTemplate={useTitleTemplate ? `%s - ${themeConfig.seo.title}` : undefined}
+      titleDefault={themeConfig.seo.title}
+      description={description}
+      canonical={url}
+      openGraph={{
+        basic: {
+          title: title,
+          type: type,
+          image: imageUrl,
+          url: url,
+        },
+        optional: {
+          description: description,
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: title,
+        description: description,
+        image: imageUrl,
+      }}
+      extend={{
+        meta: [
+          {
+            name: 'author',
+            content: author,
+          },
+        ],
+      }}
+    />
 
     <!-- Enable Astro View Transitions for all browsers -->
     <ClientRouter />

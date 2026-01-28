@@ -3,6 +3,5 @@
   "semi": false,
   "singleQuote": true,
   "printWidth": 120,
-  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss", "prettier-plugin-css-order"],
-  "pluginSearchDirs": false
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-css-order", "prettier-plugin-tailwindcss"]
 }

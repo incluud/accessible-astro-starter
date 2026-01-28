@@ -17,12 +17,14 @@ import {
   Fieldset,
   Form,
   Heading,
+  HighContrast,
   Input,
   Link,
   Media,
   Modal,
   Notification,
   Pagination,
+  ReducedMotion,
   Radio,
   Tabs,
   TabsList,
@@ -42,11 +44,13 @@ const components = [
   { name: 'Dark mode toggle', id: 'darkmode' },
   { name: 'Form', id: 'form' },
   { name: 'Heading', id: 'heading' },
+  { name: 'High contrast toggle', id: 'highcontrast' },
   { name: 'Link', id: 'link' },
   { name: 'Media', id: 'media' },
   { name: 'Modal', id: 'modals' },
   { name: 'Notification', id: 'notification' },
   { name: 'Pagination', id: 'pagination' },
+  { name: 'Reduced motion toggle', id: 'reducedmotion' },
   { name: 'Skip link', id: 'skiplink' },
   { name: 'Tabs', id: 'tabs' },
   { name: 'Video', id: 'video' },
@@ -379,6 +383,16 @@ const components = [
           <Heading level="h6">Heading 6</Heading>
         </div>
 
+        <Heading level="h2" id="highcontrast">High contrast toggle</Heading>
+        <p>The High contrast toggle component is used to toggle the high contrast mode of the page.</p>
+        <Heading level="h3">Default</Heading>
+        <HighContrast />
+        <Heading level="h3">Custom icons</Heading>
+        <HighContrast>
+          <Icon aria-hidden="true" name="lucide:eye" slot="off" />
+          <Icon aria-hidden="true" name="lucide:contrast" slot="on" />
+        </HighContrast>
+
         <Heading level="h2" id="link">Link</Heading>
         <p>The Link component is used to display a link with a type and a color.</p>
         <Heading level="h3">Default</Heading>
@@ -492,6 +506,16 @@ const components = [
         <Heading level="h2" id="pagination">Pagination</Heading>
         <p>The Pagination component is used to display a pagination with a total number of pages.</p>
         <Pagination totalPages="200" />
+
+        <Heading level="h2" id="reducedmotion">Reduced motion toggle</Heading>
+        <p>The Reduced motion toggle component is used to toggle the reduced motion mode of the page.</p>
+        <Heading level="h3">Default</Heading>
+        <ReducedMotion />
+        <Heading level="h3">Custom icons</Heading>
+        <ReducedMotion>
+          <Icon aria-hidden="true" name="lucide:activity" slot="off" />
+          <Icon aria-hidden="true" name="lucide:pause" slot="on" />
+        </ReducedMotion>
 
         <Heading level="h2" id="skiplink">Skip link</Heading>
         <p>
