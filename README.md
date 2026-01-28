@@ -1,6 +1,6 @@
 # Accessible Astro Starter
 
-<img width="1200" height="627" alt="social-preview" src="https://github.com/user-attachments/assets/fa1a8b50-3aab-4bd3-8f50-1d43586fbd84" />
+<img width="1200" height="627" alt="social-preview-image" src="https://github.com/user-attachments/assets/bcd886fb-dd70-4a81-ac73-e138f3ce8d35" />
 
 [![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)
 
