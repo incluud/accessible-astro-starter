@@ -16,7 +16,7 @@ A ready-to-use, SEO and accessibility-focused Astro starter template. Built with
 
 ## (Accessibility) Features
 
-- Astro 5.13.0+
+- Astro 5.16.0+
 - Tailwind CSS 4.1+ support
 - TypeScript integration with path aliases for easier imports and content collections support
 - Prettier integration with `prettier-plugin-astro` and `prettier-plugin-tailwind`
