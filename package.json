@@ -63,7 +63,7 @@
     "@astrojs/sitemap": "^3.7.0",
     "@tailwindcss/vite": "^4.1.18",
     "accessible-astro-components": "^5.1.2",
-    "accessible-astro-launcher": "^1.0.0",
+    "accessible-astro-launcher": "github:incluud/accessible-astro-launcher#feature/v2-semantic-refactor",
     "astro-seo": "^1.1.0"
   }
 }
