@@ -86,11 +86,18 @@ if (isLinked) {
 }
 
 // https://astro.build/config
+// export default defineConfig({
+//   compressHTML: true,
+//   site: 'https://accessible-astro-starter.incluud.dev',
+//   integrations: [compress(), icon(), mdx(), sitemap()],
+//   vite: viteConfig,
+// })
+
+
 export default defineConfig({
   compressHTML: true,
   site: 'https://Shaninhooo.github.io',
   base: '/Portfolio-Website', 
-  integrations: [
-    icon(), // Ensure the icon integration is initialized
-  ],
+  integrations: [compress(), icon(), mdx(), sitemap()],
+  vite: viteConfig,
 })

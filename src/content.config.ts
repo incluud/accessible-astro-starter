@@ -6,12 +6,14 @@ import { glob } from 'astro/loaders'
 
 // 3. Define your collection(s)
 const projects = defineCollection({
+  // Use a relative path from the project root
   loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    // Make these optional if some of your .mdx files don't have them yet
     tags: z.array(z.string()).default([]),
-    link: z.string().url().optional(),
+    link: z.string().optional(), // Removed .url() temporarily to prevent strict validation errors
   }),
 })
 

@@ -10,7 +10,8 @@ const {
   title = 'Accessible Astro',
   description = 'A starter project...',
   url = Astro.site,
-  image = 'social-preview-image.png',
+  // ADD THE BASE PATH HERE
+  image = `${import.meta.env.BASE_URL}/social-preview-image.png`,
 } = Astro.props
 ---
 
