@@ -2,30 +2,23 @@
 import Navigation from '../components/Navigation.astro'
 import { Link, SkipLink } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
-
-/**
- * Header Component
- *
- * @description A component that displays the header of the website
- */
 ---
 
 <header>
   <SkipLink />
   <Navigation>
     <li class="menu-item">
-      <Link ref={`${import.meta.env.BASE_URL}/`}>Home</Link>
+      <Link href={`${import.meta.env.BASE_URL}/`}>Home</Link>
     </li>
     <li class="menu-item">
-      <Link href={`${import.meta.env.BASE_URL}/library`}">Library</Link>
+      <Link href={`${import.meta.env.BASE_URL}/library`}>Library</Link>
     </li>
     <li class="menu-item">
       <Link href={`${import.meta.env.BASE_URL}/portfolio`}>Portfolio</Link>
     </li>
-    </li>
     <li class="menu-item highlight">
       <a 
-        href=`${import.meta.env.BASE_URL}/resume.pdf`
+        href={`${import.meta.env.BASE_URL}/resume.pdf`}
         target="_blank" 
         rel="noopener noreferrer"
       >
