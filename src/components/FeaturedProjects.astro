@@ -12,12 +12,8 @@ import projectImage3 from '@assets/images/projects/project-image-3.jpg'
 const { class: className, limit = 3, title = 'Project_Archive' } = Astro.props
 
 const projects = await getCollection('projects')
+// Map the imported images to an array to reference them by index in the loop
 const projectImages = [projectImage1, projectImage2, projectImage3]
-
-const featuredProjects = projects.slice(0, limit).map((project, index) => ({
-  ...project,
-  featuredImage: projectImages[index % projectImages.length],
-}))
 ---
 
 <section class:list={[className, 'my-64 px-6 md:px-12 lg:px-20 overflow-hidden']}>
@@ -52,7 +48,7 @@ const featuredProjects = projects.slice(0, limit).map((project, index) => ({
 
     <div class="space-y-48">
       {
-        featuredProjects.map((project, index) => (
+        projects.slice(0, limit).map((project, index) => (
           <div class="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
             <div class="lg:col-span-2 font-mono pt-4">
@@ -72,9 +68,9 @@ const featuredProjects = projects.slice(0, limit).map((project, index) => ({
             </div>
 
             <div class="lg:col-span-5 relative overflow-hidden bg-gray-100 dark:bg-[#0a0a0a] rounded-sm shadow-2xl">
-              <a href={'/portfolio/' + project.id} class="block overflow-hidden">
+              <a href={`${import.meta.env.BASE_URL}/portfolio/${project.id}`} class="block overflow-hidden">
                 <Image 
-                  src={project.featuredImage} 
+                  src={projectImages[index] || projectImage1} 
                   alt={project.data.title}
                   class="w-full h-[500px] object-cover filter grayscale contrast-125 hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
                 />
@@ -92,11 +88,12 @@ const featuredProjects = projects.slice(0, limit).map((project, index) => ({
               </p>
               <div class="mt-auto">
                 <Link 
-                  href={project.data.link || '/portfolio/' + project.id} 
-                  class="inline-flex items-center gap-4 font-mono text-xs uppercase tracking-[0.3em] text-gray-900 dark:text-white border-b border-primary-500 pb-2 hover:gap-8 transition-all"
+                  href={project.data.link || `${import.meta.env.BASE_URL}/portfolio/${project.id}`} 
+                  style="color: #9ca3af !important; border-bottom: 1px solid #4b5563 !important; display: inline-flex; align-items: center; gap: 1rem; text-decoration: none;"
+                  class="analyze-link font-mono text-xs uppercase tracking-[0.3em] pb-2 transition-all"
                 >
                   Analyze_Project 
-                  <Icon name="lucide:arrow-right" class="w-4 h-4 text-primary-500" />
+                  <Icon name="lucide:arrow-right" class="w-4 h-4" style="color: #9ca3af !important;" />
                 </Link>
               </div>
             </div>
@@ -106,7 +103,7 @@ const featuredProjects = projects.slice(0, limit).map((project, index) => ({
     </div>
 
     <div class="mt-48 pt-16 border-t border-black/10 dark:border-white/10 flex justify-between items-center">
-      <Link href="/portfolio/" isButton animateOnHover animationType="nudge">
+      <Link href={`${import.meta.env.BASE_URL}/portfolio`} isButton animateOnHover animationType="nudge">
         View_Full_Directory
         <Icon aria-hidden="true" name="lucide:arrow-right" size="1.5rem" />
       </Link>
