@@ -1,125 +1,154 @@
 ---
 import { Image } from 'astro:assets';
-import { Badge } from 'accessible-astro-components';
-
-const { title, description, featuredImage, tags, author } = Astro.props;
+const { title, description, tags, url, featuredImage } = Astro.props;
 ---
 
-<div class="book-card group">
-  <div class="cover-container">
-    <Image 
-      src={featuredImage} 
-      alt={`Cover for ${title}`} 
-      width={400} 
-      height={600}
-      class="book-image"
-    />
+<a href={url} class="book-card group">
+  <div class="image-harness">
+    {featuredImage && (
+      <Image 
+        src={featuredImage} 
+        alt={title} 
+        width={600} 
+        height={800} 
+        class="actual-img"
+      />
+    )}
+    <div class="bracket top-l"></div>
+    <div class="bracket bot-r"></div>
   </div>
 
   <div class="content">
-    <h3 class="title">{title}</h3>
-    {/* Added a class so we can style the author specifically */}
-    <p class="author-text">{author}</p> 
-    <p class="description">{description}</p>
+    <div class="header-meta">
+      <span class="meta-label">Literature_Archive</span>
+      <h3 class="title">{title}</h3>
+    </div>
+    
+    <p class="description line-clamp-3">{description}</p>
+    
     <div class="tags">
       {tags.map((tag: string) => (
-        <Badge>{tag}</Badge>
+        <span class="tag-badge">{tag}</span>
       ))}
     </div>
   </div>
-</div>
+</a>
 
 <style>
   .book-card {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
-    height: 100%;
-    padding: 1rem;
-    border-radius: 1rem;
+    text-decoration: none;
+    color: inherit;
+    height: 100%; /* Important: Card fills the grid cell */
+    position: relative;
     
-    /* This sets a white background with 10% opacity */
-    background-color: rgba(255, 255, 255, 0.1); 
-    
-    /* This gives it a border so you can see the shape */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    
-    /* This blurs whatever is behind the card */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
-    transition: all 0.3s ease;
+    /* Glass Theme - Matching Projects */
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .book-card:hover {
-    /* Slightly more visible on hover */
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 
-  .cover-container {
+  /* Image Logic */
+  .image-harness {
     position: relative;
-    aspect-ratio: 2 / 3; /* The secret for book shapes */
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: var(--background-color);
+    width: 100%;
+    aspect-ratio: 3 / 4; /* Standardized for all cards */
+    overflow: hidden;
+    background-color: #0a0a0a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .book-card:hover .cover-container {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-  }
-
-  .book-image {
+  .actual-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Prevents squishing */
+    filter: grayscale(1) brightness(0.7);
+    transition: all 0.7s ease;
   }
 
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    color: white;
-    font-weight: bold;
+  .book-card:hover .actual-img {
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.05);
   }
 
-  .book-card:hover .overlay {
-    opacity: 1;
-  }
-
+  /* Content Logic - Same Padding as Projects */
   .content {
-    padding-top: 1rem;
-    flex-grow: 1;
-    display: flex;          
+    padding: 2rem; 
+    display: flex;
     flex-direction: column;
+    flex-grow: 1; /* Fills remaining space */
+  }
+
+  .meta-label {
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-    line-height: 1.2;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    color: #ffffff;
   }
 
   .description {
-    font-size: 0.875rem;
-    color: #d8d5d5;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Cuts off text after 3 lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+    margin-bottom: 2rem;
+    flex-grow: 1; /* Pushes tags to the bottom */
   }
 
+  /* Tags - Monochrome Industrial */
   .tags {
-    display: flex;
     margin-top: auto;
-    gap: 0.5rem;
+    display: flex;
     flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag-badge {
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .book-card:hover .tag-badge {
+    border-color: #ffffff;
+  }
+
+  /* Brackets */
+  .bracket {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+  }
+  .top-l { top: 1rem; left: 1rem; border-top: 1px solid; border-left: 1px solid; }
+  .bot-r { bottom: 1rem; right: 1rem; border-bottom: 1px solid; border-right: 1px solid; }
+
+  .book-card:hover .bracket {
+    border-color: #ffffff;
   }
 </style>

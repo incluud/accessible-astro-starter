@@ -1,51 +1,98 @@
 ---
-import { Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 
-/**
- * Hero Component
- *
- * @description A component that displays a hero section with a title, description, and image
- */
 interface Props {
-  /**
-   * The source URL for the image
-   */
   src?: string
 }
 
-const { src = '/astronaut-hero-img.webp' }: Props = Astro.props
+const { src = '/astronaut-hero-img.webp' } = Astro.props
 ---
 
-<section class="hero my-24">
-  <div class="container">
-    <div class="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
-      <div class="flex flex-col items-center gap-8 md:items-start">
-        <h1 class="text-center text-6xl md:text-left lg:text-8xl">
-          <slot><span class="text-gradient">Shane Lee</span> Portfolio Website</slot>
+<section class="Hero relative min-h-[60vh] flex items-center px-6 md:px-12 lg:px-20 py-32 overflow-hidden">
+  <div class="mx-auto w-full max-w-[1800px]">
+    
+    <div class="flex items-center gap-6 mb-12 group">
+      <div class="flex gap-2">
+        <div class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-white/20 rounded-full"></div>
+        <div class="w-2 h-2 bg-white/20 rounded-full"></div>
+      </div>
+      <span class="font-mono text-[10px] uppercase tracking-[0.6em] text-gray-400 dark:text-gray-500">
+        SYS_INITIALIZE // SHANE_EXE
+      </span>
+      <div class="h-[1px] flex-grow bg-black/10 dark:bg-white/20"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+      
+      <div class="lg:col-span-9">
+        <h1 class="text-7xl md:text-9xl lg:text-[13rem] font-black tracking-[-0.05em] uppercase leading-[0.75] text-gray-900 dark:text-white">
+          Shane <span class="text-primary-500">Lee</span><br />
+          <span class="text-gray-300 dark:text-white/10 italic font-light tracking-[-0.08em]">Portfolio</span>
         </h1>
-        <div class="flex flex-col gap-3 min-[500px]:flex-row">
+      </div>
+
+      <div class="lg:col-span-3 pb-4">
+        <div class="border-l-[1px] border-black/10 dark:border-white/20 pl-8 space-y-6">
+          <div class="space-y-1">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-primary-500">Role_Designation</p>
+            <p class="text-xl font-bold uppercase dark:text-white">AI Researcher <br/> & Software Engineer</p>
+          </div>
+          
+          <div class="space-y-1">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-primary-500">Core_Specialty</p>
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 leading-tight">
+              Bridging theoretical complexity with high-performance automated systems.
+            </p>
+          </div>
+
+          <div class="pt-4">
+             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 dark:border-white/20 font-mono text-[9px] uppercase tracking-widest dark:text-gray-400">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                System_Online
+             </div>
+          </div>
         </div>
       </div>
-      <Image class="hidden lg:block" src={src} alt="" decoding="async" width={800} height={600} loading="eager" />
     </div>
+
+    <div class="mt-20 h-[1px] w-full bg-black/10 dark:bg-white/20 flex justify-between items-center px-4">
+        <span class="font-mono text-[8px] text-gray-400 uppercase tracking-[0.3em] -translate-y-1/2 bg-white dark:bg-[#0a0a0a] px-4">
+          v2.026 // ADL_SA
+        </span>
+        <div class="hidden md:flex gap-12 -translate-y-1/2 bg-white dark:bg-[#0a0a0a] px-4">
+           <span class="font-mono text-[8px] text-gray-400 uppercase tracking-[0.3em]">Lat: -35.07</span>
+           <span class="font-mono text-[8px] text-gray-400 uppercase tracking-[0.3em]">Long: 138.50</span>
+        </div>
+    </div>
+
   </div>
 </section>
 
-<style lang="scss">
-  h1 {
-    text-wrap: unset;
+<style>
+  .Hero {
+    /* Using your background color if it's set in the global CSS */
+    background: transparent;
   }
 
-  .text-gradient {
-    background: linear-gradient(
-      315deg,
-      light-dark(var(--color-primary-300), var(--color-secondary-100)) 25%,
-      light-dark(var(--color-secondary-300), var(--color-primary-200))
-    );
-    background-clip: border-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  h1 {
+    text-wrap: balance;
+  }
+
+  /* Reveal animation to match the About section */
+  .Hero {
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(40px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
   }
 </style>

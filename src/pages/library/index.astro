@@ -1,31 +1,80 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import DefaultLayout from '../../layouts/DefaultLayout.astro';
-import { Card, Badge } from 'accessible-astro-components';
 import BookCard from '../../components/BookCard.astro';
 
-// 1. Fetch all books from your collection
 const allBooks = await getCollection('books');
 ---
 
-<DefaultLayout title="My Library">
-  <section class="container my-12">
-    <h1 class="text-3xl font-bold mb-8">My Library</h1>
-    
-    <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {
-        allBooks.map((book) => (
-          <li>
-            <BookCard
-              title={book.data.title}
-              description={book.data.description}
-              featuredImage={book.data.featuredImage}
-              tags={book.data.tags}
-            />
+<DefaultLayout title="Library | Archive">
+  <section class="Library my-32 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <div class="mx-auto w-full max-w-[1800px]">
+      
+      <div class="flex items-center gap-6 mb-16 group">
+        <span class="font-mono text-[10px] uppercase tracking-[0.6em] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+          04 // LITERATURE_REVIEW
+        </span>
+        <div class="h-[1px] w-full bg-black/10 dark:bg-white/20 transition-all duration-700 group-hover:bg-primary-500"></div>
+      </div>
+
+      <header class="mb-32">
+        <h1 class="text-7xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.04em] uppercase leading-[0.75] text-gray-900 dark:text-white">
+          Library <br class="hidden md:block" /> 
+          <span class="text-primary-500">Archive</span><span class="text-gray-300 dark:text-white/20">.</span>
+        </h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 mt-16">
+          <div class="lg:col-span-8">
+             <p class="text-2xl md:text-3xl leading-tight tracking-tight text-gray-600 dark:text-gray-400 max-w-4xl">
+              A curated collection of literature and technical textbooks.
+            </p>
+          </div>
+          <div class="lg:col-span-4 lg:border-l border-black/10 dark:border-white/20 lg:pl-8 pt-8 lg:pt-0">
+            <div class="font-mono text-[10px] text-primary-500 uppercase tracking-widest mb-2">Total_Records</div>
+            <div class="text-4xl font-black dark:text-white uppercase tracking-tighter italic">
+              {allBooks.length.toString().padStart(2, '0')} // ARCHIVED
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-stretch">
+        {allBooks.map((book) => (
+          <li class="list-none">
+            <BookCard {...book.data} url={`/library/${book.slug}`} />
           </li>
-        ))
-      }
-    </ul>
+        ))}
+      </ul>
+
+      <footer class="mt-48 pt-12 border-t border-black/10 dark:border-white/10 flex justify-between">
+        <span class="font-mono text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-[0.5em]">
+          [ End_Of_Index ]
+        </span>
+        <span class="font-mono text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-[0.5em] hidden md:block">
+          CAUSAL_INFERENCE_CORE
+        </span>
+      </footer>
+    </div>
   </section>
 </DefaultLayout>
+
+<style>
+  h1 {
+    text-wrap: balance;
+  }
+  
+  .Library {
+    animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes reveal {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+</style>

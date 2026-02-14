@@ -34,7 +34,7 @@
     "url": "https://github.com/incluud/accessible-astro-starter/issues"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^4.3.5",
+    "@astrojs/mdx": "^4.3.13",
     "@astrojs/partytown": "^2.1.4",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.35.0",
@@ -42,7 +42,7 @@
     "@types/sanitize-html": "^2.13.0",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
-    "astro": "^5.13.7",
+    "astro": "^5.17.2",
     "astro-compress": "^2.3.8",
     "astro-eslint-parser": "^1.2.2",
     "astro-icon": "^1.1.5",
@@ -60,7 +60,7 @@
     "tailwindcss": "^4.1.13"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.5.1",
+    "@astrojs/sitemap": "^3.7.0",
     "@tailwindcss/vite": "^4.1.13",
     "accessible-astro-components": "^5.1.1"
   }

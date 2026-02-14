@@ -1,0 +1,91 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import { getCollection } from 'astro:content'
+import ProjectCard from '../../components/ProjectCard.astro'
+
+const projects = await getCollection('projects')
+---
+
+<DefaultLayout title="Portfolio | Projects">
+  <section class="Portfolio my-32 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <div class="mx-auto w-full max-w-[1800px]">
+      
+      <div class="flex items-center gap-6 mb-16 group">
+        <span class="font-mono text-[10px] uppercase tracking-[0.6em] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+          03 // FIELD_STUDIES
+        </span>
+        <div class="h-[1px] w-full bg-black/10 dark:bg-white/20 transition-all duration-700 group-hover:bg-white"></div>
+      </div>
+
+      <header class="mb-32">
+        <h1 class="text-7xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.04em] uppercase leading-[0.75] text-gray-900 dark:text-white">
+          Selected <br class="hidden md:block" /> 
+          Works<span class="text-gray-300 dark:text-white/20">.</span>
+        </h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 mt-16">
+          <div class="lg:col-span-8">
+             <p class="text-2xl md:text-3xl leading-tight tracking-tight text-gray-600 dark:text-gray-400 max-w-4xl">
+              A curated showcase of engineering projects, architectural designs, and research-driven digital experiences.
+            </p>
+          </div>
+          <div class="lg:col-span-4 lg:border-l border-black/10 dark:border-white/20 lg:pl-8 pt-8 lg:pt-0">
+            <div class="font-mono text-[10px] text-gray-400 uppercase tracking-widest mb-2">Registry_Size</div>
+            <div class="text-4xl font-black dark:text-white uppercase tracking-tighter italic">
+              {projects.length.toString().padStart(2, '0')} // ENTRIES
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {projects.length > 0 ? (
+        <ul class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 items-start">
+          {projects.map((project) => (
+            <li class="group list-none">
+              <ProjectCard
+                url={`/portfolio/${project.slug}`}
+                title={project.data.title}
+                description={project.data.description}
+                tags={project.data.tags}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="flex h-96 items-center justify-center border border-dashed border-black/10 dark:border-white/10">
+          <p class="font-mono text-sm uppercase tracking-widest text-gray-400 italic">No_Registry_Found</p>
+        </div>
+      )}
+
+      <footer class="mt-48 pt-12 border-t border-black/10 dark:border-white/10 flex justify-between">
+        <span class="font-mono text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-[0.5em]">
+          [ End_Of_Registry ]
+        </span>
+        <span class="font-mono text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-[0.5em] hidden md:block">
+          S.LEE // ARCHIVE_V4
+        </span>
+      </footer>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style>
+  h1 {
+    text-wrap: balance;
+  }
+  
+  .Portfolio {
+    animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes reveal {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+</style>

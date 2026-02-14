@@ -1,0 +1,102 @@
+---
+import { Heading } from 'accessible-astro-components'
+
+const reels = [
+  { label: "Core_Syntax", skills: ["C++", "Python"] },
+  { label: "Theory_Domain", skills: ["Statistics", "Algorithms and Data Structures", "AI/ML", "Computer Network", "Computer Architecture", "Causal Inference"] },
+  { label: "Infra_Tools", skills: ["Git", "SQL"] }
+]
+---
+
+<section class="Skillset my-64 px-6 md:px-12 lg:px-20 overflow-hidden">
+  <div class="mx-auto w-full max-w-[1800px]"> 
+    
+    <div class="flex items-center gap-6 mb-16 group">
+      <span class="font-mono text-[10px] uppercase tracking-[0.6em] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+        02 // KNOWLEDGE_BASE
+      </span>
+      <div class="h-[1px] w-full bg-black/10 dark:bg-white/20 transition-all duration-700 group-hover:bg-primary-500"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-20">
+      <div class="lg:col-span-9">
+        <h2 class="text-7xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.04em] uppercase leading-[0.75] text-gray-900 dark:text-white">
+          Current <br class="hidden md:block" /> 
+          <span class="text-primary-500">Skillset</span><span class="text-gray-300 dark:text-white/20">.</span>
+        </h2>
+      </div>
+      
+      <div class="lg:col-span-3 pb-4">
+        <div class="border-l-[1px] border-black/10 dark:border-white/20 pl-8 space-y-4">
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 leading-relaxed max-w-prose">
+            // Core_Philosophy: I am a life learner, constantly acquiring new knowledge to identify and solve new problems.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative mx-auto max-w-[1400px]">
+      <div class="bg-gray-100 dark:bg-[#0f0f0f] rounded-[2rem] p-4 shadow-2xl border-b-8 border-black/10 dark:border-white/5">
+        <div class="bg-white dark:bg-black rounded-[1.5rem] p-6 border border-black/5 dark:border-white/10 overflow-hidden relative">
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+            {reels.map((reel, index) => (
+              <div class="relative h-80 bg-gray-50 dark:bg-[#050505] rounded-xl overflow-hidden border border-black/5 dark:border-white/5">
+                <div class="absolute top-0 w-full py-2 bg-white/80 dark:bg-black/80 backdrop-blur-md z-30 text-center border-b border-black/5 dark:border-white/10">
+                  <span class="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-primary-500">
+                    [{reel.label}]
+                  </span>
+                </div>
+                
+                <div class="js-reel flex flex-col items-center" data-index={index}>
+                  {[...reel.skills, ...reel.skills, ...reel.skills].map((skill) => (
+                    <div class="h-80 flex items-center justify-center shrink-0 w-full px-4">
+                      <span class="text-4xl lg:text-5xl font-black tracking-tighter text-center bg-clip-text text-transparent bg-gradient-to-b from-gray-900 via-gray-700 to-gray-400 dark:from-white dark:via-gray-300 dark:to-white/10">
+                        {skill}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="absolute inset-0 pointer-events-none z-20 shadow-[inner_0_0_80px_rgba(0,0,0,0.05)] dark:shadow-[inner_0_0_80px_rgba(255,255,255,0.02)]">
+              <div class="w-full h-full bg-gradient-to-b from-white dark:from-black via-transparent to-white dark:to-black opacity-60"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const reels = document.querySelectorAll('.js-reel');
+  let currentStep = 0;
+  const itemHeight = 320; 
+
+  function spinReels() {
+    currentStep++;
+    reels.forEach((reel, i) => {
+      const skillElements = reel.querySelectorAll('span');
+      const totalSkillsInThisReel = skillElements.length / 3;
+      setTimeout(() => {
+        const targetY = (currentStep + i) % totalSkillsInThisReel;
+        const totalOffset = (targetY + totalSkillsInThisReel) * itemHeight; 
+        (reel as HTMLElement).style.transform = `translateY(-${totalOffset}px)`;
+      }, i * 150); 
+    });
+  }
+  setInterval(spinReels, 4000);
+  window.addEventListener('load', spinReels);
+</script>
+
+<style>
+  .js-reel {
+    will-change: transform;
+    transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  h2 {
+    text-wrap: balance;
+  }
+</style>

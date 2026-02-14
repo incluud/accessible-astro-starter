@@ -7,6 +7,7 @@ import Counter from '@components/Counter.astro'
 import ContentMedia from '@components/ContentMedia.astro'
 import FeaturedProjects from '@components/FeaturedProjects.astro'
 import FeaturedPosts from '@components/FeaturedPosts.astro'
+import Skillset from '@components/Skillset.astro'
 import { Accordion, AccordionItem, Avatar, AvatarGroup, Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 ---
@@ -23,22 +24,14 @@ import { Icon } from 'astro-icon/components'
     <AboutMe>
   </section>
 
-
-
-  <FeaturedProjects />
-
-  
-  <section class="mt-64 mb-32">
-    <div class="container">
-      <Heading level="h2" class="mb-16">Impact in numbers</Heading>
-      <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-4">
-        <Counter count="900+" title="Stars" sub="On GitHub" />
-        <Counter count="25+" title="Accessible" sub="Components" />
-        <Counter count="400+" title="Commits" sub="Merged" />
-        <Counter count="48+" title="Months" sub="Since launch" />
-      </div>
-    </div>
+  <section class="my-64">
+    <Skillset/>
   </section>
+
+  <section class="my-64">
+    <FeaturedProjects/>
+  </section>
+
 </DefaultLayout>
 
 <style>

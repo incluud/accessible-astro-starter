@@ -1,50 +1,71 @@
 ---
-import { Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
-import { Image } from 'astro:assets'
 
-/**
- * About Me Component
- *
- * @description A component that displays a small description about myself
- */
 interface Props {
-  /**
-   * The source URL for the image
-   */
   src?: string
 }
 ---
 
-<section class="AboutMe my-24">
-  <div class="container">
-    <h1 class="text-center text-6xl md:text-left lg:text-8xl">
-        <slot><span class="text-gradient">About Me</span></slot>
-    </h1>
-    <h5>
-      <span>
-          <b>Building the future, one script at a time</b>. I’m Shane, a Software Engineer dedicated to the art of automation. 
-          My goal is to bridge the gap between complex requirements and high-performance execution. I specialize in developing 
-          robust automated systems that prioritize speed without compromising on reliability. 
-          I love digging into the "how" of a system to make it run 10x faster.
-      <span>
-    </h5>
+<section class="AboutMe my-64 px-6 md:px-12 lg:px-20 overflow-hidden">
+  <div class="mx-auto w-full max-w-[1800px]"> 
+    
+    <div class="flex items-center gap-6 mb-16 group">
+      <span class="font-mono text-[10px] uppercase tracking-[0.6em] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+        01 // ARCHIVE_DATA
+      </span>
+      <div class="h-[1px] w-full bg-black/10 dark:bg-white/20 transition-all duration-700 group-hover:bg-primary-500"></div>
+    </div>
+
+    <div class="mb-32">
+      <h2 class="text-7xl md:text-9xl lg:text-[12rem] font-black tracking-[-0.04em] uppercase leading-[0.75] text-gray-900 dark:text-white">
+        About <br class="hidden md:block" /> 
+        <span class="text-primary-500">Me</span><span class="opacity-20 dark:opacity-40">.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-32">
+      <div class="lg:col-span-8">
+        <div class="max-w-4xl">
+          <p class="text-3xl md:text-5xl leading-[1.1] tracking-tight text-gray-500 dark:text-gray-400">
+            <span class="text-gray-900 dark:text-white font-bold">Engineering intelligence</span> at the intersection of Research and Production.
+          </p>
+          
+          <div class="h-[1px] w-24 bg-primary-500 my-12"></div>
+
+          <div class="space-y-8">
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-600 dark:text-gray-300 font-medium">
+              I am a <span class="text-gray-900 dark:text-white">Computer Science (Honours) student at Adelaide University</span>. My research is focused on <span class="text-primary-500 italic font-bold">Causal Inference within Large Language Models (LLMs)</span>—investigating the transition from pattern matching to logical reasoning.
+            </p>
+
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-600 dark:text-gray-300 font-medium">
+              I operate at the dual-layer: as a <span class="text-gray-900 dark:text-white font-bold">Researcher</span>, I develop frameworks to identify causal pathways in transformer architectures; as a <span class="text-gray-900 dark:text-white font-bold">Software Engineer</span>, I architect the high-concurrency pipelines and distributed systems required to scale these experiments in production environments.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 flex flex-col justify-between pt-4">
+        <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-20 italic">
+          Driven by the <span class="text-primary-500 font-bold not-italic font-mono uppercase tracking-widest text-sm underline decoration-1 underline-offset-4">"How"</span> — identifying bottlenecks to make systems run 10x faster and 10x smarter.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 border-t border-black/10 dark:border-white/20 pt-12">
+          <div class="space-y-4">
+            <h4 class="font-mono text-[10px] uppercase tracking-[0.3em] text-primary-500">Research_Focus</h4>
+            <ul class="text-xs font-black uppercase tracking-widest space-y-2 text-gray-900 dark:text-white">
+              <li class="flex items-center gap-2"><div class="w-1 h-1 bg-primary-500"></div> Causal Inference</li>
+              <li class="flex items-center gap-2"><div class="w-1 h-1 bg-primary-500"></div> Large Language Models</li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h4 class="font-mono text-[10px] uppercase tracking-[0.3em] text-primary-500">Systems_Focus</h4>
+            <ul class="text-xs font-black uppercase tracking-widest space-y-2 text-gray-900 dark:text-white">
+              <li class="flex items-center gap-2"><div class="w-1 h-1 bg-primary-500"></div> High-Concurrency</li>
+              <li class="flex items-center gap-2"><div class="w-1 h-1 bg-primary-500"></div> Automation Infra</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
-<style lang="scss">
-  h1 {
-    text-wrap: unset;
-  }
-
-  .text-gradient {
-    background: linear-gradient(
-      315deg,
-      light-dark(var(--color-primary-300), var(--color-secondary-100)) 25%,
-      light-dark(var(--color-secondary-300), var(--color-primary-200))
-    );
-    background-clip: border-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-</style>

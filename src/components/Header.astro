@@ -23,11 +23,14 @@ import { Icon } from 'astro-icon/components'
       <Link href="/portfolio/">Portfolio</Link>
     </li>
     </li>
-    <li class="menu-item">
-      <Link href="/contact/">Contact</Link>
-    </li>
     <li class="menu-item highlight">
-      <Link href="https://accessible-astro.incluud.dev/">Resume</Link>
+      <a 
+        href=`${import.meta.env.BASE_URL}/resume.pdf`
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        Resume
+      </a>
     </li>
     <li class="menu-item type-icon animate-rotate">
       <Link href="https://github.com/Shaninhooo">

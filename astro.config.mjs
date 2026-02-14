@@ -8,6 +8,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { watch } from 'fs'
+import { defineConfig } from 'astro/config';
 
 // Check if we're using a symlinked/workspace setup
 const componentsPath = resolve('./node_modules/accessible-astro-components')
@@ -87,7 +88,6 @@ if (isLinked) {
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: 'https://accessible-astro-starter.incluud.dev',
-  integrations: [compress(), icon(), mdx(), sitemap()],
-  vite: viteConfig,
+  site: 'https://Shaninhooo.github.io',
+  base: '/Portfolio-Website', 
 })

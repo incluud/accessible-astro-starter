@@ -2,10 +2,17 @@
 const { title, description, tags, url } = Astro.props;
 ---
 
-<a href={url} class="project-card">
+<a href={url} class="project-card group">
   <div class="content">
-    <h3 class="title">{title}</h3>
-    <p class="description">{description}</p>
+    <div class="bracket top-l"></div>
+    <div class="bracket bot-r"></div>
+
+    <div class="header-meta">
+      <span class="meta-label">Project_File</span>
+      <h3 class="title">{title}</h3>
+    </div>
+    
+    <p class="description line-clamp-3">{description}</p>
     
     <div class="tags">
       {tags.map((tag: string) => (
@@ -21,55 +28,95 @@ const { title, description, tags, url } = Astro.props;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    height: 100%;
-    padding: 1.5rem;
-    border-radius: 1rem;
+    /* This ensures all cards in a row are the same height */
+    height: 100%; 
+    padding: 2rem; /* Consistent 32px padding */
+    position: relative;
     
-    /* Glass Effect */
-    background-color: rgba(255, 255, 255, 0.05);
+    /* Industrial Glass Theme */
+    background-color: rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :global(.dark) .project-card {
+    background-color: rgba(255, 255, 255, 0.02);
   }
 
   .project-card:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
   .content {
     display: flex;
     flex-direction: column;
+    height: 100%;
     flex-grow: 1;
   }
 
+  .meta-label {
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
   .title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
   }
 
   .description {
     font-size: 0.95rem;
-    color: #a1a1aa; /* Muted text color */
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-    flex-grow: 1; /* Pushes the tags down */
+    line-height: 1.6;
+    color: #a1a1aa;
+    margin-bottom: 2rem;
+    /* This is key: it pushes the tags to the bottom */
+    flex-grow: 1; 
   }
 
   .tags {
-    margin-top: auto; /* Ensures tags stay at the bottom */
+    margin-top: auto; 
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
   .tag-badge {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.2rem 0.6rem;
-    border-radius: 99px;
-    font-size: 0.75rem;
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .project-card:hover .tag-badge {
+    border-color: #ffffff;
+  }
+
+  /* Brackets */
+  .bracket {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+  }
+  .top-l { top: 1.5rem; left: 1.5rem; border-top: 1px solid; border-left: 1px solid; }
+  .bot-r { bottom: 1.5rem; right: 1.5rem; border-bottom: 1px solid; border-right: 1px solid; }
+
+  .project-card:hover .bracket {
+    border-color: #ffffff;
   }
 </style>

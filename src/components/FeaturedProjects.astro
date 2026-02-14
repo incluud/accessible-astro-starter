@@ -1,70 +1,124 @@
 ---
-import { Card, Heading, Link } from 'accessible-astro-components'
+import { Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
 
-// Import images directly for optimization
-import projectImage1 from '@assets/images/projects/project-image-1.png'
-import projectImage2 from '@assets/images/projects/project-image-2.png'
-import projectImage3 from '@assets/images/projects/project-image-3.png'
+// Import images
+import projectImage1 from '@assets/images/projects/project-image-1.jpg' 
+import projectImage2 from '@assets/images/projects/project-image-2.jpg'
+import projectImage3 from '@assets/images/projects/project-image-3.jpg'
 
-/**
- * FeaturedProjects Component
- *
- * @description A component that displays featured projects from Astro Content Collections
- */
-interface Props {
-  /**
-   * Additional classes to apply to the section
-   */
-  class?: string
-  /**
-   * The number of projects to display
-   * @default 3
-   */
-  limit?: number
-  /**
-   * The title for the section
-   * @default "Featured projects"
-   */
-  title?: string
-}
+const { class: className, limit = 3, title = 'Project_Archive' } = Astro.props
 
-const { class: className, limit = 3, title = 'Featured projects' } = Astro.props
-
-// Get projects from content collection
 const projects = await getCollection('projects')
 const projectImages = [projectImage1, projectImage2, projectImage3]
 
-// Limit projects and add featured images
 const featuredProjects = projects.slice(0, limit).map((project, index) => ({
   ...project,
   featuredImage: projectImages[index % projectImages.length],
 }))
 ---
 
-<section class:list={[className, 'my-64']}>
-  <div class="container">
-    <Heading level="h2" class="mb-6">{title}</Heading>
-    <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+<section class:list={[className, 'my-64 px-6 md:px-12 lg:px-20 overflow-hidden']}>
+  <div class="mx-auto w-full max-w-[1800px]">
+    
+    <div class="flex items-center gap-6 mb-16 group">
+      <span class="font-mono text-[10px] uppercase tracking-[0.6em] text-gray-400 dark:text-gray-500 whitespace-nowrap">
+        03 // FIELD_STUDIES
+      </span>
+      <div class="h-[1px] w-full bg-black/10 dark:bg-white/20 transition-all duration-700 group-hover:bg-primary-500"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-32">
+      <div class="lg:col-span-9">
+        <h2 class="text-7xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.04em] uppercase leading-[0.75] text-gray-900 dark:text-white">
+          Selected <br class="hidden md:block" /> 
+          <span class="text-primary-500">Projects</span><span class="text-gray-300 dark:text-white/20">.</span>
+        </h2>
+      </div>
+      
+      <div class="lg:col-span-3 pb-4">
+        <div class="border-l-[1px] border-black/10 dark:border-white/20 pl-8 space-y-4">
+          <div class="font-mono text-[10px] text-primary-500 uppercase tracking-widest">
+            Total_Records: {projects.length}
+          </div>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400 leading-relaxed">
+            Projects in automation, predictive modeling, and system architecture.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-48">
       {
-        featuredProjects.map((project) => (
-          <Card
-            imageComponent={project.featuredImage}
-            url={'/portfolio/' + project.id}
-            headingLevel="h2"
-            title={project.data.title}
-          >
-            {project.data.description}
-          </Card>
+        featuredProjects.map((project, index) => (
+          <div class="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <div class="lg:col-span-2 font-mono pt-4">
+              <span class="text-6xl font-black text-gray-200 dark:text-white/10 group-hover:text-primary-500 transition-all duration-500">
+                0{index + 1}
+              </span>
+              <div class="mt-8 space-y-3 text-[10px] uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
+                <p class="flex items-center gap-2">
+                  <span class="w-1 h-1 bg-primary-500"></span>
+                  {project.data.category || 'System_Build'}
+                </p>
+                <p class="flex items-center gap-2">
+                  <span class="w-1 h-1 bg-white/20"></span>
+                  Verified_2025
+                </p>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 relative overflow-hidden bg-gray-100 dark:bg-[#0a0a0a] rounded-sm shadow-2xl">
+              <a href={'/portfolio/' + project.id} class="block overflow-hidden">
+                <Image 
+                  src={project.featuredImage} 
+                  alt={project.data.title}
+                  class="w-full h-[500px] object-cover filter grayscale contrast-125 hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
+                />
+              </a>
+              <div class="absolute top-6 left-6 w-6 h-6 border-t border-l border-white/30"></div>
+              <div class="absolute bottom-6 right-6 w-6 h-6 border-b border-r border-white/30"></div>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col justify-center h-full pt-4">
+              <h3 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 text-gray-900 dark:text-white group-hover:text-primary-500 transition-colors">
+                {project.data.title}
+              </h3>
+              <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 leading-tight mb-12 max-w-xl">
+                {project.data.description}
+              </p>
+              <div class="mt-auto">
+                <Link 
+                  href={project.data.link || '/portfolio/' + project.id} 
+                  class="inline-flex items-center gap-4 font-mono text-xs uppercase tracking-[0.3em] text-gray-900 dark:text-white border-b border-primary-500 pb-2 hover:gap-8 transition-all"
+                >
+                  Analyze_Project 
+                  <Icon name="lucide:arrow-right" class="w-4 h-4 text-primary-500" />
+                </Link>
+              </div>
+            </div>
+          </div>
         ))
       }
     </div>
-    <div class="mt-12">
+
+    <div class="mt-48 pt-16 border-t border-black/10 dark:border-white/10 flex justify-between items-center">
       <Link href="/portfolio/" isButton animateOnHover animationType="nudge">
-        View all projects
+        View_Full_Directory
         <Icon aria-hidden="true" name="lucide:arrow-right" size="1.5rem" />
       </Link>
+      <span class="font-mono text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-widest hidden md:block">
+        [ End_Of_Featured_Records ]
+      </span>
     </div>
   </div>
 </section>
+
+<style>
+  h2, h3 {
+    text-wrap: balance;
+  }
+</style>
