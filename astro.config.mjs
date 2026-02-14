@@ -90,4 +90,7 @@ export default defineConfig({
   compressHTML: true,
   site: 'https://Shaninhooo.github.io',
   base: '/Portfolio-Website', 
+  integrations: [
+    icon(), // Ensure the icon integration is initialized
+  ],
 })

@@ -14,13 +14,13 @@ import { Icon } from 'astro-icon/components'
   <SkipLink />
   <Navigation>
     <li class="menu-item">
-      <Link href="/">Home</Link>
+      <Link ref={`${import.meta.env.BASE_URL}/`}>Home</Link>
     </li>
     <li class="menu-item">
-      <Link href="/library/">Library</Link>
+      <Link href={`${import.meta.env.BASE_URL}/library`}">Library</Link>
     </li>
     <li class="menu-item">
-      <Link href="/portfolio/">Portfolio</Link>
+      <Link href={`${import.meta.env.BASE_URL}/portfolio`}>Portfolio</Link>
     </li>
     </li>
     <li class="menu-item highlight">
