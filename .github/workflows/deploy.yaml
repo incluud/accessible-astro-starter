@@ -17,3 +17,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Install, build, and upload
         uses: withastro/action@v3 # Using v3 for the latest features
+        with:
+          package-manager: npm # Add this line (or pnpm / yarn if you use those)
