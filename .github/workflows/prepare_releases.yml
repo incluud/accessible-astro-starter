@@ -13,9 +13,41 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-      - uses: 'marvinpinto/action-automatic-releases@latest'
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          repo_token: '${{ secrets.GITHUB_TOKEN }}'
-          automatic_release_tag: 'latest'
-          prerelease: true
-          title: 'Next Release'
+          fetch-depth: 0
+
+      - name: Generate changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --unreleased --verbose
+        env:
+          OUTPUT: release_notes.md
+
+      - name: Remove previous latest tag
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            try {
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: 'tags/latest'
+              });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Next Release
+          body_path: release_notes.md
+          draft: true
+          target_commitish: ${{ github.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,43 @@
+# git-cliff configuration for Accessible Astro changelog format
+# Matches the format from the changelog-generator Skill
+# https://git-cliff.org/docs/configuration
+
+[changelog]
+# Accessible Astro format: * sha: Subject (@author)
+body = """
+{% if version %}\
+## [{{ version }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+## Next Release
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+## {{ group | striptags | trim }}
+
+{% for commit in commits %}
+* {{ commit.id | truncate(length=7, end="") }}: {% if commit.breaking %}[BREAKING] {% endif %}{{ commit.message | escape | upper_first }}{% if commit.author %} ({{ commit.author.name | escape }}){% endif %}
+
+{% endfor %}
+{% endfor %}
+"""
+trim = true
+render_always = true
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+# Match "latest" tag used for rolling prereleases
+tag_pattern = ".*"
+commit_parsers = [
+  { body = ".*BREAKING CHANGE.*", group = "Breaking Changes" },
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug Fixes" },
+  { message = "^a11y", group = "Accessibility" },
+  { message = "^doc", group = "Documentation" },
+  { message = "^perf", group = "Performance" },
+  { message = "^refactor", group = "Refactoring" },
+  { message = "^revert", group = "Reverts" },
+  { message = "^chore|^ci|^style|^test", group = "Chores" },
+  { message = ".*", group = "Chores" },
+]
+protect_breaking_commits = true
+sort_commits = "oldest"
