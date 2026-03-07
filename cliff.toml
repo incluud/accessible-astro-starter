@@ -21,7 +21,6 @@ body = """
 """
 trim = true
 render_always = true
-output = "release_notes.md"
 
 [git]
 conventional_commits = true
@@ -36,7 +35,7 @@ commit_parsers = [
   { message = "^doc", group = "Documentation" },
   { message = "^perf", group = "Performance" },
   { message = "^refactor", group = "Refactoring" },
-  { message = "^revert", group = "Bug Fixes" },
+  { message = "^revert", group = "Reverts" },
   { message = "^chore|^ci|^style|^test", group = "Chores" },
   { message = ".*", group = "Chores" },
 ]
