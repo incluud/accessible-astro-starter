@@ -1,6 +1,13 @@
 ---
 name: 'prepare-release'
 
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -8,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pre-release:
+  prepare-release:
     name: 'Prepare Release'
     runs-on: 'ubuntu-latest'
 
@@ -49,5 +56,3 @@ jobs:
           body_path: release_notes.md
           draft: true
           target_commitish: ${{ github.sha }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
