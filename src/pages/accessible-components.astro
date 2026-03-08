@@ -31,6 +31,7 @@ import {
   TabsTab,
   TabsPanel,
   Textarea,
+  Tooltip,
   Video,
 } from 'accessible-astro-components'
 
@@ -53,6 +54,7 @@ const components = [
   { name: 'Reduced motion toggle', id: 'reducedmotion' },
   { name: 'Skip link', id: 'skiplink' },
   { name: 'Tabs', id: 'tabs' },
+  { name: 'Tooltip', id: 'tooltip' },
   { name: 'Video', id: 'video' },
 ]
 ---
@@ -577,6 +579,44 @@ const components = [
             <a href="#">Tab to me!</a>
           </TabsPanel>
         </Tabs>
+
+        <Heading level="h2" id="tooltip">Tooltip</Heading>
+        <p>
+          The Tooltip component provides contextual helper text with Popover API and CSS Anchor Positioning while
+          keeping interactions keyboard accessible.
+        </p>
+        <Heading level="h3">Default</Heading>
+        <Tooltip id="starter-tooltip-default" triggerLabel="More information about API key">
+          <span>API key help</span>
+          <span slot="tooltip">Find your API key in account settings under Developer Access.</span>
+        </Tooltip>
+
+        <Heading level="h3">Positions</Heading>
+        <div class="align-center flex flex-wrap gap-3">
+          <Tooltip id="starter-tooltip-top" position="top" triggerLabel="Top tooltip example">
+            <span>Top</span>
+            <span slot="tooltip">Tooltip on top (default).</span>
+          </Tooltip>
+          <Tooltip id="starter-tooltip-right" position="right" triggerLabel="Right tooltip example">
+            <span>Right</span>
+            <span slot="tooltip">Tooltip prefers the right side.</span>
+          </Tooltip>
+          <Tooltip id="starter-tooltip-left" position="left" triggerLabel="Left tooltip example">
+            <span>Left</span>
+            <span slot="tooltip">Tooltip prefers the left side.</span>
+          </Tooltip>
+          <Tooltip id="starter-tooltip-bottom" position="bottom" triggerLabel="Bottom tooltip example">
+            <span>Bottom</span>
+            <span slot="tooltip">Tooltip prefers the bottom side.</span>
+          </Tooltip>
+        </div>
+
+        <Heading level="h3">Custom icons</Heading>
+        <Tooltip id="starter-tooltip-custom-icon" triggerLabel="Custom icon tooltip example" showIcon={false}>
+          With custom icon
+          <Icon aria-hidden="true" name="lucide:info" />
+          <span slot="tooltip">Tooltip with custom icon.</span>
+        </Tooltip>
 
         <Heading level="h2" id="video">Video</Heading>
         <p>The Video component is used to display a video with a title and a source.</p>
