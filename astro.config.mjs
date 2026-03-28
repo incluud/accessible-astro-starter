@@ -12,6 +12,7 @@ const viteConfig = {
   css: {
     preprocessorOptions: {
       scss: {
+        loadPaths: [fileURLToPath(new URL('./src/assets', import.meta.url))],
         logger: {
           warn: () => {},
         },
