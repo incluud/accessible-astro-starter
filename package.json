@@ -65,5 +65,8 @@
     "accessible-astro-components": "^5.2.0",
     "accessible-astro-launcher": "^2.0.0",
     "astro-seo": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
