@@ -14,6 +14,7 @@ import {
   Card,
   Checkbox,
   DarkMode,
+  Drawer,
   Fieldset,
   Form,
   Heading,
@@ -33,6 +34,7 @@ import {
   Textarea,
   ToastProvider,
   Tooltip,
+  Switch,
   Video,
 } from 'accessible-astro-components'
 
@@ -44,6 +46,7 @@ const components = [
   { name: 'Button', id: 'button' },
   { name: 'Card', id: 'card' },
   { name: 'Dark mode toggle', id: 'darkmode' },
+  { name: 'Drawer', id: 'drawer' },
   { name: 'Form', id: 'form' },
   { name: 'Heading', id: 'heading' },
   { name: 'High contrast toggle', id: 'highcontrast' },
@@ -54,6 +57,7 @@ const components = [
   { name: 'Pagination', id: 'pagination' },
   { name: 'Reduced motion toggle', id: 'reducedmotion' },
   { name: 'Skip link', id: 'skiplink' },
+  { name: 'Switch', id: 'switch' },
   { name: 'Tabs', id: 'tabs' },
   { name: 'Toast', id: 'toast' },
   { name: 'Tooltip', id: 'tooltip' },
@@ -82,8 +86,8 @@ const components = [
           <AccordionItem title="First Item">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi nobis optio? Qui in quo
-              accusantium debitis <a href="#accordion">sapiente obcaecati</a> magnam incidunt sit. Molestiae
-              exercitationem quibusdam quod veritatis laboriosam est tenetur.
+              accusantium debitis <a href="#accordion">sapiente obcaecati</a> magnam incidunt sit. Molestiae exercitationem
+              quibusdam quod veritatis laboriosam est tenetur.
             </p>
             <a href="#accordion">Tab to me!</a>
           </AccordionItem>
@@ -122,8 +126,8 @@ const components = [
           <AccordionItem name="exclusive" title="First Item" variant="chevron">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi nobis optio? Qui in quo
-              accusantium debitis <a href="#accordion">sapiente obcaecati</a> magnam incidunt sit. Molestiae
-              exercitationem quibusdam quod veritatis laboriosam est tenetur.
+              accusantium debitis <a href="#accordion">sapiente obcaecati</a> magnam incidunt sit. Molestiae exercitationem
+              quibusdam quod veritatis laboriosam est tenetur.
             </p>
             <a href="#accordion">Tab to me!</a>
           </AccordionItem>
@@ -346,6 +350,44 @@ const components = [
           <Icon aria-hidden="true" name="lucide:sunset" slot="dark" />
         </DarkMode>
 
+        <Heading level="h2" id="drawer">Drawer</Heading>
+        <p>
+          The Drawer component displays supplementary content in a modal panel. It traps focus while open and can enter
+          from any edge of the viewport.
+        </p>
+        <Heading level="h3">Default with footer</Heading>
+        <Button id="drawer-default-trigger" aria-haspopup="dialog">Open project drawer</Button>
+        <Drawer triggerId="drawer-default-trigger" title="Project details" showFooter>
+          <p>
+            Use a drawer for supporting information or short tasks that should remain connected to the current page.
+          </p>
+          <ul>
+            <li>Status: In progress</li>
+            <li>Owner: Astro team</li>
+            <li>Due date: 30 September</li>
+          </ul>
+          <Fragment slot="footer">
+            <Button variant="outlined" onclick="closeDrawer()" class:list={'flex-1'}>Cancel</Button>
+            <Button type="primary" onclick="closeDrawer()" class:list={'flex-1'}>Save changes</Button>
+          </Fragment>
+        </Drawer>
+
+        <Heading level="h3">Positions</Heading>
+        <div class="flex flex-wrap gap-2">
+          <Button id="drawer-left-trigger" variant="outlined" aria-haspopup="dialog">Open left</Button>
+          <Button id="drawer-top-trigger" variant="outlined" aria-haspopup="dialog">Open top</Button>
+          <Button id="drawer-bottom-trigger" variant="outlined" aria-haspopup="dialog">Open bottom</Button>
+        </div>
+        <Drawer triggerId="drawer-left-trigger" title="Left drawer" position="left">
+          <p>This drawer enters from the inline-start edge of the viewport.</p>
+        </Drawer>
+        <Drawer triggerId="drawer-top-trigger" title="Top drawer" position="top">
+          <p>This drawer enters from the top edge of the viewport.</p>
+        </Drawer>
+        <Drawer triggerId="drawer-bottom-trigger" title="Bottom drawer" position="bottom">
+          <p>This drawer enters from the bottom edge of the viewport.</p>
+        </Drawer>
+
         <Heading level="h2" id="form">Form</Heading>
         <p>
           The Form component is used to display a form with a name, email, message, and a submit button. It has WCAG 2.2
@@ -526,6 +568,18 @@ const components = [
           The SkipLink component becomes visible when you shift+tab to navigate backward through the page, it's the
           first focusable element on the page.
         </p>
+
+        <Heading level="h2" id="switch">Switch</Heading>
+        <p>
+          The Switch component represents an immediate on/off setting. It uses a native checkbox with
+          <code>role="switch"</code>, so it works with forms and can be toggled with the Space key without JavaScript.
+        </p>
+        <Heading level="h3">States</Heading>
+        <div class="flex flex-col gap-4">
+          <Switch id="showcase-notifications" name="notifications" label="Enable notifications" />
+          <Switch id="showcase-weekly-summary" name="weekly-summary" label="Send a weekly summary" checked />
+          <Switch id="showcase-automatic-updates" name="automatic-updates" label="Automatic updates" disabled />
+        </div>
 
         <Heading level="h2" id="tabs">Tabs</Heading>
         <p>The Tabs component is used to display a tabs with a list of tabs and a list of panels.</p>
