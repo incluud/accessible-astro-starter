@@ -77,7 +77,8 @@
     "vite": "^7"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.12.0",
+    "npm": ">=11.18.0"
   },
   "allowScripts": {
     "esbuild@0.27.7": true,
