@@ -69,7 +69,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.4",
-    "accessible-astro-components": "^5.4.0",
+    "accessible-astro-components": "^5.6.1",
     "accessible-astro-launcher": "^2.0.0",
     "astro-seo": "^1.1.0"
   },
@@ -77,6 +77,13 @@
     "vite": "^7"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.12.0",
+    "npm": ">=11.18.0"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "fsevents@2.3.3": true,
+    "@parcel/watcher@2.5.6": true,
+    "sharp@0.34.5": true
   }
 }

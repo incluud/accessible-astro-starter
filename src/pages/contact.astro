@@ -1,7 +1,18 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
-import { Form, Input, Button, Textarea, Checkbox, Fieldset, Heading, Link, Radio } from 'accessible-astro-components'
+import {
+  Form,
+  Input,
+  Button,
+  Textarea,
+  Checkbox,
+  Fieldset,
+  Heading,
+  Link,
+  Radio,
+  Switch,
+} from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 ---
 
@@ -50,6 +61,12 @@ import { Icon } from 'astro-icon/components'
             <Radio name="experience" value="beginner" label="Beginner" />
             <Radio name="experience" value="intermediate" label="Intermediate" />
             <Radio name="experience" value="advanced" label="Advanced" />
+          </Fieldset>
+
+          <!-- Switches (shared names) -->
+          <Fieldset name="switches" legend="Your preferences" required>
+            <Switch name="newsletter" label="Subscribe to newsletter" />
+            <Switch name="updates" label="Receive updates" />
           </Fieldset>
 
           <Button htmlType="submit" type="primary">Send Message</Button>
