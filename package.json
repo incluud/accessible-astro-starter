@@ -41,7 +41,7 @@
     "url": "https://github.com/incluud/accessible-astro-starter/issues"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/mdx": "^7.0.5",
     "@astrojs/partytown": "^2.1.7",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.2",
@@ -49,8 +49,8 @@
     "@types/sanitize-html": "^2.16.1",
     "@typescript-eslint/eslint-plugin": "^8.59.1",
     "@typescript-eslint/parser": "^8.59.1",
-    "astro": "^6.3.7",
-    "astro-compress": "^2.4.1",
+    "astro": "^7.2.2",
+    "astro-compress": "^2.4.3",
     "astro-eslint-parser": "^1.4.0",
     "astro-icon": "^1.1.5",
     "eslint": "^9.39.2",
@@ -67,23 +67,19 @@
     "tailwindcss": "^4.2.4"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.2.4",
-    "accessible-astro-components": "^5.6.1",
+    "accessible-astro-components": "^5.7.0",
     "accessible-astro-launcher": "^2.0.0",
     "astro-seo": "^1.1.0"
   },
-  "overrides": {
-    "vite": "^7"
-  },
   "engines": {
-    "node": ">=22.12.0",
-    "npm": ">=11.18.0"
+    "node": ">=24.19.0",
+    "npm": ">=11.17.0"
   },
   "allowScripts": {
-    "esbuild@0.27.7": true,
+    "esbuild@0.28.2": true,
     "fsevents@2.3.3": true,
-    "@parcel/watcher@2.5.6": true,
-    "sharp@0.34.5": true
+    "@parcel/watcher@2.6.0": true
   }
 }

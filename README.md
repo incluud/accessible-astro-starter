@@ -85,8 +85,8 @@ The CLI walks you through:
 - preset selection (`full`, `blog`, `portfolio`, `minimal`, `barebones`)
 - whether to keep the Accessible Astro launcher
 
-Generated projects always strip contributor-only workspace tooling such as `scripts/workspace-config.js` and simplify
-`astro.config.mjs` accordingly.
+Generated projects always strip contributor-only tooling (workspaces, CI config, changelog config) and generate a
+simplified `astro.config.mjs` tailored to the chosen preset.
 
 ## Accessible Astro ecosystem
 
