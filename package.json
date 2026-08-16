@@ -69,7 +69,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.2.4",
-    "accessible-astro-components": "^5.7.0",
+    "accessible-astro-components": "^5.7.1",
     "accessible-astro-launcher": "^2.0.0",
     "astro-seo": "^1.1.0"
   },
