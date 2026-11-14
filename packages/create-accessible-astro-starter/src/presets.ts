@@ -3,13 +3,11 @@ import type { ProjectManifest, ResolvedOptions } from './types.js'
 const ALWAYS_DELETE = [
   '.astro',
   '.github',
-  '.cursor',
   'AGENTS.md',
   'cliff.toml',
   'dist',
   'package-lock.json',
   'packages',
-  'scripts/workspace-config.js',
   'public/accessible-components.webp',
   'public/wcag-compliant.webp',
   'src/components/ContentMedia.astro',

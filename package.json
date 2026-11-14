@@ -42,7 +42,6 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.5",
-    "@astrojs/partytown": "^2.1.7",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.2",
     "@iconify-json/lucide": "^1.2.105",
@@ -63,7 +62,6 @@
     "prettier-plugin-tailwindcss": "^0.8.0",
     "sanitize-html": "^2.17.3",
     "sass": "^1.99.0",
-    "svgo": "^4.0.1",
     "tailwindcss": "^4.2.4"
   },
   "dependencies": {

@@ -280,12 +280,10 @@ for (const preset of PRESETS) {
       assert.equal(Boolean(packageJson.devDependencies?.['@astrojs/mdx']), manifest.keepMdx)
 
       const astroConfig = await readFile(resolve(targetDir, 'astro.config.mjs'), 'utf8')
-      assert.ok(!astroConfig.includes('workspace-config'))
       assert.ok(astroConfig.includes('vite: viteConfig'))
       assert.equal(astroConfig.includes("@astrojs/mdx"), manifest.keepMdx)
       assert.equal(astroConfig.includes('BLOG_API_URL'), manifest.keepBlogEnv)
 
-      await expectMissing(targetDir, 'scripts/workspace-config.js')
       await expectMissing(targetDir, 'package-lock.json')
       await expectExists(targetDir, 'src/assets/img/logo.svg')
 
