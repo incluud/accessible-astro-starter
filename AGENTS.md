@@ -230,9 +230,11 @@ The project uses Astro Content Collections for structured content:
 
 The blog intentionally demonstrates remote data, next to the collection-based portfolio:
 
-- Posts are fetched at build time from `BLOG_API_URL` (defaults to JSONPlaceholder, see `astro.config.mjs`)
+- Posts are fetched at build time from `BLOG_API_URL` (defaults to JSONPlaceholder, see `astro.config.mjs`) by the blog routes, `FeaturedPosts.astro` and `LauncherConfig.astro`
 - `src/pages/blog/[...page].astro` handles pagination, `src/pages/blog/[post].astro` the post pages
-- Post images are assigned from `src/assets/images/posts/`
+- Post images currently live in two places, and changing one does not change the other:
+  - `src/assets/images/posts/` is imported by the blog listing and `FeaturedPosts.astro`
+  - `public/posts/` is referenced by URL (`/posts/...`) on individual post pages
 
 ### Adding Projects
 
