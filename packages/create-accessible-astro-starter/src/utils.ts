@@ -106,7 +106,8 @@ export async function copyLocalTemplate(sourceDir: string, targetDir: string): P
       const sourcePath = resolve(sourceDir, relativePath)
       if (await pathExists(sourcePath)) {
         await mkdir(dirname(resolve(targetDir, relativePath)), { recursive: true })
-        await cp(sourcePath, resolve(targetDir, relativePath))
+        // recursive: submodules are listed as a single directory entry
+        await cp(sourcePath, resolve(targetDir, relativePath), { recursive: true })
       }
     }
     return
