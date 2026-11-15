@@ -91,6 +91,17 @@ async function scanPage(context, url, colorScheme) {
       }
     }
 
+    // Let finite transitions settle first: dark mode is applied after first render and links animate
+    // their color, so axe could otherwise measure contrast mid-transition (flaky results).
+    await page.evaluate(() =>
+      Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
+          .map((animation) => animation.finished.catch(() => {})),
+      ),
+    )
+
     const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).exclude(EXCLUDE).analyze()
     return results.violations
   } finally {
