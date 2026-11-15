@@ -2,7 +2,7 @@
 // Usage: node packages/qa/scripts/a11y-scan.mjs [distDir]
 import { createServer } from 'node:http'
 import { readdir, readFile, stat } from 'node:fs/promises'
-import { extname, join, relative, resolve, sep } from 'node:path'
+import { extname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { chromium } from 'playwright'
 import { AxeBuilder } from '@axe-core/playwright'
 
@@ -50,7 +50,9 @@ function toUrlPath(htmlFile) {
 
 async function resolveFile(urlPath) {
   const filePath = join(distDir, decodeURIComponent(urlPath))
-  if (!filePath.startsWith(distDir)) return null
+  // Only serve files inside distDir. A prefix check would also accept siblings like dist-backup/.
+  const relativePath = relative(distDir, filePath)
+  if (relativePath === '..' || relativePath.startsWith(`..${sep}`) || isAbsolute(relativePath)) return null
 
   for (const candidate of [filePath, join(filePath, 'index.html'), `${filePath}.html`]) {
     try {
@@ -73,7 +75,7 @@ function startServer() {
     response.end(file ? await readFile(file) : '')
   })
 
-  return new Promise((resolveServer) => server.listen(0, () => resolveServer(server)))
+  return new Promise((resolveServer) => server.listen(0, '127.0.0.1', () => resolveServer(server)))
 }
 
 async function scanPage(context, url, colorScheme) {
@@ -96,34 +98,46 @@ async function scanPage(context, url, colorScheme) {
   }
 }
 
+async function launchBrowser() {
+  try {
+    return await chromium.launch()
+  } catch (error) {
+    throw new Error('Could not start Chromium. Install it with: npx playwright install chromium', { cause: error })
+  }
+}
+
 async function main() {
   const htmlFiles = await listHtmlFiles(distDir)
   if (htmlFiles.length === 0) throw new Error(`No HTML files found in ${distDir}`)
 
   const server = await startServer()
-  const baseUrl = `http://localhost:${server.address().port}`
-  const browser = await chromium.launch()
+  const baseUrl = `http://127.0.0.1:${server.address().port}`
   const failures = []
 
+  // The server must close on every path, including a failed browser launch, or the process never exits.
   try {
-    for (const colorScheme of COLOR_SCHEMES) {
-      const context = await browser.newContext({ colorScheme, reducedMotion: 'reduce', userAgent: USER_AGENT })
-      const queue = htmlFiles.map(toUrlPath)
+    const browser = await launchBrowser()
+    try {
+      for (const colorScheme of COLOR_SCHEMES) {
+        const context = await browser.newContext({ colorScheme, reducedMotion: 'reduce', userAgent: USER_AGENT })
+        const queue = htmlFiles.map(toUrlPath)
 
-      await Promise.all(
-        Array.from({ length: CONCURRENCY }, async () => {
-          while (queue.length > 0) {
-            const path = queue.shift()
-            const violations = await scanPage(context, baseUrl + path, colorScheme)
-            for (const violation of violations) failures.push({ path, colorScheme, violation })
-          }
-        }),
-      )
+        await Promise.all(
+          Array.from({ length: CONCURRENCY }, async () => {
+            while (queue.length > 0) {
+              const path = queue.shift()
+              const violations = await scanPage(context, baseUrl + path, colorScheme)
+              for (const violation of violations) failures.push({ path, colorScheme, violation })
+            }
+          }),
+        )
 
-      await context.close()
+        await context.close()
+      }
+    } finally {
+      await browser.close()
     }
   } finally {
-    await browser.close()
     server.close()
   }
 

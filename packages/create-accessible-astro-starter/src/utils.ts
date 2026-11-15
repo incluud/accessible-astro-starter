@@ -98,7 +98,9 @@ function listGitFiles(sourceDir: string): string[] | null {
 export async function copyLocalTemplate(sourceDir: string, targetDir: string): Promise<void> {
   const gitFiles = listGitFiles(sourceDir)
 
-  if (gitFiles) {
+  // An empty listing means git can't see the template (e.g. it sits in an ignored folder of
+  // another repo), so fall back to a plain copy instead of scaffolding an empty project.
+  if (gitFiles && gitFiles.length > 0) {
     await mkdir(targetDir, { recursive: true })
     for (const relativePath of gitFiles) {
       const sourcePath = resolve(sourceDir, relativePath)
