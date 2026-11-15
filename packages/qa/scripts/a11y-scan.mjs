@@ -15,6 +15,10 @@ const EXCLUDE = [
 ]
 const COLOR_SCHEMES = ['light', 'dark']
 const CONCURRENCY = 4
+// Pages can render platform-specific content (e.g. "Ctrl K" vs "⌘ K" shortcut hints).
+// Pin one platform so local runs on macOS find the same issues as CI on Linux.
+const USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -51,7 +55,9 @@ async function resolveFile(urlPath) {
   for (const candidate of [filePath, join(filePath, 'index.html'), `${filePath}.html`]) {
     try {
       if ((await stat(candidate)).isFile()) return candidate
-    } catch {}
+    } catch {
+      // Not found, try the next candidate.
+    }
   }
 
   return null
@@ -101,7 +107,7 @@ async function main() {
 
   try {
     for (const colorScheme of COLOR_SCHEMES) {
-      const context = await browser.newContext({ colorScheme, reducedMotion: 'reduce' })
+      const context = await browser.newContext({ colorScheme, reducedMotion: 'reduce', userAgent: USER_AGENT })
       const queue = htmlFiles.map(toUrlPath)
 
       await Promise.all(
