@@ -1,4 +1,5 @@
 import { access, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
+import { execFileSync } from 'node:child_process'
 import { constants } from 'node:fs'
 import { basename, dirname, resolve } from 'node:path'
 
@@ -79,7 +80,36 @@ export async function writeText(filePath: string, value: string): Promise<void> 
   await writeFile(filePath, value, 'utf8')
 }
 
+function listGitFiles(sourceDir: string): string[] | null {
+  try {
+    const output = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], {
+      cwd: sourceDir,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    })
+    return output.split('\0').filter(Boolean)
+  } catch {
+    return null
+  }
+}
+
+// Mirror what giget downloads: only files git would publish, so ignored local files
+// (.env, .cursor, build output) never end up in a local scaffold.
 export async function copyLocalTemplate(sourceDir: string, targetDir: string): Promise<void> {
+  const gitFiles = listGitFiles(sourceDir)
+
+  if (gitFiles) {
+    await mkdir(targetDir, { recursive: true })
+    for (const relativePath of gitFiles) {
+      const sourcePath = resolve(sourceDir, relativePath)
+      if (await pathExists(sourcePath)) {
+        await mkdir(dirname(resolve(targetDir, relativePath)), { recursive: true })
+        await cp(sourcePath, resolve(targetDir, relativePath))
+      }
+    }
+    return
+  }
+
   await cp(sourceDir, targetDir, {
     recursive: true,
     filter(source) {

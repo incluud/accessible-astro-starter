@@ -95,6 +95,12 @@ async function rewritePackageJson(targetDir: string, options: ResolvedOptions, m
     delete packageJson.devDependencies['@astrojs/mdx']
   }
 
+  // sanitize-html is only used by PageHeader
+  if (packageJson.devDependencies && !manifest.usePageHeader) {
+    delete packageJson.devDependencies['sanitize-html']
+    delete packageJson.devDependencies['@types/sanitize-html']
+  }
+
   await writeJson(packageJsonPath, packageJson)
 }
 

@@ -17,7 +17,11 @@
     "build:cli": "npm --workspace create-accessible-astro-starter run build",
     "create:local": "node packages/create-accessible-astro-starter/scripts/run-local.mjs",
     "test:cli": "npm --workspace create-accessible-astro-starter run test",
-    "test:cli:e2e": "npm --workspace create-accessible-astro-starter run test:e2e"
+    "test:cli:e2e": "npm --workspace create-accessible-astro-starter run test:e2e",
+    "lint": "eslint .",
+    "check": "astro check",
+    "test:deps": "node packages/qa/scripts/check-unused-deps.mjs .",
+    "test:a11y": "node packages/qa/scripts/a11y-scan.mjs dist"
   },
   "keywords": [
     "astro",
@@ -42,7 +46,6 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.5",
-    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.2",
     "@iconify-json/lucide": "^1.2.105",
     "@types/sanitize-html": "^2.16.1",
@@ -50,7 +53,6 @@
     "@typescript-eslint/parser": "^8.59.1",
     "astro": "^7.2.2",
     "astro-compress": "^2.4.3",
-    "astro-eslint-parser": "^1.4.0",
     "astro-icon": "^1.1.5",
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.7.0",

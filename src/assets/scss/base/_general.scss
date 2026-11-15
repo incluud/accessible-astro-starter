@@ -59,3 +59,13 @@ footer a {
   outline: none;
   box-shadow: none;
 }
+
+// Notifications set their own background and text color pair. The global link color only
+// contrasts with the page background, so links inside a notification follow its text color.
+.notification a {
+  &,
+  &:where(:hover, :focus-visible) {
+    color: inherit;
+    text-decoration-color: currentColor;
+  }
+}
