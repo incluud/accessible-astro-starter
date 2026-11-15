@@ -70,7 +70,7 @@
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.2.4",
     "accessible-astro-components": "^5.8.0",
-    "accessible-astro-launcher": "^2.0.0",
+    "accessible-astro-launcher": "^2.0.1",
     "astro-seo": "^1.1.0"
   },
   "engines": {
