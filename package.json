@@ -17,7 +17,11 @@
     "build:cli": "npm --workspace create-accessible-astro-starter run build",
     "create:local": "node packages/create-accessible-astro-starter/scripts/run-local.mjs",
     "test:cli": "npm --workspace create-accessible-astro-starter run test",
-    "test:cli:e2e": "npm --workspace create-accessible-astro-starter run test:e2e"
+    "test:cli:e2e": "npm --workspace create-accessible-astro-starter run test:e2e",
+    "lint": "eslint .",
+    "check": "astro check",
+    "test:deps": "node packages/qa/scripts/check-unused-deps.mjs .",
+    "test:a11y": "node packages/qa/scripts/a11y-scan.mjs dist"
   },
   "keywords": [
     "astro",
@@ -42,8 +46,6 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.5",
-    "@astrojs/partytown": "^2.1.7",
-    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.2",
     "@iconify-json/lucide": "^1.2.105",
     "@types/sanitize-html": "^2.16.1",
@@ -51,7 +53,6 @@
     "@typescript-eslint/parser": "^8.59.1",
     "astro": "^7.2.2",
     "astro-compress": "^2.4.3",
-    "astro-eslint-parser": "^1.4.0",
     "astro-icon": "^1.1.5",
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.7.0",
@@ -63,14 +64,13 @@
     "prettier-plugin-tailwindcss": "^0.8.0",
     "sanitize-html": "^2.17.3",
     "sass": "^1.99.0",
-    "svgo": "^4.0.1",
     "tailwindcss": "^4.2.4"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.2.4",
     "accessible-astro-components": "^5.8.0",
-    "accessible-astro-launcher": "^2.0.0",
+    "accessible-astro-launcher": "^2.0.1",
     "astro-seo": "^1.1.0"
   },
   "engines": {

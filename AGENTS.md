@@ -13,7 +13,7 @@ Check `package.json` for current version and all dependencies.
 
 ### Key Dependencies
 
-- `astro` - Framework (Astro 5.x+)
+- `astro` - Framework (Astro 7.x, Vite 8, Node 24+ — see `.nvmrc`)
 - `accessible-astro-components` - Core component library
 - `tailwindcss` - Styling (v4.x with Vite plugin)
 - `@astrojs/mdx` - MDX support
@@ -63,24 +63,17 @@ This is the **flagship starter theme** of the Accessible Astro ecosystem:
    npm run preview
    ```
 
-### Workspace Development (Symlinked Components)
+### Create CLI (`packages/create-accessible-astro-starter`)
 
-This project can work with locally linked `accessible-astro-components`:
-
-- The `astro.config.mjs` automatically detects symlinked packages
-- When symlinks are detected, it enables:
-  - Auto-reload on component changes
-  - Filesystem access to parent directories
-  - Symlink preservation in Vite
-
-**To link local components**:
+The `npm create accessible-astro-starter` CLI lives in this repo as an npm workspace. It downloads the starter and trims it per preset (`full`, `blog`, `portfolio`, `minimal`, `barebones`) with optional launcher support.
 
 ```bash
-cd ../accessible-astro-components
-npm link
-cd ../accessible-astro-starter
-npm link accessible-astro-components
+npm run build:cli      # Build the CLI
+npm run test:cli       # Run CLI unit tests
+npm run create:local -- my-demo-site   # Scaffold from the local checkout
 ```
+
+Files deleted per preset are defined in `packages/create-accessible-astro-starter/src/presets.ts`. When you add, move, or remove files in the starter, check that list.
 
 ## Code Style Guidelines
 
@@ -233,14 +226,15 @@ The project uses Astro Content Collections for structured content:
 - Query with `getCollection()` API
 - Dynamic routes generate pages from collections
 
-### Adding Blog Posts
+### Blog Posts (remote API)
 
-Blog posts are in `src/pages/blog/` as Astro files:
+The blog intentionally demonstrates remote data, next to the collection-based portfolio:
 
-1. Create a new `.astro` file in `src/pages/blog/`
-2. Add frontmatter with `title`, `description`, `publishDate`, etc.
-3. The `[...page].astro` file handles pagination automatically
-4. Add post images to `public/posts/`
+- Posts are fetched at build time from `BLOG_API_URL` (defaults to JSONPlaceholder, see `astro.config.mjs`) by the blog routes, `FeaturedPosts.astro` and `LauncherConfig.astro`
+- `src/pages/blog/[...page].astro` handles pagination, `src/pages/blog/[post].astro` the post pages
+- Post images currently live in two places, and changing one does not change the other:
+  - `src/assets/images/posts/` is imported by the blog listing and `FeaturedPosts.astro`
+  - `public/posts/` is referenced by URL (`/posts/...`) on individual post pages
 
 ### Adding Projects
 
@@ -357,18 +351,11 @@ type(scope): subject
 
 ## Troubleshooting
 
-### Symlinked Components Not Updating
-
-1. Check if symlink is detected: Look for "Workspace detected" message on dev server start
-2. Verify symlink: `ls -la node_modules/accessible-astro-components`
-3. Try restarting dev server
-4. Clear cache: `rm -rf node_modules/.astro node_modules/.vite`
-
 ### Build Failures
 
 1. Clear cache: `rm -rf node_modules/.astro node_modules/.vite`
 2. Reinstall: `rm -rf node_modules && npm install`
-3. Check Node version compatibility (Node 18+)
+3. Check Node version compatibility (Node 24+, see `.nvmrc`)
 4. Verify all images exist in `public/` directory
 5. Check for TypeScript errors: `npx tsc --noEmit`
 
@@ -381,7 +368,7 @@ type(scope): subject
 
 ### Styles Not Loading
 
-1. Check Tailwind config: `tailwind.config.js`
+1. Check Tailwind entry: `src/styles/tailwind.css` (Tailwind v4, no `tailwind.config.js`)
 2. Verify Vite plugin in `astro.config.mjs`
 3. Clear cache and rebuild
 4. Check browser console for CSS errors
