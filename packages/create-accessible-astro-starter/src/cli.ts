@@ -16,14 +16,18 @@ function unwrapPrompt<T>(value: T | symbol): T {
   return value as T
 }
 
+const DEFAULT_TARGET_DIR = './my-accessible-site'
+
 async function promptForTargetDir(): Promise<string> {
   return unwrapPrompt(
     await p.text({
       message: 'Where should we create your new project?',
-      placeholder: './my-accessible-site',
-      initialValue: './my-accessible-site',
+      // Suggest the default without pre-filling it, so a different path can be typed right away.
+      // Pressing Enter on the empty field accepts the suggestion.
+      placeholder: DEFAULT_TARGET_DIR,
+      defaultValue: DEFAULT_TARGET_DIR,
       validate(value) {
-        if (!value.trim()) {
+        if (value && !value.trim()) {
           return 'Please choose a project directory.'
         }
 
@@ -94,7 +98,7 @@ async function promptForLauncher(preset: Preset): Promise<boolean> {
 }
 
 async function resolveOptions(flags: ParsedFlags): Promise<ResolvedOptions> {
-  const targetDirInput = flags.targetDir ?? (flags.yes ? './my-accessible-site' : await promptForTargetDir())
+  const targetDirInput = flags.targetDir ?? (flags.yes ? DEFAULT_TARGET_DIR : await promptForTargetDir())
   const targetDir = resolve(process.cwd(), targetDirInput)
 
   const inferredSiteName = deriveSiteNameFromDirectory(targetDirInput)
