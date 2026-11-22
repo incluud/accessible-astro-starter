@@ -87,7 +87,7 @@ const { page, currentTag, uniqueTags } = Astro.props
           uniqueTags.map((tag: { label: string; slug: string }) => {
             const isCurrentTag = tag.slug === currentTag.slug
             return isCurrentTag ? (
-              <Link href={'/portfolio/tag/' + tag.slug} disabled class="disabled">
+              <Link href={'/portfolio/tag/' + tag.slug} aria-current="true" class="font-bold">
                 {tag.label}
               </Link>
             ) : (
