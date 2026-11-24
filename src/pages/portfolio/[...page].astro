@@ -48,7 +48,7 @@ const { page, uniqueTags } = Astro.props
 ---
 
 <DefaultLayout
-  title="Portfolio"
+  title={page.currentPage > 1 ? `Portfolio - Page ${page.currentPage}` : 'Portfolio'}
   description="A showcase of projects built with Astro Content Collections, demonstrating dynamic content management."
 >
   <PageHeader
