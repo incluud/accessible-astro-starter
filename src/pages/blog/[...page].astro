@@ -75,7 +75,7 @@ const { page } = Astro.props as Props
 ---
 
 <DefaultLayout
-  title="Blog"
+  title={page.currentPage > 1 ? `Blog - Page ${page.currentPage}` : 'Blog'}
   description="An example of a blog with dynamic content fetched from JSONPlaceholder using the title, body and userId."
 >
   <PageHeader
